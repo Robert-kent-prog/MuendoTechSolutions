@@ -573,12 +573,12 @@ function Nav() {
   const ids = NAV.map((n) => n.href.replace("#", ""));
   const active = useActiveSection(ids);
   return (
-    <header className="fixed top-0 inset-x-0 z-50 glass">
+    <header className="fixed top-0 inset-x-0 z-50 nav-glass">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="#home" className="flex items-center gap-2 group">
-          <img src={logoDark} alt={`${COMPANY} logo`} className="h-9 w-auto dark-logo" />
-          <img src={logoLight} alt={`${COMPANY} logo`} className="h-9 w-auto light-logo" />
-          <span className="font-bold tracking-tight text-foreground hidden sm:inline">
+        <a href="#home" className="flex min-w-0 items-center gap-2 group">
+          <img src={logoDark} alt={`${COMPANY} logo`} className="h-8 sm:h-9 w-auto dark-logo" />
+          <img src={logoLight} alt={`${COMPANY} logo`} className="h-8 sm:h-9 w-auto light-logo" />
+          <span className="min-w-0 truncate text-sm font-bold tracking-tight text-foreground xs:text-base sm:text-base">
             {COMPANY}
           </span>
         </a>
