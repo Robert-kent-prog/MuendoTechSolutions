@@ -195,7 +195,7 @@ const FAQS = [
 const INSIGHTS = [
   {
     tag: "Backend",
-    date: "Jan 2026",
+    date: "Dec 2025",
     title: "Choosing Between MERN and Spring Boot for Kenyan SMEs",
     excerpt:
       "A practical breakdown of when MongoDB + Express + React + Node beats a Java/Spring Boot stack for African SMEs — cost, hiring, hosting, and scaling considerations.",
@@ -204,7 +204,7 @@ const INSIGHTS = [
   },
   {
     tag: "Payments",
-    date: "Feb 2026",
+    date: "Jan 2026",
     title: "Integrating M-Pesa Daraja the Right Way",
     excerpt:
       "STK Push, callbacks, reconciliation, security, and the production gotchas nobody tells you about until your first failed transaction.",
@@ -213,7 +213,7 @@ const INSIGHTS = [
   },
   {
     tag: "AI",
-    date: "Mar 2026",
+    date: "Feb 2026",
     title: "Adding AI to Business Software Without Burning Budget",
     excerpt:
       "How to wire OpenAI/Gemini into existing systems for document understanding, customer support, and workflow automation — and where to draw the line.",
@@ -222,7 +222,7 @@ const INSIGHTS = [
   },
   {
     tag: "Deployment",
-    date: "Apr 2026",
+    date: "Mar 2026",
     title: "Choosing Vercel, Cloudflare, VPS, or cPanel",
     excerpt:
       "A practical note on matching hosting choices to the app's traffic, server needs, budget, and maintenance expectations.",
@@ -231,7 +231,7 @@ const INSIGHTS = [
   },
   {
     tag: "Product",
-    date: "May 2026",
+    date: "Apr 2026",
     title: "What to Put in an MVP and What to Leave Out",
     excerpt:
       "How to reduce launch risk by separating core workflows from nice-to-have features before development starts.",
@@ -240,7 +240,7 @@ const INSIGHTS = [
   },
   {
     tag: "Security",
-    date: "Jun 2026",
+    date: "May 2026",
     title: "Security Basics Every Business System Needs",
     excerpt:
       "The minimum security practices we bake into admin dashboards, portals, APIs, and database-backed systems.",
