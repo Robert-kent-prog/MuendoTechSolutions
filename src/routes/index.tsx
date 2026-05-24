@@ -125,27 +125,27 @@ const STATS = [
   { value: 12, suffix: "+", label: "Projects Shipped" },
   { value: 8, suffix: "+", label: "Industries Served" },
   { value: 100, suffix: "%", label: "Kenyan-Built" },
-  { value: 5, suffix: "+", label: "Years Coding" },
+  { value: 3, suffix: "+", label: "Years Experience" },
 ];
 
 const TESTIMONIALS = [
   {
     name: "James Otieno",
-    role: "Founder, Nairobi Retail SME",
+    role: "Founder, Machakos Retail SME",
     quote:
       "MuendoTech rebuilt our bookkeeping flow into a clean web platform. Daily sales, expenses, and profit are now one click away. Easy to work with and very responsive.",
   },
   {
-    name: "Faith Wanjiru",
+    name: "Yvonne Wanjiru",
     role: "Operations Manager, Logistics Firm",
     quote:
       "The fleet management system replaced three spreadsheets. We finally have visibility on every vehicle, driver, and trip. Worth every shilling.",
   },
   {
-    name: "Dr. Mwangi",
-    role: "Clinic Director",
+    name: "Mashal Saeed",
+    role: "CEO, Xelvora",
     quote:
-      "Our vaccination tracking system handles patient records and reminders without drama. Robert understood the workflow before writing a single line of code.",
+      "MuendoTech helped shape Xelvora's website into a clear digital agency platform with services, products, portfolio, blogs, and a strong booking flow. The execution was practical and reliable.",
   },
 ];
 
@@ -174,6 +174,22 @@ const FAQS = [
     q: "Do you work with clients outside Kenya?",
     a: "Yes. We've built systems for clients in the region and beyond — including Xelvora in Pakistan — over async communication (email, WhatsApp, calls).",
   },
+  {
+    q: "Can you deploy the project for me?",
+    a: "Yes. We can deploy to Vercel, Cloudflare, cPanel, VPS, or other hosting platforms depending on the project needs, budget, and expected traffic.",
+  },
+  {
+    q: "Will I own the source code?",
+    a: "Yes. Once the agreed payment terms are completed, the client receives ownership of the delivered source code, assets, documentation, and deployment access agreed in the scope.",
+  },
+  {
+    q: "Can you improve an existing website or system?",
+    a: "Yes. We can audit, redesign, optimize, add features, fix bugs, improve SEO, connect APIs, or rebuild weak parts without forcing a full restart unless it is technically necessary.",
+  },
+  {
+    q: "Do you provide training after launch?",
+    a: "Yes. For admin dashboards, business systems, and content-managed websites, we can provide handover sessions, usage notes, and support during the first rollout period.",
+  },
 ];
 
 const INSIGHTS = [
@@ -183,6 +199,8 @@ const INSIGHTS = [
     title: "Choosing Between MERN and Spring Boot for Kenyan SMEs",
     excerpt:
       "A practical breakdown of when MongoDB + Express + React + Node beats a Java/Spring Boot stack for African SMEs — cost, hiring, hosting, and scaling considerations.",
+    details:
+      "MERN works well when the business needs fast iteration, dashboards, APIs, and a JavaScript-first team. Spring Boot is a better fit when the project needs stricter enterprise patterns, complex transactions, and long-term Java maintainability.",
   },
   {
     tag: "Payments",
@@ -190,6 +208,8 @@ const INSIGHTS = [
     title: "Integrating M-Pesa Daraja the Right Way",
     excerpt:
       "STK Push, callbacks, reconciliation, security, and the production gotchas nobody tells you about until your first failed transaction.",
+    details:
+      "A strong M-Pesa integration needs callback validation, transaction status checks, duplicate protection, clear logs, and a reconciliation view for admins. The payment flow should assume network delays and failed callbacks from day one.",
   },
   {
     tag: "AI",
@@ -197,6 +217,35 @@ const INSIGHTS = [
     title: "Adding AI to Business Software Without Burning Budget",
     excerpt:
       "How to wire OpenAI/Gemini into existing systems for document understanding, customer support, and workflow automation — and where to draw the line.",
+    details:
+      "The best AI features start with a narrow workflow: document extraction, customer support drafts, search, or report summaries. Keeping prompts, limits, and fallbacks explicit protects budget and makes the feature easier to support.",
+  },
+  {
+    tag: "Deployment",
+    date: "Apr 2026",
+    title: "Choosing Vercel, Cloudflare, VPS, or cPanel",
+    excerpt:
+      "A practical note on matching hosting choices to the app's traffic, server needs, budget, and maintenance expectations.",
+    details:
+      "Vercel is strong for React and SSR workflows, Cloudflare is excellent for edge delivery, a VPS gives more control for custom backends, and cPanel can be enough for smaller business websites. The right answer depends on operations, not hype.",
+  },
+  {
+    tag: "Product",
+    date: "May 2026",
+    title: "What to Put in an MVP and What to Leave Out",
+    excerpt:
+      "How to reduce launch risk by separating core workflows from nice-to-have features before development starts.",
+    details:
+      "A focused MVP should cover the user's main job, the admin's main control flow, authentication, data safety, and payment or reporting only where required. Extra dashboards, automation, and advanced settings can come after real usage confirms demand.",
+  },
+  {
+    tag: "Security",
+    date: "Jun 2026",
+    title: "Security Basics Every Business System Needs",
+    excerpt:
+      "The minimum security practices we bake into admin dashboards, portals, APIs, and database-backed systems.",
+    details:
+      "Start with role-based access, input validation, secure password handling, protected API routes, audit logs for sensitive actions, and backups. These basics prevent many common failures before adding advanced security layers.",
   },
 ];
 
@@ -451,10 +500,10 @@ const PROJECTS = [
     stack: ["OpenAI", "Gemini", "LangChain", "Node.js", "RAG"],
   },
   {
-    tag: "HealthTech / MERN",
-    title: "Vaccination Tracking System",
-    desc: "Web application for hospitals and clinics to monitor and track childhood vaccinations — patient records, immunisation schedules, due-date reminders, and reporting dashboards for healthcare workers.",
-    stack: ["MongoDB", "Express", "React", "Node.js", "JWT"],
+    tag: "International / Agency Web",
+    title: "Xelvora — Digital Agency Website",
+    desc: "Built Xelvora's corporate website for Mashal Saeed, CEO of Xelvora — a Pakistan-based digital agency offering websites, web apps, mobile products, AI systems, SEO, digital marketing, graphic design, and branding. The site includes About, Services, Products, Portfolio, Blogs, Contact, Book Call flows, launch metrics, and positioning for startups, SMEs, agencies, and enterprise teams.",
+    stack: ["React", "Tailwind", "Responsive", "SEO", "Branding"],
   },
   {
     tag: "Mobility / MERN",
@@ -471,7 +520,7 @@ const PROJECTS = [
   {
     tag: "International / Agency Web",
     title: "Xelvora — Pakistan Digital Agency Website",
-    desc: "Built the corporate website for Xelvora, a Pakistan-based digital agency offering web, mobile, AI, SEO, and branding services — with services, products, portfolio, blogs, and contact sections.",
+    desc: "Developed Xelvora's public web presence around practical digital execution — clear service discovery, conversion-focused calls to action, product and portfolio sections, blog content, and contact details for regional and international clients.",
     stack: ["React", "Tailwind", "Responsive", "SEO"],
   },
   {
@@ -483,7 +532,7 @@ const PROJECTS = [
   {
     tag: "FinTech / Retail",
     title: "Retail Bookkeeping Platform",
-    desc: "Full-stack bookkeeping system for a Kenyan phone retail business with admin, accountant, and sales workflows — KES-based reporting, daily sales, expenses, and profit tracking.",
+    desc: "Full-stack bookkeeping system for a Machakos retail business with admin, accountant, and sales workflows — KES-based reporting, daily sales, expenses, and profit tracking.",
     stack: ["React", "Vite", "Express", "MongoDB", "Zod"],
   },
   {
@@ -1431,6 +1480,8 @@ function Testimonials() {
 }
 
 function Insights() {
+  const [openNote, setOpenNote] = useState<string | null>(null);
+
   return (
     <Section
       id="insights"
@@ -1438,25 +1489,46 @@ function Insights() {
       title="Notes from the Workshop"
       subtitle="Short, practical write-ups on the tools and decisions behind the systems we build."
     >
-      <div className="grid md:grid-cols-3 gap-5">
-        {INSIGHTS.map((p) => (
-          <article key={p.title} className="glass rounded-2xl p-7 card-hover flex flex-col">
-            <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
-              <span className="text-accent font-semibold uppercase tracking-wider">{p.tag}</span>
-              <span className="inline-flex items-center gap-1">
-                <Calendar className="size-3" /> {p.date}
-              </span>
-            </div>
-            <h3 className="text-lg font-semibold mb-3 leading-snug">{p.title}</h3>
-            <p className="text-sm text-muted-foreground leading-relaxed flex-1">{p.excerpt}</p>
-            <a
-              href="#contact"
-              className="mt-5 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all"
-            >
-              Discuss this topic <ArrowRight className="size-4" />
-            </a>
-          </article>
-        ))}
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {INSIGHTS.map((p) => {
+          const isOpen = openNote === p.title;
+          return (
+            <article key={p.title} className="glass rounded-2xl p-7 card-hover flex flex-col">
+              <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
+                <span className="text-accent font-semibold uppercase tracking-wider">{p.tag}</span>
+                <span className="inline-flex items-center gap-1">
+                  <Calendar className="size-3" /> {p.date}
+                </span>
+              </div>
+              <h3 className="text-lg font-semibold mb-3 leading-snug">{p.title}</h3>
+              <p className="text-sm text-muted-foreground leading-relaxed">{p.excerpt}</p>
+              {isOpen && (
+                <p className="mt-4 border-t border-border pt-4 text-sm text-foreground/85 leading-relaxed">
+                  {p.details}
+                </p>
+              )}
+              <div className="mt-5 flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => setOpenNote(isOpen ? null : p.title)}
+                  aria-expanded={isOpen}
+                  className="inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all"
+                >
+                  {isOpen ? "Show less" : "View note"}
+                  <ChevronDown
+                    className={`size-4 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  />
+                </button>
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
+                >
+                  Discuss <ArrowRight className="size-4" />
+                </a>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </Section>
   );
