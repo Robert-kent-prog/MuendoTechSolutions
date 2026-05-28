@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://muendotechsolutions.com/sitemap.xml
+Sitemap: https://nexa-tech-solutions.vercel.app/sitemap.xml

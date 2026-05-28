@@ -45,13 +45,13 @@ import {
 import logoLight from "@/assets/logo-light.png";
 import logoDark from "@/assets/logo-dark.png";
 
-const COMPANY = "MuendoTech Solutions";
-const EMAIL = "muendotechsolutions@gmail.com";
+const COMPANY = "Nexa Tech Solutions";
+const EMAIL = "nexatechsolutions@gmail.com";
 const WHATSAPP = "+254793587026";
 const WHATSAPP_DISPLAY = "+254 793 587 026";
 const GITHUB = "Robert-kent-prog";
 const LINKEDIN = "robert-muendo-0329a0285";
-const SITE_URL = "https://muendotechsolutions.com";
+const SITE_URL = "https://nexa-tech-solutions.vercel.app";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -133,7 +133,7 @@ const TESTIMONIALS = [
     name: "James Otieno",
     role: "Founder, Machakos Retail SME",
     quote:
-      "MuendoTech rebuilt our bookkeeping flow into a clean web platform. Daily sales, expenses, and profit are now one click away. Easy to work with and very responsive.",
+      "Nexa Tech rebuilt our bookkeeping flow into a clean web platform. Daily sales, expenses, and profit are now one click away. Easy to work with and very responsive.",
   },
   {
     name: "Yvonne Wanjiru",
@@ -145,7 +145,7 @@ const TESTIMONIALS = [
     name: "Mashal Saeed",
     role: "CEO, Xelvora",
     quote:
-      "MuendoTech helped shape Xelvora's website into a clear digital agency platform with services, products, portfolio, blogs, and a strong booking flow. The execution was practical and reliable.",
+      "Nexa Tech helped shape Xelvora's website into a clear digital agency platform with services, products, portfolio, blogs, and a strong booking flow. The execution was practical and reliable.",
   },
 ];
 
