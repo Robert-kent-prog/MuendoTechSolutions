@@ -9,16 +9,20 @@ export const Route = createFileRoute("/sitemap.xml")({
       GET: async () => {
         const paths = [
           "/",
-          "/#about",
-          "/#services",
-          "/#solutions",
-          "/#process",
-          "/#projects",
-          "/#technologies",
-          "/#testimonials",
-          "/#insights",
-          "/#faq",
-          "/#contact",
+          "/about",
+          "/team",
+          "/services",
+          "/projects",
+          "/process",
+          "/blog",
+          "/blog/choosing-between-mern-and-spring-boot-for-kenyan-smes",
+          "/blog/integrating-mpesa-daraja-the-right-way",
+          "/blog/adding-ai-to-business-software-without-burning-budget",
+          "/blog/choosing-vercel-cloudflare-vps-or-cpanel",
+          "/blog/what-to-put-in-an-mvp-and-what-to-leave-out",
+          "/blog/security-basics-every-business-system-needs",
+          "/faq",
+          "/contact",
         ];
         const urls = paths.map(
           (p) =>

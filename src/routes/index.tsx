@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, useLocation } from "@tanstack/react-router";
 import { useState, useEffect, useRef, type FormEvent } from "react";
 import {
   Globe,
@@ -111,14 +111,15 @@ export const Route = createFileRoute("/")({
 });
 
 const NAV = [
-  { label: "Home", href: "#home" },
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
-  { label: "Projects", href: "#projects" },
-  { label: "Process", href: "#process" },
-  { label: "Insights", href: "#insights" },
-  { label: "FAQ", href: "#faq" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Team", href: "/team" },
+  { label: "Services", href: "/services" },
+  { label: "Projects", href: "/projects" },
+  { label: "Process", href: "/process" },
+  { label: "Blog", href: "/blog" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contact", href: "/contact" },
 ];
 
 const STATS = [
@@ -146,6 +147,30 @@ const TESTIMONIALS = [
     role: "CEO, Xelvora",
     quote:
       "Nexa Tech helped shape Xelvora's website into a clear digital agency platform with services, products, portfolio, blogs, and a strong booking flow. The execution was practical and reliable.",
+  },
+];
+
+const TEAM = [
+  {
+    initials: "RM",
+    name: "Robert Muendo",
+    role: "Founder & Lead Engineer",
+    bio: "Shipping production code since 2023. Leads architecture, backend systems, deployment, and client delivery across retail bookkeeping, fleet operations, document workflows, AI integrations, and agency websites.",
+    focus: ["Architecture", "Backend APIs", "Client delivery"],
+  },
+  {
+    initials: "SN",
+    name: "Sam Naftali",
+    role: "Senior Engineer",
+    bio: "Full-stack engineer focused on the integrations and infrastructure that keep business apps reliable — payments, notifications, queues, admin tooling, database design, and deployment pipelines.",
+    focus: ["Integrations", "Infrastructure", "Dashboards"],
+  },
+  {
+    initials: "SG",
+    name: "Sammy Ger",
+    role: "Senior Engineer",
+    bio: "Full-stack engineer biased toward the customer-facing product surface — responsive interfaces, booking flows, product pages, carts, checkout experiences, and mobile-ready web applications.",
+    focus: ["Frontend UX", "Commerce flows", "Mobile-ready apps"],
   },
 ];
 
@@ -192,60 +217,256 @@ const FAQS = [
   },
 ];
 
-const INSIGHTS = [
+export const BLOG_CATEGORIES = [
+  "All Posts",
+  "Software Development",
+  "Payments",
+  "AI & Automation",
+  "Deployment",
+  "Product & Design",
+  "Security",
+];
+
+export const INSIGHTS = [
   {
+    slug: "choosing-between-mern-and-spring-boot-for-kenyan-smes",
     tag: "Backend",
+    category: "Software Development",
     date: "Dec 2025",
+    readTime: "8 min read",
     title: "Choosing Between MERN and Spring Boot for Kenyan SMEs",
     excerpt:
       "A practical breakdown of when MongoDB + Express + React + Node beats a Java/Spring Boot stack for African SMEs — cost, hiring, hosting, and scaling considerations.",
     details:
       "MERN works well when the business needs fast iteration, dashboards, APIs, and a JavaScript-first team. Spring Boot is a better fit when the project needs stricter enterprise patterns, complex transactions, and long-term Java maintainability.",
+    article: [
+      {
+        heading: "Start With The Business Workflow",
+        paragraphs: [
+          "The stack decision should begin with the actual workflow, not with a trend. A retail dashboard, booking platform, school portal, delivery tracker, or subscription system has different pressure points. Some need quick feature iteration and flexible data structures, while others need strict domain rules, transaction boundaries, and predictable enterprise maintenance.",
+          "For many Kenyan SMEs, MERN is attractive because the same language can cover the frontend, API layer, and a large share of the tooling. That reduces handoff time and can make smaller teams faster. Spring Boot becomes more compelling when the system is expected to support complex finance logic, heavy integrations, long-lived enterprise controls, or teams that already operate Java infrastructure.",
+        ],
+      },
+      {
+        heading: "Cost, Hiring, And Maintenance",
+        paragraphs: [
+          "A good technical choice is one the business can afford to maintain after launch. MERN talent is widely available across startup and freelance circles, and hosting a Node API with a React frontend can be economical. It is often a practical fit for MVPs, admin dashboards, customer portals, and internal systems where speed matters.",
+          "Spring Boot may cost more at the beginning, but that cost can be justified when the business needs strong typing, mature security conventions, background workers, formal service boundaries, and deep database transaction handling. The tradeoff is not about which tool is better in general; it is about which tool keeps the product understandable six months after launch.",
+        ],
+      },
+      {
+        heading: "A Practical Rule For New Builds",
+        paragraphs: [
+          "If the product needs fast validation, frequent interface changes, a smaller budget, and a small engineering team, MERN is usually a strong default. If the product is closer to core banking logic, high-volume account operations, insurance workflows, regulated data, or complex internal approvals, Spring Boot deserves serious consideration.",
+          "At Nexa Tech Solutions, we also look at the client team. If the person who will support the product is more comfortable with JavaScript, a Java stack can become expensive even when it is technically solid. If the client already has Java developers or enterprise systems, forcing a JavaScript stack can create avoidable operational friction.",
+        ],
+      },
+    ],
+    takeaways: [
+      "Choose MERN for fast iteration, flexible dashboards, and JavaScript-first teams.",
+      "Choose Spring Boot for stricter enterprise workflows, deeper transaction logic, and Java maintainability.",
+      "The best stack is the one the client can support, extend, and pay for after launch.",
+    ],
   },
   {
+    slug: "integrating-mpesa-daraja-the-right-way",
     tag: "Payments",
+    category: "Payments",
     date: "Jan 2026",
+    readTime: "9 min read",
     title: "Integrating M-Pesa Daraja the Right Way",
     excerpt:
       "STK Push, callbacks, reconciliation, security, and the production gotchas nobody tells you about until your first failed transaction.",
     details:
       "A strong M-Pesa integration needs callback validation, transaction status checks, duplicate protection, clear logs, and a reconciliation view for admins. The payment flow should assume network delays and failed callbacks from day one.",
+    article: [
+      {
+        heading: "Treat Payments As A State Machine",
+        paragraphs: [
+          "M-Pesa Daraja integrations become fragile when a payment is treated as a single request and response. In production, a customer can start STK Push, delay entering the PIN, enter the wrong PIN, lose network, pay successfully while your callback arrives late, or retry because the interface did not update quickly enough.",
+          "The safer model is to treat every payment as a state machine. A transaction can be pending, successful, failed, cancelled, expired, reversed, or awaiting manual reconciliation. Your database should store those states clearly, and the user interface should not assume the payment has succeeded until the right confirmation has been received and verified.",
+        ],
+      },
+      {
+        heading: "Callbacks, Reconciliation, And Admin Visibility",
+        paragraphs: [
+          "The callback endpoint should validate incoming data, protect against duplicate updates, and write useful logs. It should not silently fail, because the finance team will eventually need to answer a direct question from a customer: did this payment reach us, and what order or invoice did it settle?",
+          "A reconciliation screen is not optional for serious business systems. Admins need to search by phone number, checkout request ID, receipt number, customer, invoice, date, and payment status. That visibility prevents support teams from depending on developers every time a transaction looks unusual.",
+        ],
+      },
+      {
+        heading: "Production Gotchas To Design Around",
+        paragraphs: [
+          "Timeouts and delayed callbacks are normal. The system should be able to query transaction status, retry safe operations, and prevent duplicate fulfillment. For example, a paid order should not create two deliveries just because a callback was resent or a user clicked the payment button twice.",
+          "Security also matters. Credentials should live in environment variables, callback URLs should use HTTPS, sensitive logs should avoid exposing secrets, and access to payment records should be restricted by role. Payment code is business-critical code, so it needs deliberate handling from the first implementation.",
+        ],
+      },
+    ],
+    takeaways: [
+      "Model M-Pesa transactions with clear payment states instead of one-off responses.",
+      "Build reconciliation tools for admins before the first real customer dispute.",
+      "Protect callbacks, credentials, logs, and duplicate fulfillment paths from day one.",
+    ],
   },
   {
+    slug: "adding-ai-to-business-software-without-burning-budget",
     tag: "AI",
+    category: "AI & Automation",
     date: "Feb 2026",
+    readTime: "8 min read",
     title: "Adding AI to Business Software Without Burning Budget",
     excerpt:
       "How to wire OpenAI/Gemini into existing systems for document understanding, customer support, and workflow automation — and where to draw the line.",
     details:
       "The best AI features start with a narrow workflow: document extraction, customer support drafts, search, or report summaries. Keeping prompts, limits, and fallbacks explicit protects budget and makes the feature easier to support.",
+    article: [
+      {
+        heading: "Use AI Where It Removes Real Friction",
+        paragraphs: [
+          "AI should not be added because it looks impressive on a feature list. It should remove a repeatable bottleneck: reading long documents, summarizing reports, drafting customer replies, classifying tickets, extracting fields from PDFs, or helping staff find internal information faster.",
+          "The strongest first AI feature is usually narrow. Instead of building a broad assistant that tries to do everything, start with one workflow where the input, expected output, and failure cases are easy to define. That makes the feature easier to test, cheaper to run, and simpler for users to trust.",
+        ],
+      },
+      {
+        heading: "Budget Control Is A Product Requirement",
+        paragraphs: [
+          "Every AI call has a cost, so the product needs limits. A business system should know which users can access AI features, how much text can be submitted, how often the feature can be used, and what happens when the provider is unavailable. Without those guardrails, a useful prototype can become an expensive production surprise.",
+          "Prompt design should also be treated like software design. Prompts need versioning, test examples, fallback messages, and clear boundaries about what the model should not do. For sensitive workflows, the system should keep humans in the approval loop instead of allowing AI to make irreversible business decisions.",
+        ],
+      },
+      {
+        heading: "Where AI Fits In Existing Systems",
+        paragraphs: [
+          "AI works well beside existing dashboards and portals when it is connected to the right data. A support dashboard can draft replies using customer history. A document system can extract invoice fields. A school portal can summarize performance trends. A sales system can produce lead notes from call records.",
+          "The implementation should still respect privacy, roles, and auditability. Users should know when content is AI-assisted, admins should be able to review outputs, and the business should avoid sending unnecessary sensitive data to third-party services. Practical AI is less about magic and more about disciplined integration.",
+        ],
+      },
+    ],
+    takeaways: [
+      "Start with one narrow AI workflow that saves measurable time.",
+      "Add usage limits, prompt versions, fallbacks, and review points before launch.",
+      "Keep AI connected to business data while respecting privacy and access control.",
+    ],
   },
   {
+    slug: "choosing-vercel-cloudflare-vps-or-cpanel",
     tag: "Deployment",
+    category: "Deployment",
     date: "Mar 2026",
+    readTime: "7 min read",
     title: "Choosing Vercel, Cloudflare, VPS, or cPanel",
     excerpt:
       "A practical note on matching hosting choices to the app's traffic, server needs, budget, and maintenance expectations.",
     details:
       "Vercel is strong for React and SSR workflows, Cloudflare is excellent for edge delivery, a VPS gives more control for custom backends, and cPanel can be enough for smaller business websites. The right answer depends on operations, not hype.",
+    article: [
+      {
+        heading: "Match Hosting To The System Shape",
+        paragraphs: [
+          "A marketing site, dashboard, API, queue worker, file processing service, and database-backed business platform do not all need the same hosting setup. Choosing the wrong environment can make a simple project expensive or make a complex project hard to operate.",
+          "Vercel is a strong fit for modern frontend apps, server-rendered React, preview deployments, and teams that want fast delivery without managing servers. Cloudflare is excellent for global delivery, DNS, caching, security rules, and edge workloads. A VPS is useful when the backend needs long-running processes, custom services, scheduled jobs, or direct server control.",
+        ],
+      },
+      {
+        heading: "When cPanel Still Makes Sense",
+        paragraphs: [
+          "cPanel is not always the wrong answer. For a small brochure website, simple PHP app, email-linked business presence, or low-budget organization that already has hosting, cPanel can be enough. The risk appears when a project quietly grows into something that needs queues, deployment automation, environment isolation, or reliable background work.",
+          "The decision should include who will maintain the deployment. A platform that is technically elegant but unfamiliar to the support team can create avoidable downtime. Good hosting is not only about performance; it is also about backups, logs, rollback, monitoring, domain setup, SSL, and predictable monthly costs.",
+        ],
+      },
+      {
+        heading: "Our Deployment Checklist",
+        paragraphs: [
+          "Before choosing infrastructure, we check the framework, backend runtime, database needs, file uploads, expected traffic, admin access, payment callbacks, email or SMS integrations, and whether background jobs are required. Those details quickly reveal whether a managed platform or a controlled server is the better fit.",
+          "For many Nexa Tech Solutions projects, the best answer is a hybrid: Vercel for the frontend, a managed database, Cloudflare for DNS and protection, and a separate backend environment when the API needs more control. The goal is to keep deployment reliable without overbuilding the operations layer.",
+        ],
+      },
+    ],
+    takeaways: [
+      "Use Vercel for modern frontend velocity and preview deployments.",
+      "Use VPS or dedicated backend hosting when the app needs deeper server control.",
+      "Choose hosting around maintenance, logs, backups, callbacks, and monthly cost.",
+    ],
   },
   {
+    slug: "what-to-put-in-an-mvp-and-what-to-leave-out",
     tag: "Product",
+    category: "Product & Design",
     date: "Apr 2026",
+    readTime: "8 min read",
     title: "What to Put in an MVP and What to Leave Out",
     excerpt:
       "How to reduce launch risk by separating core workflows from nice-to-have features before development starts.",
     details:
       "A focused MVP should cover the user's main job, the admin's main control flow, authentication, data safety, and payment or reporting only where required. Extra dashboards, automation, and advanced settings can come after real usage confirms demand.",
+    article: [
+      {
+        heading: "An MVP Is A Complete First Workflow",
+        paragraphs: [
+          "A useful MVP is not a broken version of the final product. It is the smallest complete version of the core workflow. The user should be able to arrive, understand what to do, complete the main action, and receive the expected result without manual developer intervention.",
+          "For a booking product, that might mean service selection, availability, customer details, payment, and admin confirmation. For an internal dashboard, it might mean login, role-based access, records, status changes, exports, and basic reports. The MVP should prove the business process, not every future idea.",
+        ],
+      },
+      {
+        heading: "What To Leave Out Early",
+        paragraphs: [
+          "Advanced analytics, complex automation, multi-level settings, secondary integrations, deep personalization, and decorative screens are often better after launch. They can be valuable, but they also increase delivery time before the team has real usage data.",
+          "Leaving features out is not a downgrade; it is a way to protect the launch. Every added feature introduces design work, edge cases, testing, support notes, and maintenance. If the feature is not essential to the first business outcome, it should earn its place in a later iteration.",
+        ],
+      },
+      {
+        heading: "How We Scope A First Release",
+        paragraphs: [
+          "We usually split features into must-launch, should-follow, and later. Must-launch features support the core user action, admin operation, data safety, and business acceptance. Should-follow features improve convenience after the workflow is proven. Later features are ideas that need evidence from real users.",
+          "This approach keeps the team honest. It also makes estimates clearer because everyone can see which items are required for launch and which items are part of growth. A smaller first release with a strong workflow is usually better than a large first release that takes too long to meet customers.",
+        ],
+      },
+    ],
+    takeaways: [
+      "An MVP should be small, but the main workflow must still feel complete.",
+      "Delay advanced dashboards, automation, and secondary integrations until usage proves demand.",
+      "Scope launch features around user action, admin control, and business acceptance.",
+    ],
   },
   {
+    slug: "security-basics-every-business-system-needs",
     tag: "Security",
+    category: "Security",
     date: "May 2026",
+    readTime: "8 min read",
     title: "Security Basics Every Business System Needs",
     excerpt:
       "The minimum security practices we bake into admin dashboards, portals, APIs, and database-backed systems.",
     details:
       "Start with role-based access, input validation, secure password handling, protected API routes, audit logs for sensitive actions, and backups. These basics prevent many common failures before adding advanced security layers.",
+    article: [
+      {
+        heading: "Security Starts With The Everyday Paths",
+        paragraphs: [
+          "Most business systems do not fail because they lacked exotic security tooling. They fail because basic paths were left open: weak passwords, unprotected admin routes, missing validation, exposed files, poor backup habits, or users having access to records they should not see.",
+          "The first security layer is clarity. The system should know who the user is, what role they have, which records they can access, and which actions should be logged. That foundation matters whether the product is a school portal, inventory system, e-commerce site, payment dashboard, or customer support platform.",
+        ],
+      },
+      {
+        heading: "The Minimum Baseline",
+        paragraphs: [
+          "Authentication should use secure password hashing and session handling. APIs should validate input on the server, not only in the browser. Admin pages should be protected by role, and sensitive actions such as refunds, user deletion, password resets, or status overrides should produce audit logs.",
+          "Backups should be tested, not assumed. A backup that cannot be restored is only a false comfort. For database-backed systems, the business should know how often backups run, where they are stored, who can access them, and how quickly the system can recover after a mistake or outage.",
+        ],
+      },
+      {
+        heading: "Security That Teams Can Actually Maintain",
+        paragraphs: [
+          "Security practices should fit the team that will operate the product. Clear admin roles, predictable logs, simple permission screens, environment variables, HTTPS, limited production access, and dependency updates are practical controls that teams can keep using.",
+          "As the product grows, stronger measures can be added: two-factor authentication, anomaly alerts, stricter rate limits, formal vulnerability scans, data retention policies, and deeper monitoring. The important point is to build the baseline early so the system does not need a painful security rewrite later.",
+        ],
+      },
+    ],
+    takeaways: [
+      "Protect admin routes, API routes, sensitive actions, and data access from the beginning.",
+      "Use audit logs and tested backups so operational mistakes are recoverable.",
+      "Add stronger controls over time, but do not skip the basic security baseline.",
+    ],
   },
 ];
 
@@ -619,12 +840,11 @@ function ThemeToggle({ className = "" }: { className?: string }) {
 
 function Nav() {
   const [open, setOpen] = useState(false);
-  const ids = NAV.map((n) => n.href.replace("#", ""));
-  const active = useActiveSection(ids);
+  const location = useLocation();
   return (
     <header className="fixed top-0 inset-x-0 z-50 nav-glass">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="#home" className="flex min-w-0 items-center gap-2 group">
+        <a href="/" className="flex min-w-0 items-center gap-2 group">
           <img src={logoDark} alt={`${COMPANY} logo`} className="h-8 sm:h-9 w-auto dark-logo" />
           <img src={logoLight} alt={`${COMPANY} logo`} className="h-8 sm:h-9 w-auto light-logo" />
           <span className="min-w-0 truncate text-sm font-bold tracking-tight text-foreground xs:text-base sm:text-base">
@@ -633,8 +853,7 @@ function Nav() {
         </a>
         <nav className="hidden lg:flex items-center gap-1">
           {NAV.map((n) => {
-            const id = n.href.replace("#", "");
-            const isActive = active === id;
+            const isActive = location.pathname === n.href;
             return (
               <a
                 key={n.href}
@@ -657,7 +876,7 @@ function Nav() {
         <div className="hidden lg:flex items-center gap-3">
           <ThemeToggle />
           <a
-            href="#contact"
+            href="/contact"
             className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition"
           >
             Start a Project <ArrowRight className="size-4" />
@@ -678,8 +897,7 @@ function Nav() {
         <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur">
           <div className="px-4 py-4 flex flex-col gap-1">
             {NAV.map((n) => {
-              const id = n.href.replace("#", "");
-              const isActive = active === id;
+              const isActive = location.pathname === n.href;
               return (
                 <a
                   key={n.href}
@@ -696,7 +914,7 @@ function Nav() {
               );
             })}
             <a
-              href="#contact"
+              href="/contact"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center gap-2 text-sm font-medium px-4 py-2 rounded-lg bg-primary text-primary-foreground"
             >
@@ -733,19 +951,19 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition shadow-lg shadow-primary/30"
             >
               Start a Project <ArrowRight className="size-4" />
             </a>
             <a
-              href="#services"
+              href="/services"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-lg glass text-foreground font-medium hover:bg-white/10 transition"
             >
               View Our Services
             </a>
             <a
-              href="#contact"
+              href="/contact"
               className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-border text-foreground font-medium hover:bg-white/5 transition"
             >
               Contact Us
@@ -801,7 +1019,7 @@ function Section({
   );
 }
 
-function About() {
+export function About() {
   return (
     <Section
       id="about"
@@ -853,7 +1071,62 @@ function About() {
   );
 }
 
-function Services() {
+export function Team() {
+  return (
+    <Section
+      id="team"
+      eyebrow="The Team"
+      title="Three Engineers. Direct to Client."
+      subtitle="No account-manager layers. You speak directly with the people planning the architecture, writing the code, testing the workflows, and shipping your application."
+    >
+      <div className="grid lg:grid-cols-3 gap-5">
+        {TEAM.map((member) => (
+          <article key={member.name} className="glass rounded-2xl p-7 card-hover flex flex-col">
+            <div className="flex items-start gap-4">
+              <div className="size-14 rounded-2xl bg-gradient-to-br from-primary to-accent text-primary-foreground grid place-items-center text-lg font-bold shadow-lg shadow-primary/20">
+                {member.initials}
+              </div>
+              <div className="min-w-0">
+                <h3 className="text-xl font-semibold tracking-tight">{member.name}</h3>
+                <p className="mt-1 text-sm text-accent font-medium">{member.role}</p>
+              </div>
+            </div>
+            <p className="mt-5 text-sm text-muted-foreground leading-relaxed flex-1">
+              {member.bio}
+            </p>
+            <div className="mt-6 flex flex-wrap gap-2">
+              {member.focus.map((item) => (
+                <span
+                  key={item}
+                  className="text-xs px-2.5 py-1 rounded-md bg-secondary border border-border text-secondary-foreground"
+                >
+                  {item}
+                </span>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+      <div className="mt-6 glass rounded-2xl p-6 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h3 className="font-semibold text-lg">Built for application work, not handoffs.</h3>
+          <p className="mt-2 text-sm text-muted-foreground leading-relaxed max-w-3xl">
+            The same engineers who scope the system stay close to implementation, testing, launch,
+            and improvements. That keeps decisions practical and communication clear.
+          </p>
+        </div>
+        <a
+          href="/contact"
+          className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition"
+        >
+          Work With Us <ArrowRight className="size-4" />
+        </a>
+      </div>
+    </Section>
+  );
+}
+
+export function Services() {
   return (
     <Section
       id="services"
@@ -884,7 +1157,7 @@ function Services() {
   );
 }
 
-function Solutions() {
+export function Solutions() {
   return (
     <Section
       id="solutions"
@@ -906,7 +1179,7 @@ function Solutions() {
   );
 }
 
-function Why() {
+export function Why() {
   return (
     <Section
       id="why"
@@ -927,7 +1200,7 @@ function Why() {
   );
 }
 
-function Process() {
+export function Process() {
   return (
     <Section
       id="process"
@@ -948,7 +1221,7 @@ function Process() {
   );
 }
 
-function Projects() {
+export function Projects() {
   return (
     <Section
       id="projects"
@@ -983,7 +1256,7 @@ function Projects() {
   );
 }
 
-function Technologies() {
+export function Technologies() {
   return (
     <Section
       id="technologies"
@@ -1015,7 +1288,7 @@ function Technologies() {
   );
 }
 
-function Industries() {
+export function Industries() {
   return (
     <Section
       id="industries"
@@ -1040,7 +1313,7 @@ function Industries() {
   );
 }
 
-function CTA() {
+export function CTA() {
   return (
     <section className="py-20">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1056,13 +1329,13 @@ function CTA() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition"
               >
                 Start a Project <ArrowRight className="size-4" />
               </a>
               <a
-                href="#contact"
+                href="/contact"
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-lg glass text-foreground font-medium hover:bg-white/10 transition"
               >
                 Request a Quote
@@ -1083,7 +1356,7 @@ function CTA() {
   );
 }
 
-function Contact() {
+export function Contact() {
   const [sent, setSent] = useState(false);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
@@ -1310,21 +1583,22 @@ function Footer() {
           <FooterCol
             title="Company"
             links={[
-              { label: "About", href: "#about" },
-              { label: "Services", href: "#services" },
-              { label: "Process", href: "#process" },
-              { label: "Projects", href: "#projects" },
-              { label: "Contact", href: "#contact" },
+              { label: "About", href: "/about" },
+              { label: "Team", href: "/team" },
+              { label: "Services", href: "/services" },
+              { label: "Process", href: "/process" },
+              { label: "Projects", href: "/projects" },
+              { label: "Contact", href: "/contact" },
             ]}
           />
           <FooterCol
             title="Services"
             links={[
-              { label: "Web Development", href: "#services" },
-              { label: "Mobile App Development", href: "#services" },
-              { label: "Backend APIs", href: "#services" },
-              { label: "Business Systems", href: "#services" },
-              { label: "Deployment Support", href: "#services" },
+              { label: "Web Development", href: "/services" },
+              { label: "Mobile App Development", href: "/services" },
+              { label: "Backend APIs", href: "/services" },
+              { label: "Business Systems", href: "/services" },
+              { label: "Deployment Support", href: "/services" },
             ]}
           />
           <div>
@@ -1453,7 +1727,7 @@ function Counters() {
   );
 }
 
-function Testimonials() {
+export function Testimonials() {
   return (
     <Section
       id="testimonials"
@@ -1479,7 +1753,7 @@ function Testimonials() {
   );
 }
 
-function Insights() {
+export function Insights() {
   const [openNote, setOpenNote] = useState<string | null>(null);
 
   return (
@@ -1497,7 +1771,7 @@ function Insights() {
               <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
                 <span className="text-accent font-semibold uppercase tracking-wider">{p.tag}</span>
                 <span className="inline-flex items-center gap-1">
-                  <Calendar className="size-3" /> {p.date}
+                  <Calendar className="size-3" /> {p.date} · {p.readTime}
                 </span>
               </div>
               <h3 className="text-lg font-semibold mb-3 leading-snug">{p.title}</h3>
@@ -1520,10 +1794,10 @@ function Insights() {
                   />
                 </button>
                 <a
-                  href="#contact"
+                  href={`/blog/${p.slug}`}
                   className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-foreground transition-colors"
                 >
-                  Discuss <ArrowRight className="size-4" />
+                  Read article <ArrowRight className="size-4" />
                 </a>
               </div>
             </article>
@@ -1534,7 +1808,7 @@ function Insights() {
   );
 }
 
-function FAQ() {
+export function FAQ() {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <Section
@@ -1603,14 +1877,25 @@ function WhatsAppFloat() {
   );
 }
 
-function Index() {
+export function PageShell({ children }: { children: React.ReactNode }) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <Nav />
+      {children}
+      <Footer />
+      <WhatsAppFloat />
+    </div>
+  );
+}
+
+function Index() {
+  return (
+    <PageShell>
       <main>
         <Hero />
         <Counters />
         <About />
+        <Team />
         <Services />
         <Solutions />
         <Why />
@@ -1624,8 +1909,6 @@ function Index() {
         <CTA />
         <Contact />
       </main>
-      <Footer />
-      <WhatsAppFloat />
-    </div>
+    </PageShell>
   );
 }
