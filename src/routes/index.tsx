@@ -45,13 +45,13 @@ import {
 import logoLight from "@/assets/logo-light.png";
 import logoDark from "@/assets/logo-dark.png";
 
-const COMPANY = "Nexa Tech Solutions";
-const EMAIL = "nexatechsolutions@gmail.com";
+const COMPANY = "Muendo Tech Solutions";
+const EMAIL = "muendotechsolutions@gmail.com";
 const WHATSAPP = "+254793587026";
 const WHATSAPP_DISPLAY = "+254 793 587 026";
 const GITHUB = "Robert-kent-prog";
 const LINKEDIN = "robert-muendo-0329a0285";
-const SITE_URL = "https://nexa-tech-solutions.vercel.app";
+const SITE_URL = "https://muendo-tech-solutions.vercel.app";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -113,7 +113,6 @@ export const Route = createFileRoute("/")({
 const NAV = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
-  { label: "Team", href: "/team" },
   { label: "Services", href: "/services" },
   { label: "Projects", href: "/projects" },
   { label: "Process", href: "/process" },
@@ -134,7 +133,7 @@ const TESTIMONIALS = [
     name: "James Otieno",
     role: "Founder, Machakos Retail SME",
     quote:
-      "Nexa Tech rebuilt our bookkeeping flow into a clean web platform. Daily sales, expenses, and profit are now one click away. Easy to work with and very responsive.",
+      "Muendo Tech rebuilt our bookkeeping flow into a clean web platform. Daily sales, expenses, and profit are now one click away. Easy to work with and very responsive.",
   },
   {
     name: "Yvonne Wanjiru",
@@ -146,7 +145,7 @@ const TESTIMONIALS = [
     name: "Mashal Saeed",
     role: "CEO, Xelvora",
     quote:
-      "Nexa Tech helped shape Xelvora's website into a clear digital agency platform with services, products, portfolio, blogs, and a strong booking flow. The execution was practical and reliable.",
+      "Muendo Tech helped shape Xelvora's website into a clear digital agency platform with services, products, portfolio, blogs, and a strong booking flow. The execution was practical and reliable.",
   },
 ];
 
@@ -159,18 +158,18 @@ const TEAM = [
     focus: ["Architecture", "Backend APIs", "Client delivery"],
   },
   {
-    initials: "SN",
-    name: "Sam Naftali",
-    role: "Senior Engineer",
-    bio: "Full-stack engineer focused on the integrations and infrastructure that keep business apps reliable — payments, notifications, queues, admin tooling, database design, and deployment pipelines.",
-    focus: ["Integrations", "Infrastructure", "Dashboards"],
+    initials: "CK",
+    name: "Cynthia Kavetha",
+    role: "Product & Frontend Engineer",
+    bio: "Product-focused engineer shaping clean application interfaces, customer journeys, dashboards, forms, and mobile-ready experiences that make business systems easier to use.",
+    focus: ["Frontend UX", "Product flows", "Dashboards"],
   },
   {
-    initials: "SG",
-    name: "Sammy Ger",
-    role: "Senior Engineer",
-    bio: "Full-stack engineer biased toward the customer-facing product surface — responsive interfaces, booking flows, product pages, carts, checkout experiences, and mobile-ready web applications.",
-    focus: ["Frontend UX", "Commerce flows", "Mobile-ready apps"],
+    initials: "DN",
+    name: "Daniel Nzioka",
+    role: "Backend & Integrations Engineer",
+    bio: "Backend engineer focused on reliable APIs, payment integrations, notifications, queues, database design, deployment workflows, and the infrastructure behind production systems.",
+    focus: ["Backend APIs", "Integrations", "Infrastructure"],
   },
 ];
 
@@ -258,7 +257,7 @@ export const INSIGHTS = [
         heading: "A Practical Rule For New Builds",
         paragraphs: [
           "If the product needs fast validation, frequent interface changes, a smaller budget, and a small engineering team, MERN is usually a strong default. If the product is closer to core banking logic, high-volume account operations, insurance workflows, regulated data, or complex internal approvals, Spring Boot deserves serious consideration.",
-          "At Nexa Tech Solutions, we also look at the client team. If the person who will support the product is more comfortable with JavaScript, a Java stack can become expensive even when it is technically solid. If the client already has Java developers or enterprise systems, forcing a JavaScript stack can create avoidable operational friction.",
+          "At Muendo Tech Solutions, we also look at the client team. If the person who will support the product is more comfortable with JavaScript, a Java stack can become expensive even when it is technically solid. If the client already has Java developers or enterprise systems, forcing a JavaScript stack can create avoidable operational friction.",
         ],
       },
     ],
@@ -378,7 +377,7 @@ export const INSIGHTS = [
         heading: "Our Deployment Checklist",
         paragraphs: [
           "Before choosing infrastructure, we check the framework, backend runtime, database needs, file uploads, expected traffic, admin access, payment callbacks, email or SMS integrations, and whether background jobs are required. Those details quickly reveal whether a managed platform or a controlled server is the better fit.",
-          "For many Nexa Tech Solutions projects, the best answer is a hybrid: Vercel for the frontend, a managed database, Cloudflare for DNS and protection, and a separate backend environment when the API needs more control. The goal is to keep deployment reliable without overbuilding the operations layer.",
+          "For many Muendo Tech Solutions projects, the best answer is a hybrid: Vercel for the frontend, a managed database, Cloudflare for DNS and protection, and a separate backend environment when the API needs more control. The goal is to keep deployment reliable without overbuilding the operations layer.",
         ],
       },
     ],
@@ -768,6 +767,15 @@ const PROJECTS = [
     desc: "Boutique commerce platform with product uploads, category management, shopping cart, customer details, and KES-priced catalog browsing.",
     stack: ["React", "Express", "MongoDB"],
   },
+];
+
+const TRUSTED_PARTNERS = [
+  { initials: "LF", name: "Linkfy", type: "Service marketplace" },
+  { initials: "XV", name: "Xelvora", type: "Digital agency website" },
+  { initials: "MR", name: "Machakos Retail", type: "Bookkeeping platform" },
+  { initials: "EA", name: "Exam Admin", type: "Verification system" },
+  { initials: "FM", name: "Fleet Manager", type: "Logistics software" },
+  { initials: "CC", name: "CCU", type: "Public web platform" },
 ];
 
 const INDUSTRIES = [
@@ -1362,19 +1370,24 @@ export function Contact() {
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const f = new FormData(e.currentTarget);
-    const body = [
-      `Name: ${f.get("name")}`,
-      `Email: ${f.get("email")}`,
-      `Phone: ${f.get("phone")}`,
-      `Company: ${f.get("company")}`,
-      `Service: ${f.get("service")}`,
-      `Budget: ${f.get("budget")}`,
+    const message = [
+      `Hello ${COMPANY}, I have a new project brief.`,
       "",
-      `Message:`,
+      `Name: ${f.get("name") || "Not provided"}`,
+      `Email: ${f.get("email") || "Not provided"}`,
+      `Phone: ${f.get("phone") || "Not provided"}`,
+      `Company: ${f.get("company") || "Not provided"}`,
+      `Service: ${f.get("service") || "Not selected"}`,
+      `Budget: ${f.get("budget") || "Not selected"}`,
+      "",
+      "Project message:",
       `${f.get("message")}`,
     ].join("\n");
-    const subject = `New Project Inquiry — ${f.get("name") || "Website Lead"}`;
-    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.open(
+      `https://wa.me/${WHATSAPP.replace(/\D/g, "")}?text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
     setSent(true);
   }
 
@@ -1508,7 +1521,8 @@ export function Contact() {
           </button>
           {sent && (
             <p className="text-sm text-accent">
-              Opening your email client… If nothing happens, email us at {EMAIL}.
+              Opening WhatsApp with your project brief… If nothing happens, message us at{" "}
+              {WHATSAPP_DISPLAY}.
             </p>
           )}
         </form>
@@ -1584,7 +1598,6 @@ function Footer() {
             title="Company"
             links={[
               { label: "About", href: "/about" },
-              { label: "Team", href: "/team" },
               { label: "Services", href: "/services" },
               { label: "Process", href: "/process" },
               { label: "Projects", href: "/projects" },
@@ -1753,6 +1766,48 @@ export function Testimonials() {
   );
 }
 
+function TrustedPartners() {
+  return (
+    <section className="py-14 sm:py-18 border-y border-border bg-sidebar/35">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.5fr] lg:items-center">
+          <div>
+            <div className="inline-flex items-center gap-2 rounded-full border border-border bg-background/50 px-3 py-1 text-xs text-muted-foreground">
+              <Award className="size-3.5 text-accent" />
+              Delivery proof
+            </div>
+            <h2 className="mt-4 text-2xl sm:text-3xl font-bold tracking-tight">
+              Trusted on practical business systems.
+            </h2>
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">
+              A quick view of the business platforms, agency websites, logistics tools, and
+              verification systems already shaped by our delivery process.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            {TRUSTED_PARTNERS.map((partner) => (
+              <div
+                key={partner.name}
+                className="rounded-xl border border-border bg-background/55 p-4 transition hover:border-accent/40 hover:bg-secondary/35"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="size-10 rounded-lg bg-gradient-to-br from-primary to-accent text-primary-foreground grid place-items-center text-xs font-bold">
+                    {partner.initials}
+                  </div>
+                  <div className="min-w-0">
+                    <div className="truncate text-sm font-semibold">{partner.name}</div>
+                    <div className="truncate text-xs text-muted-foreground">{partner.type}</div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 export function Insights() {
   const [openNote, setOpenNote] = useState<string | null>(null);
 
@@ -1902,6 +1957,7 @@ function Index() {
         <Process />
         <Projects />
         <Testimonials />
+        <TrustedPartners />
         <Technologies />
         <Industries />
         <Insights />

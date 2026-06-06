@@ -6,11 +6,11 @@ export const Route = createFileRoute("/blog")({
   component: BlogLayout,
   head: () => ({
     meta: [
-      { title: "Blog | Nexa Tech Solutions" },
+      { title: "Blog | Muendo Tech Solutions" },
       {
         name: "description",
         content:
-          "Practical field notes from Nexa Tech Solutions on software development, M-Pesa, AI automation, deployment, product planning, and security.",
+          "Practical field notes from Muendo Tech Solutions on software development, M-Pesa, AI automation, deployment, product planning, and security.",
       },
     ],
   }),

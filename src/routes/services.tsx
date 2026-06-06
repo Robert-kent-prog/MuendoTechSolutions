@@ -5,7 +5,7 @@ import { Industries, PageShell, Services, Solutions, Technologies } from "./inde
 export const Route = createFileRoute("/services")({
   component: ServicesPage,
   head: () => ({
-    meta: [{ title: "Services | Nexa Tech Solutions" }],
+    meta: [{ title: "Services | Muendo Tech Solutions" }],
   }),
 });
 

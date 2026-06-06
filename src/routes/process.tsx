@@ -5,7 +5,7 @@ import { PageShell, Process, Why } from "./index";
 export const Route = createFileRoute("/process")({
   component: ProcessPage,
   head: () => ({
-    meta: [{ title: "Process | Nexa Tech Solutions" }],
+    meta: [{ title: "Process | Muendo Tech Solutions" }],
   }),
 });
 

@@ -1,0 +1,33 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="62" y1="41" x2="1101" y2="612" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#07111F"/>
+      <stop offset="0.58" stop-color="#101B35"/>
+      <stop offset="1" stop-color="#082719"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="160" y1="108" x2="447" y2="475" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#58E6FF"/>
+      <stop offset="0.58" stop-color="#5B7CFF"/>
+      <stop offset="1" stop-color="#37F29A"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="630" rx="0" fill="url(#bg)"/>
+  <path d="M825 87H1086M906 163H1138M810 514H1104" stroke="#1F3B5C" stroke-width="2"/>
+  <rect x="95" y="132" width="330" height="330" rx="70" fill="#07111F" stroke="#183052" stroke-width="10"/>
+  <path d="M306 151L416 438H356L250 195L306 151Z" fill="#2F66F2"/>
+  <text x="253" y="352" text-anchor="middle" font-family="DejaVu Sans, Arial, sans-serif" font-size="168" font-weight="900" fill="#F7FBFF">M</text>
+  <path d="M126 205H177M126 205V168M357 205H406M406 205V171M128 401H181M128 401V439M354 401H405M405 401V437" stroke="#37F29A" stroke-width="13" stroke-linecap="round"/>
+  <path d="M135 209L184 258M356 209L316 249" stroke="#58E6FF" stroke-width="12" stroke-linecap="square"/>
+  <text x="520" y="240" font-family="DejaVu Sans, Arial, sans-serif" font-size="58" font-weight="800" fill="#F7FBFF">Muendo Tech Solutions</text>
+  <text x="523" y="300" font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="500" fill="#AFC2D9">Web apps, mobile apps, AI, and business systems.</text>
+  <g font-family="DejaVu Sans, Arial, sans-serif" font-size="25" font-weight="700" fill="#DDEBFF">
+    <text x="523" y="386">Web Apps</text>
+    <text x="681" y="386">M-Pesa Integrations</text>
+    <text x="941" y="386">AI Automation</text>
+  </g>
+  <g fill="#37F29A">
+    <circle cx="498" cy="378" r="7"/>
+    <circle cx="656" cy="378" r="7"/>
+    <circle cx="916" cy="378" r="7"/>
+  </g>
+</svg>

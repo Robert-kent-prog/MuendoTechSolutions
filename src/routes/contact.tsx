@@ -5,7 +5,7 @@ import { Contact, PageShell } from "./index";
 export const Route = createFileRoute("/contact")({
   component: ContactPage,
   head: () => ({
-    meta: [{ title: "Contact | Nexa Tech Solutions" }],
+    meta: [{ title: "Contact | Muendo Tech Solutions" }],
   }),
 });
 

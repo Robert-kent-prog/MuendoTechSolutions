@@ -10,7 +10,7 @@ import {
 
 import appCss from "../styles.css?url";
 
-const SITE_URL = "https://nexa-tech-solutions.vercel.app";
+const SITE_URL = "https://muendo-tech-solutions.vercel.app";
 
 function NotFoundComponent() {
   return (
@@ -74,9 +74,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "author", content: "Nexa Tech Solutions" },
+      { name: "author", content: "Muendo Tech Solutions" },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Nexa Tech Solutions" },
+      { property: "og:site_name", content: "Muendo Tech Solutions" },
       { property: "og:image", content: `${SITE_URL}/og-image.png` },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: `${SITE_URL}/og-image.png` },

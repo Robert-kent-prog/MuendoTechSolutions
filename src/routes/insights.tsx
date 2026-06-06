@@ -8,7 +8,7 @@ export const Route = createFileRoute("/insights")({
   },
   component: InsightsPage,
   head: () => ({
-    meta: [{ title: "Insights | Nexa Tech Solutions" }],
+    meta: [{ title: "Insights | Muendo Tech Solutions" }],
   }),
 });
 

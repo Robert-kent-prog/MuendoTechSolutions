@@ -6,7 +6,7 @@ import { CTA, INSIGHTS } from "./index";
 export const Route = createFileRoute("/blog/$slug")({
   component: BlogArticlePage,
   head: () => ({
-    meta: [{ title: "Blog Article | Nexa Tech Solutions" }],
+    meta: [{ title: "Blog Article | Muendo Tech Solutions" }],
   }),
 });
 
