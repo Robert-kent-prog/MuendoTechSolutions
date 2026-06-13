@@ -111,14 +111,14 @@ export const Route = createFileRoute("/")({
 });
 
 const NAV = [
-  { label: "Home", href: "/" },
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Projects", href: "/projects" },
-  { label: "Process", href: "/process" },
-  { label: "Blog", href: "/blog" },
-  { label: "FAQ", href: "/faq" },
-  { label: "Contact", href: "/contact" },
+  { label: "Home", href: "/", mobileHref: "/#home" },
+  { label: "About", href: "/about", mobileHref: "/#about" },
+  { label: "Services", href: "/services", mobileHref: "/#services" },
+  { label: "Projects", href: "/projects", mobileHref: "/#projects" },
+  { label: "Process", href: "/process", mobileHref: "/#process" },
+  { label: "Blog", href: "/blog", mobileHref: "/#insights" },
+  { label: "FAQ", href: "/faq", mobileHref: "/#faq" },
+  { label: "Contact", href: "/contact", mobileHref: "/#contact" },
 ];
 
 const STATS = [
@@ -130,7 +130,7 @@ const STATS = [
 
 const TESTIMONIALS = [
   {
-    name: "James Otieno",
+    name: "John Muasya",
     role: "Founder, Machakos Retail SME",
     quote:
       "Muendo Tech rebuilt our bookkeeping flow into a clean web platform. Daily sales, expenses, and profit are now one click away. Easy to work with and very responsive.",
@@ -142,8 +142,8 @@ const TESTIMONIALS = [
       "The fleet management system replaced three spreadsheets. We finally have visibility on every vehicle, driver, and trip. Worth every shilling.",
   },
   {
-    name: "Mashal Saeed",
-    role: "CEO, Xelvora",
+    name: "Xelvora Team",
+    role: "Digital Agency Client",
     quote:
       "Muendo Tech helped shape Xelvora's website into a clear digital agency platform with services, products, portfolio, blogs, and a strong booking flow. The execution was practical and reliable.",
   },
@@ -531,6 +531,58 @@ const SERVICES = [
     ],
   },
   {
+    icon: Store,
+    title: "POS & Retail Systems",
+    desc: "Point of sale and retail operations software for shops, supermarkets, pharmacies, and SMEs.",
+    items: [
+      "Point of sale systems",
+      "Inventory & stock control",
+      "Barcode sales workflows",
+      "Receipts & invoices",
+      "Supplier management",
+      "Daily sales reports",
+    ],
+  },
+  {
+    icon: Cpu,
+    title: "Desktop Application Development",
+    desc: "Offline-capable desktop software for internal workflows, records, reporting, and local business operations.",
+    items: [
+      "Windows desktop apps",
+      "Offline-first tools",
+      "Local database apps",
+      "Printer integrations",
+      "File processing tools",
+      "Admin utility software",
+    ],
+  },
+  {
+    icon: Building2,
+    title: "Industry-Specific Systems",
+    desc: "Purpose-built applications for schools, clinics, retail teams, logistics operators, and service businesses.",
+    items: [
+      "Clinic & vaccination systems",
+      "School management systems",
+      "HR & payroll tools",
+      "CRM platforms",
+      "Fleet operations systems",
+      "Document tracking systems",
+    ],
+  },
+  {
+    icon: Workflow,
+    title: "Billing, CRM & Automation",
+    desc: "Systems that help teams track customers, subscriptions, invoices, support, and recurring workflows.",
+    items: [
+      "Customer relationship management",
+      "Subscription billing",
+      "Invoice management",
+      "SMS & email automation",
+      "Support ticket workflows",
+      "Approval workflows",
+    ],
+  },
+  {
     icon: Brain,
     title: "AI Integrations & AI Systems",
     desc: "We integrate AI into existing platforms and build AI-powered systems tailored to business workflows.",
@@ -581,20 +633,41 @@ const SERVICES = [
       "Performance optimization",
     ],
   },
+  {
+    icon: Code2,
+    title: "PHP, Laravel & Legacy Support",
+    desc: "Development and improvement work for Laravel, PHP, and existing business systems that need reliable updates.",
+    items: [
+      "Laravel dashboards",
+      "PHP website upgrades",
+      "API integrations",
+      "Bug fixing",
+      "Database migrations",
+      "Feature extensions",
+    ],
+  },
 ];
 
 const SOLUTIONS = [
+  "Point of sale (POS) systems",
   "Retail and bookkeeping systems",
+  "Desktop applications for internal teams",
+  "CRM and customer management platforms",
+  "HR, payroll, and attendance systems",
+  "Billing and subscription management systems",
   "School and institution management systems",
+  "Clinic and vaccination tracker systems",
   "Exam verification and attendance systems",
   "Service marketplace platforms",
   "Fleet & vehicle management systems",
   "Digital document management systems",
+  "Warehouse and stock control systems",
   "AI-powered business assistants",
   "E-commerce websites",
   "Inventory management systems",
   "Booking and appointment platforms",
   "M-Pesa-integrated payment platforms",
+  "Laravel and PHP business portals",
   "Admin dashboards & mobile apps",
 ];
 
@@ -664,9 +737,26 @@ const TECH = [
   { group: "Mobile", items: ["React Native", "Expo Router", "Android APK"] },
   {
     group: "Backend",
-    items: ["Node.js", "Express.js", "Spring Boot", "REST APIs", "MVC Architecture"],
+    items: [
+      "Node.js",
+      "Express.js",
+      "Python",
+      "Django",
+      "FastAPI",
+      "PHP",
+      "Laravel",
+      "Java",
+      "Spring Boot",
+      "C",
+      "C++",
+      "REST APIs",
+      "MVC Architecture",
+    ],
   },
-  { group: "Databases", items: ["MongoDB", "MySQL", "SQLite"] },
+  {
+    group: "Databases",
+    items: ["MongoDB", "PostgreSQL", "MySQL", "SQLite", "Redis", "Vector databases"],
+  },
   {
     group: "AI & Integrations",
     items: [
@@ -699,73 +789,101 @@ const PROJECTS = [
     tag: "Mobile / Marketplace",
     title: "Linkfy — Service Marketplace App",
     desc: "A mobile application that connects service seekers with verified service providers across Kenya — plumbing, electrical, laundry, cleaning, repairs and more. Includes in-app chat, calls, location maps, ratings, and M-Pesa Daraja payments.",
-    stack: ["React Native", "Expo", "Node.js", "MongoDB", "M-Pesa Daraja"],
+    stack: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "M-Pesa Daraja",
+      "Maps",
+      "JWT",
+    ],
   },
   {
     tag: "Logistics / Fleet",
     title: "Fleet Management System",
     desc: "Vehicle and fleet management platform for tracking vehicles, drivers, fuel, maintenance schedules, trip logs, and expense reporting — built for Kenyan transport and logistics operators.",
-    stack: ["React", "Node.js", "Express", "MongoDB", "Maps"],
+    stack: ["React", "Vite", "Node.js", "Express", "MongoDB", "Maps", "JWT", "Reports"],
   },
   {
     tag: "DocTech / Compliance",
     title: "Digital File & Document Management System",
     desc: "Custom digital filing system built for a Kenyan client to organise company documents — KRA filings, fire safety certificates, insurance policies, licences and permits — with expiry reminders, role-based access, and secure storage.",
-    stack: ["React", "Node.js", "MongoDB", "JWT", "Cloud Storage"],
+    stack: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "JWT",
+      "Cloud Storage",
+      "Expiry Alerts",
+      "RBAC",
+    ],
   },
   {
     tag: "AI / Automation",
     title: "AI Integrations & Custom AI Systems",
     desc: "Built and integrated AI features into business platforms — including AI chat assistants, document understanding, smart search, and workflow automation powered by LLMs (OpenAI, Gemini).",
-    stack: ["OpenAI", "Gemini", "LangChain", "Node.js", "RAG"],
+    stack: ["OpenAI", "Gemini", "LangChain", "Node.js", "Python", "FastAPI", "RAG", "Vector DB"],
   },
   {
     tag: "International / Agency Web",
     title: "Xelvora — Digital Agency Website",
-    desc: "Built Xelvora's corporate website for Mashal Saeed, CEO of Xelvora — a Pakistan-based digital agency offering websites, web apps, mobile products, AI systems, SEO, digital marketing, graphic design, and branding. The site includes About, Services, Products, Portfolio, Blogs, Contact, Book Call flows, launch metrics, and positioning for startups, SMEs, agencies, and enterprise teams.",
-    stack: ["React", "Tailwind", "Responsive", "SEO", "Branding"],
+    desc: "Built Xelvora's corporate website for a Pakistan-based digital agency offering websites, web apps, mobile products, AI systems, SEO, digital marketing, graphic design, and branding. The site includes About, Services, Products, Portfolio, Blogs, Contact, Book Call flows, launch metrics, and positioning for startups, SMEs, agencies, and enterprise teams.",
+    stack: ["React", "Vite", "Tailwind", "Responsive UI", "SEO", "Branding", "Blog Pages"],
   },
   {
     tag: "Mobility / MERN",
     title: "Carpool & Ride-Share Platform",
     desc: "Ride-share web platform that lets private car owners register as drivers and offset fuel costs by carrying passengers travelling in the same direction — with route matching, booking, ratings, and secure auth.",
-    stack: ["MongoDB", "Express", "React", "Node.js", "JWT"],
+    stack: ["MongoDB", "Express", "React", "Node.js", "JWT", "Route Matching", "Ratings"],
   },
   {
     tag: "Political / Web",
     title: "Chama Cha Uzalendo (CCU) — Party Website",
     desc: "Designed and built the official-style web presence for Chama Cha Uzalendo (CCU), a registered Kenyan political party founded in 2004 — featuring party history, leadership, news updates, and member engagement sections.",
-    stack: ["React", "Tailwind", "Responsive", "SEO"],
+    stack: ["React", "Vite", "Tailwind", "Responsive UI", "SEO", "Content Sections"],
   },
   {
-    tag: "International / Agency Web",
-    title: "Xelvora — Pakistan Digital Agency Website",
-    desc: "Developed Xelvora's public web presence around practical digital execution — clear service discovery, conversion-focused calls to action, product and portfolio sections, blog content, and contact details for regional and international clients.",
-    stack: ["React", "Tailwind", "Responsive", "SEO"],
+    tag: "HealthTech / Tracking",
+    title: "Vaccination Tracker System",
+    desc: "Health-record tracking system for managing vaccination schedules, patient records, appointment follow-ups, vaccine stock visibility, dose history, and admin reporting for clinic-style workflows.",
+    stack: [
+      "Python",
+      "Django",
+      "FastAPI",
+      "PostgreSQL",
+      "SQLite",
+      "Dashboards",
+      "Reports",
+      "Admin Roles",
+    ],
   },
   {
     tag: "EdTech / Security",
     title: "Exam Administration Verification System",
     desc: "Secure university exam-card and attendance verification platform with eligibility checks, barcode verification, JWT role access, offline-first attendance capture, audit logging, PDF reports, Redis caching, and MongoDB optimization.",
-    stack: ["MongoDB", "Node.js", "JWT", "Redis", "PDF"],
+    stack: ["MongoDB", "Node.js", "Express", "JWT", "Redis", "PDF", "Barcode", "Audit Logs"],
   },
   {
     tag: "FinTech / Retail",
     title: "Retail Bookkeeping Platform",
     desc: "Full-stack bookkeeping system for a Machakos retail business with admin, accountant, and sales workflows — KES-based reporting, daily sales, expenses, and profit tracking.",
-    stack: ["React", "Vite", "Express", "MongoDB", "Zod"],
+    stack: ["React", "Vite", "Express", "MongoDB", "Zod", "Role Access", "KES Reports"],
   },
   {
     tag: "Education",
     title: "Institutional Website",
     desc: "College site with course information, student access, admin updates, authentication flows, responsive UI, and CRUD features.",
-    stack: ["React", "Node.js", "MySQL"],
+    stack: ["React", "Node.js", "Express", "MySQL", "Auth", "CRUD", "Responsive UI"],
   },
   {
     tag: "E-Commerce",
     title: "E-Commerce Platform",
     desc: "Boutique commerce platform with product uploads, category management, shopping cart, customer details, and KES-priced catalog browsing.",
-    stack: ["React", "Express", "MongoDB"],
+    stack: ["React", "Express", "MongoDB", "Cart", "Product Admin", "KES Pricing", "Checkout"],
   },
 ];
 
@@ -818,6 +936,21 @@ function useActiveSection(ids: string[]) {
     return () => obs.disconnect();
   }, [ids.join(",")]);
   return active;
+}
+
+function useIsCompactLayout() {
+  const [isCompact, setIsCompact] = useState(false);
+
+  useEffect(() => {
+    const query = window.matchMedia("(max-width: 1023px)");
+    const update = () => setIsCompact(query.matches);
+
+    update();
+    query.addEventListener("change", update);
+    return () => query.removeEventListener("change", update);
+  }, []);
+
+  return isCompact;
 }
 
 function ThemeToggle({ className = "" }: { className?: string }) {
@@ -905,11 +1038,12 @@ function Nav() {
         <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur">
           <div className="px-4 py-4 flex flex-col gap-1">
             {NAV.map((n) => {
+              const mobileHref = n.mobileHref ?? n.href;
               const isActive = location.pathname === n.href;
               return (
                 <a
                   key={n.href}
-                  href={n.href}
+                  href={mobileHref}
                   onClick={() => setOpen(false)}
                   className={`text-sm py-2 px-3 rounded-md ${
                     isActive
@@ -922,7 +1056,7 @@ function Nav() {
               );
             })}
             <a
-              href="/contact"
+              href="/#contact"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center gap-2 text-sm font-medium px-4 py-2 rounded-lg bg-primary text-primary-foreground"
             >
@@ -939,7 +1073,7 @@ function Hero() {
   return (
     <section
       id="home"
-      className="relative pt-28 pb-20 sm:pt-36 sm:pb-28 bg-hero-gradient overflow-hidden"
+      className="relative scroll-mt-16 pt-28 pb-20 sm:pt-36 sm:pb-28 bg-hero-gradient overflow-hidden"
     >
       <div className="absolute inset-0 grid-bg opacity-60 pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -1008,7 +1142,7 @@ function Section({
   children: React.ReactNode;
 }) {
   return (
-    <section id={id} className="py-20 sm:py-28">
+    <section id={id} className="scroll-mt-16 py-20 sm:py-28">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-12">
           {eyebrow && (
@@ -1944,26 +2078,51 @@ export function PageShell({ children }: { children: React.ReactNode }) {
 }
 
 function Index() {
+  const isCompact = useIsCompactLayout();
+
+  useEffect(() => {
+    if (!isCompact) return;
+    const id = window.location.hash.replace("#", "");
+    if (!id) return;
+
+    window.requestAnimationFrame(() => {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  }, [isCompact]);
+
   return (
     <PageShell>
       <main>
         <Hero />
         <Counters />
-        <About />
-        <Team />
-        <Services />
-        <Solutions />
-        <Why />
-        <Process />
-        <Projects />
-        <Testimonials />
-        <TrustedPartners />
-        <Technologies />
-        <Industries />
-        <Insights />
-        <FAQ />
-        <CTA />
-        <Contact />
+        {isCompact ? (
+          <>
+            <About />
+            <Team />
+            <Services />
+            <Solutions />
+            <Process />
+            <Projects />
+            <Testimonials />
+            <TrustedPartners />
+            <Technologies />
+            <Industries />
+            <Why />
+            <Insights />
+            <FAQ />
+            <CTA />
+            <Contact />
+          </>
+        ) : (
+          <>
+            <Services />
+            <Solutions />
+            <Projects />
+            <Testimonials />
+            <TrustedPartners />
+            <CTA />
+          </>
+        )}
       </main>
     </PageShell>
   );
