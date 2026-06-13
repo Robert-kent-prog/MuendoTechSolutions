@@ -985,9 +985,17 @@ function Nav() {
   return (
     <header className="fixed top-0 inset-x-0 z-50 nav-glass">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="/" className="flex min-w-0 items-center gap-2 group">
-          <img src={logoDark} alt={`${COMPANY} logo`} className="h-8 sm:h-9 w-auto dark-logo" />
-          <img src={logoLight} alt={`${COMPANY} logo`} className="h-8 sm:h-9 w-auto light-logo" />
+        <a href="/" className="flex min-w-0 items-center gap-2 group" aria-label={COMPANY}>
+          <img
+            src={logoDark}
+            alt={`${COMPANY} logo`}
+            className="h-10 w-10 rounded-xl object-cover sm:h-11 sm:w-11 dark-logo"
+          />
+          <img
+            src={logoLight}
+            alt={`${COMPANY} logo`}
+            className="h-10 w-10 rounded-xl object-cover sm:h-11 sm:w-11 light-logo"
+          />
           <span className="min-w-0 truncate text-sm font-bold tracking-tight text-foreground xs:text-base sm:text-base">
             {COMPANY}
           </span>
@@ -1718,9 +1726,17 @@ function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
         <div className="grid md:grid-cols-4 gap-10">
           <div className="md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <img src={logoDark} alt={`${COMPANY} logo`} className="h-9 w-auto dark-logo" />
-              <img src={logoLight} alt={`${COMPANY} logo`} className="h-9 w-auto light-logo" />
+            <div className="flex items-center gap-3 mb-4">
+              <img
+                src={logoDark}
+                alt={`${COMPANY} logo`}
+                className="h-16 w-16 rounded-2xl object-cover dark-logo"
+              />
+              <img
+                src={logoLight}
+                alt={`${COMPANY} logo`}
+                className="h-16 w-16 rounded-2xl object-cover light-logo"
+              />
               <span className="font-bold">{COMPANY}</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
