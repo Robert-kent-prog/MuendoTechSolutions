@@ -1,13 +1,59 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, Calendar } from "lucide-react";
 
+import { COMPANY, SITE_URL, pageHead } from "@/lib/seo";
 import { CTA, INSIGHTS } from "./index";
 
 export const Route = createFileRoute("/blog/$slug")({
   component: BlogArticlePage,
-  head: () => ({
-    meta: [{ title: "Blog Article | Muendo Tech Solutions" }],
-  }),
+  head: ({ params }) => {
+    const post = INSIGHTS.find((item) => item.slug === params.slug);
+
+    if (!post) {
+      return {
+        meta: [
+          { title: `Article Not Found | ${COMPANY}` },
+          { name: "robots", content: "noindex,follow" },
+        ],
+      };
+    }
+
+    return {
+      ...pageHead({
+        title: `${post.title} | ${COMPANY}`,
+        description: post.excerpt,
+        path: `/blog/${post.slug}`,
+        type: "article",
+      }),
+      meta: [
+        ...pageHead({
+          title: `${post.title} | ${COMPANY}`,
+          description: post.excerpt,
+          path: `/blog/${post.slug}`,
+          type: "article",
+        }).meta,
+        { property: "article:section", content: post.category },
+        { property: "article:published_time", content: post.publishedAt },
+        { property: "article:author", content: COMPANY },
+      ],
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "BlogPosting",
+            headline: post.title,
+            description: post.excerpt,
+            datePublished: post.publishedAt,
+            dateModified: post.publishedAt,
+            mainEntityOfPage: `${SITE_URL}/blog/${post.slug}`,
+            author: { "@type": "Organization", name: COMPANY, url: SITE_URL },
+            publisher: { "@type": "Organization", name: COMPANY, url: SITE_URL },
+          }),
+        },
+      ],
+    };
+  },
 });
 
 function BlogArticlePage() {

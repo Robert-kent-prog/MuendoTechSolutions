@@ -1,11 +1,31 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { FAQ, PageShell } from "./index";
+import { COMPANY, pageHead } from "@/lib/seo";
+import { FAQ, FAQS, PageShell } from "./index";
 
 export const Route = createFileRoute("/faq")({
   component: FAQPage,
   head: () => ({
-    meta: [{ title: "FAQ | Muendo Tech Solutions" }],
+    ...pageHead({
+      title: `Software Development FAQ | ${COMPANY}`,
+      description:
+        "Answers to common questions about Muendo Tech Solutions pricing, timelines, M-Pesa integration, source-code ownership, retainers, deployment, training, and support.",
+      path: "/faq",
+    }),
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          mainEntity: FAQS.map((f) => ({
+            "@type": "Question",
+            name: f.q,
+            acceptedAnswer: { "@type": "Answer", text: f.a },
+          })),
+        }),
+      },
+    ],
   }),
 });
 

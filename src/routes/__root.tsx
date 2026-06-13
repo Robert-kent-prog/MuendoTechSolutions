@@ -9,8 +9,7 @@ import {
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
-
-const SITE_URL = "https://muendo-tech-solutions.vercel.app";
+import { COMPANY, SITE_IMAGE, SITE_URL, defaultDescription } from "../lib/seo";
 
 function NotFoundComponent() {
   return (
@@ -74,15 +73,21 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { name: "author", content: "Muendo Tech Solutions" },
+      { name: "description", content: defaultDescription },
+      { name: "author", content: COMPANY },
+      { name: "robots", content: "index,follow,max-image-preview:large" },
+      { name: "theme-color", content: "#050b1e" },
+      { name: "application-name", content: COMPANY },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Muendo Tech Solutions" },
-      { property: "og:image", content: `${SITE_URL}/og-image.png` },
+      { property: "og:site_name", content: COMPANY },
+      { property: "og:image", content: SITE_IMAGE },
+      { property: "og:image:alt", content: `${COMPANY} logo and brand card` },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:image", content: `${SITE_URL}/og-image.png` },
+      { name: "twitter:image", content: SITE_IMAGE },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: SITE_URL },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
       { rel: "apple-touch-icon", href: "/favicon.png" },
     ],
@@ -94,12 +99,11 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 });
 
 function RootShell({ children }: { children: React.ReactNode }) {
-  const themeInit = `(function(){try{var t=localStorage.getItem('theme');if(t==='light'){document.documentElement.classList.add('light');}}catch(e){}})();`;
   return (
     <html lang="en">
       <head>
         <HeadContent />
-        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        <script src="/theme-init.js" />
       </head>
       <body>
         {children}

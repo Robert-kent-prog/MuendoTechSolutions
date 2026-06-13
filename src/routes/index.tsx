@@ -44,67 +44,41 @@ import {
 } from "lucide-react";
 import logoLight from "@/assets/logo-light.png";
 import logoDark from "@/assets/logo-dark.png";
+import {
+  COMPANY,
+  EMAIL,
+  GITHUB,
+  LINKEDIN,
+  SITE_URL,
+  WHATSAPP,
+  organizationSchema,
+  pageHead,
+} from "@/lib/seo";
 
-const COMPANY = "Muendo Tech Solutions";
-const EMAIL = "muendotechsolutions@gmail.com";
-const WHATSAPP = "+254793587026";
 const WHATSAPP_DISPLAY = "+254 793 587 026";
-const GITHUB = "Robert-kent-prog";
-const LINKEDIN = "robert-muendo-0329a0285";
-const SITE_URL = "https://muendo-tech-solutions.vercel.app";
+const HOME_HEAD = pageHead({
+  title: `${COMPANY} — Software Development Company in Nairobi, Kenya`,
+  description:
+    "Nairobi-based software development company building reliable web apps, mobile apps, backend APIs, AI integrations, POS systems, and business software for startups, SMEs, schools, and enterprises across Kenya.",
+  path: "/",
+});
 
 export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
+    ...HOME_HEAD,
     meta: [
-      { title: `${COMPANY} — Software Development Company in Nairobi, Kenya` },
-      {
-        name: "description",
-        content:
-          "Nairobi-based software development company building reliable web apps, mobile apps, backend APIs, AI integrations, and business systems for startups, SMEs, schools, and enterprises across Kenya.",
-      },
+      ...HOME_HEAD.meta,
       {
         name: "keywords",
         content:
-          "software development Nairobi, web development Kenya, mobile app development Kenya, backend APIs, business systems, AI integration Kenya, M-Pesa integration, React, Node.js, MongoDB",
-      },
-      { name: "author", content: COMPANY },
-      { property: "og:title", content: `${COMPANY} — Build Reliable Software for Your Business` },
-      {
-        property: "og:description",
-        content:
-          "We design and build modern web platforms, mobile apps, backend APIs, AI systems, and database-driven business solutions from Nairobi, Kenya.",
-      },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: SITE_URL },
-      { property: "og:site_name", content: COMPANY },
-      { property: "og:locale", content: "en_KE" },
-      { name: "twitter:card", content: "summary_large_image" },
-      {
-        name: "twitter:title",
-        content: `${COMPANY} — Software Development Company in Nairobi, Kenya`,
-      },
-      {
-        name: "twitter:description",
-        content: "Web, mobile, backend, AI and business software built from Nairobi, Kenya.",
+          "software development Nairobi, web development Kenya, mobile app development Kenya, POS systems Kenya, business software Kenya, M-Pesa integration, backend APIs, AI integration Kenya, React, Laravel, Django, Spring Boot",
       },
     ],
-    links: [{ rel: "canonical", href: SITE_URL }],
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: COMPANY,
-          url: SITE_URL,
-          email: EMAIL,
-          telephone: WHATSAPP,
-          founder: { "@type": "Person", name: "Robert Muendo" },
-          address: { "@type": "PostalAddress", addressLocality: "Nairobi", addressCountry: "KE" },
-          areaServed: "KE",
-          sameAs: [`https://github.com/${GITHUB}`, `https://linkedin.com/in/${LINKEDIN}`],
-        }),
+        children: JSON.stringify(organizationSchema),
       },
     ],
   }),
@@ -173,7 +147,7 @@ const TEAM = [
   },
 ];
 
-const FAQS = [
+export const FAQS = [
   {
     q: "How long does it take to build an MVP?",
     a: "Most MVPs ship in 4–10 weeks depending on scope. Simple web apps and mobile apps land closer to 4–6 weeks; complex platforms with payments, AI, and dashboards land in 8–12 weeks.",
@@ -232,6 +206,7 @@ export const INSIGHTS = [
     tag: "Backend",
     category: "Software Development",
     date: "Dec 2025",
+    publishedAt: "2025-12-10",
     readTime: "8 min read",
     title: "Choosing Between MERN and Spring Boot for Kenyan SMEs",
     excerpt:
@@ -272,6 +247,7 @@ export const INSIGHTS = [
     tag: "Payments",
     category: "Payments",
     date: "Jan 2026",
+    publishedAt: "2026-01-14",
     readTime: "9 min read",
     title: "Integrating M-Pesa Daraja the Right Way",
     excerpt:
@@ -312,6 +288,7 @@ export const INSIGHTS = [
     tag: "AI",
     category: "AI & Automation",
     date: "Feb 2026",
+    publishedAt: "2026-02-11",
     readTime: "8 min read",
     title: "Adding AI to Business Software Without Burning Budget",
     excerpt:
@@ -352,6 +329,7 @@ export const INSIGHTS = [
     tag: "Deployment",
     category: "Deployment",
     date: "Mar 2026",
+    publishedAt: "2026-03-12",
     readTime: "7 min read",
     title: "Choosing Vercel, Cloudflare, VPS, or cPanel",
     excerpt:
@@ -392,6 +370,7 @@ export const INSIGHTS = [
     tag: "Product",
     category: "Product & Design",
     date: "Apr 2026",
+    publishedAt: "2026-04-09",
     readTime: "8 min read",
     title: "What to Put in an MVP and What to Leave Out",
     excerpt:
@@ -432,6 +411,7 @@ export const INSIGHTS = [
     tag: "Security",
     category: "Security",
     date: "May 2026",
+    publishedAt: "2026-05-13",
     readTime: "8 min read",
     title: "Security Basics Every Business System Needs",
     excerpt:
@@ -2049,20 +2029,6 @@ export function FAQ() {
           );
         })}
       </div>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify({
-            "@context": "https://schema.org",
-            "@type": "FAQPage",
-            mainEntity: FAQS.map((f) => ({
-              "@type": "Question",
-              name: f.q,
-              acceptedAnswer: { "@type": "Answer", text: f.a },
-            })),
-          }),
-        }}
-      />
     </Section>
   );
 }

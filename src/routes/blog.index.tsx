@@ -2,10 +2,18 @@ import { createFileRoute } from "@tanstack/react-router";
 import { ArrowRight, Calendar } from "lucide-react";
 import { useMemo, useState } from "react";
 
+import { COMPANY, pageHead } from "@/lib/seo";
 import { BLOG_CATEGORIES, CTA, INSIGHTS } from "./index";
 
 export const Route = createFileRoute("/blog/")({
   component: BlogIndexPage,
+  head: () =>
+    pageHead({
+      title: `Software Development Blog | ${COMPANY}`,
+      description:
+        "Read practical software development notes from Muendo Tech Solutions covering M-Pesa, AI automation, deployment, MVP planning, security, and backend architecture.",
+      path: "/blog",
+    }),
 });
 
 function BlogIndexPage() {

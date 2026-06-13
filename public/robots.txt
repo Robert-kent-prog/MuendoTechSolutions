@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://muendo-tech-solutions.vercel.app/sitemap.xml
+Host: muendo-tech-solutions.vercel.app
