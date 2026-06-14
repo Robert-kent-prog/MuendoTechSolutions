@@ -18,20 +18,17 @@ export const Route = createFileRoute("/blog/$slug")({
       };
     }
 
+    const head = pageHead({
+      title: `${post.title} | ${COMPANY}`,
+      description: post.excerpt,
+      path: `/blog/${post.slug}`,
+      type: "article",
+    });
+
     return {
-      ...pageHead({
-        title: `${post.title} | ${COMPANY}`,
-        description: post.excerpt,
-        path: `/blog/${post.slug}`,
-        type: "article",
-      }),
+      ...head,
       meta: [
-        ...pageHead({
-          title: `${post.title} | ${COMPANY}`,
-          description: post.excerpt,
-          path: `/blog/${post.slug}`,
-          type: "article",
-        }).meta,
+        ...head.meta,
         { property: "article:section", content: post.category },
         { property: "article:published_time", content: post.publishedAt },
         { property: "article:author", content: COMPANY },
