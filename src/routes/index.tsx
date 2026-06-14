@@ -42,8 +42,6 @@ import {
   Award,
   Calendar,
 } from "lucide-react";
-import logoLight from "@/assets/logo-light.png";
-import logoDark from "@/assets/logo-dark.png";
 import {
   COMPANY,
   EMAIL,
@@ -56,6 +54,7 @@ import {
 } from "@/lib/seo";
 
 const WHATSAPP_DISPLAY = "+254 793 587 026";
+const LOGO_SRC = "/logo.png";
 const HOME_HEAD = pageHead({
   title: `${COMPANY} — Software Development Company in Nairobi, Kenya`,
   description:
@@ -967,12 +966,12 @@ function Nav() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="/" className="flex min-w-0 items-center gap-2 group" aria-label={COMPANY}>
           <img
-            src={logoDark}
+            src={LOGO_SRC}
             alt={`${COMPANY} logo`}
             className="h-10 w-10 rounded-xl object-cover sm:h-11 sm:w-11 dark-logo"
           />
           <img
-            src={logoLight}
+            src={LOGO_SRC}
             alt={`${COMPANY} logo`}
             className="h-10 w-10 rounded-xl object-cover sm:h-11 sm:w-11 light-logo"
           />
@@ -1708,12 +1707,12 @@ function Footer() {
           <div className="md:col-span-1">
             <div className="flex items-center gap-3 mb-4">
               <img
-                src={logoDark}
+                src={LOGO_SRC}
                 alt={`${COMPANY} logo`}
                 className="h-16 w-16 rounded-2xl object-cover dark-logo"
               />
               <img
-                src={logoLight}
+                src={LOGO_SRC}
                 alt={`${COMPANY} logo`}
                 className="h-16 w-16 rounded-2xl object-cover light-logo"
               />

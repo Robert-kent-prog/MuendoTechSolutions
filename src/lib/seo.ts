@@ -53,7 +53,7 @@ export const organizationSchema = {
   "@type": ["Organization", "LocalBusiness", "ProfessionalService"],
   name: COMPANY,
   url: SITE_URL,
-  logo: `${SITE_URL}/favicon.png`,
+  logo: `${SITE_URL}/logo.png`,
   image: SITE_IMAGE,
   email: EMAIL,
   telephone: WHATSAPP,
