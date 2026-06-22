@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
 
+import { contactProjectHref } from "@/lib/contact-project";
 import { COMPANY, SITE_URL, WHATSAPP, pageHead } from "@/lib/seo";
 import { CTA, SERVICE_DETAIL_PAGES } from "./index";
 
@@ -79,6 +80,34 @@ function ServiceDetailPage() {
     );
   }
 
+  const contactService =
+    {
+      "business-websites": "Business Website",
+      "ecommerce-websites": "E-commerce Website",
+      "pos-systems": "Point of Sale / Retail System",
+      "website-maintenance": "Website Maintenance",
+      "mpesa-integrations": "M-Pesa Integration",
+    }[service.slug] || "Business System";
+  const contactHref = contactProjectHref({
+    title: service.title,
+    service: contactService,
+    source: `/services/${service.slug}`,
+    message: [
+      `I am interested in ${service.title}.`,
+      "",
+      `Project fit: ${service.bestFor}`,
+      `Expected outcome: ${service.outcomes[0]}`,
+      `Pricing note: ${service.price}`,
+      "",
+      "Business context:",
+      "",
+      "Features I need:",
+      "",
+      "Timeline:",
+      "",
+      "Other notes:",
+    ].join("\n"),
+  });
   const whatsappText = `Hello ${COMPANY}, I would like to discuss ${service.title}.`;
 
   return (
@@ -105,7 +134,7 @@ function ServiceDetailPage() {
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
-                  href="/contact"
+                  href={contactHref}
                   className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-medium text-primary-foreground shadow-lg shadow-primary/30 transition hover:opacity-90"
                 >
                   Start This Project <ArrowRight className="size-4" />

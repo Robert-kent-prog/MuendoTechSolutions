@@ -52,9 +52,16 @@ import {
   organizationSchema,
   pageHead,
 } from "@/lib/seo";
+import { contactProjectHref } from "@/lib/contact-project";
 
 const WHATSAPP_DISPLAY = "+254 793 587 026";
 const LOGO_SRC = "/logo.png";
+const EMPTY_CONTACT_PREFILL = {
+  service: "",
+  budget: "",
+  message: "",
+  project: "",
+};
 const HOME_HEAD = pageHead({
   title: `${COMPANY} — Software Development Company in Nairobi, Kenya`,
   description:
@@ -1183,6 +1190,34 @@ const SERVICE_PACKAGES = [
   },
 ];
 
+const SERVICE_PACKAGE_CONTACT_DETAILS: Record<
+  string,
+  { service: string; budget?: string; message: string }
+> = {
+  "Business Website Launch": {
+    service: "Business Website",
+    budget: "KES 25,000 – 100,000",
+    message:
+      "I am interested in a business website launch.\n\nBusiness type:\n\nPages needed:\n\nMain goals:\n\nTimeline:\n\nOther notes:",
+  },
+  "Web App / Dashboard": {
+    service: "Web Application",
+    budget: "KES 150,000 – 400,000",
+    message:
+      "I am interested in scoping a web app or dashboard.\n\nUsers and roles:\n\nMain workflows:\n\nReports or integrations needed:\n\nTimeline:\n\nOther notes:",
+  },
+  "POS and Retail System": {
+    service: "Point of Sale / Retail System",
+    message:
+      "I am interested in a POS or retail system.\n\nBusiness type:\n\nProducts or stock workflow:\n\nSales and reporting needs:\n\nPayment needs:\n\nOther notes:",
+  },
+  "Maintenance and Growth": {
+    service: "Website Maintenance",
+    message:
+      "I am interested in website or system maintenance support.\n\nCurrent website/system:\n\nUpdates needed:\n\nIssues to fix:\n\nPreferred support arrangement:\n\nOther notes:",
+  },
+};
+
 export const SERVICE_DETAIL_PAGES = [
   {
     slug: "business-websites",
@@ -1905,7 +1940,13 @@ function Nav() {
         <div className="hidden lg:flex items-center gap-3">
           <ThemeToggle />
           <a
-            href="/contact"
+            href={contactProjectHref({
+              title: "New software project",
+              service: "Business System",
+              source: "Navbar CTA",
+              message:
+                "I would like to start a software project.\n\nBusiness goal:\n\nService or system needed:\n\nMain features:\n\nTimeline:\n\nOther notes:",
+            })}
             className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition"
           >
             Start a Project <ArrowRight className="size-4" />
@@ -1981,7 +2022,13 @@ function Hero() {
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a
-              href="/contact"
+              href={contactProjectHref({
+                title: "New business software project",
+                service: "Business System",
+                source: "Homepage hero",
+                message:
+                  "I would like to build reliable software for my business.\n\nBusiness type:\n\nProblem to solve:\n\nFeatures needed:\n\nTimeline:\n\nBudget range:",
+              })}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition shadow-lg shadow-primary/30"
             >
               Start a Project <ArrowRight className="size-4" />
@@ -1993,7 +2040,13 @@ function Hero() {
               View Our Services
             </a>
             <a
-              href="/contact"
+              href={contactProjectHref({
+                title: "General project enquiry",
+                service: "Other",
+                source: "Homepage contact button",
+                message:
+                  "I would like to discuss a project.\n\nWhat I need:\n\nCurrent challenge:\n\nTimeline:\n\nOther notes:",
+              })}
               className="inline-flex items-center gap-2 px-5 py-3 rounded-lg border border-border text-foreground font-medium hover:bg-white/5 transition"
             >
               Contact Us
@@ -2146,7 +2199,13 @@ export function Team() {
           </p>
         </div>
         <a
-          href="/contact"
+          href={contactProjectHref({
+            title: "Application development support",
+            service: "Web Application",
+            source: "Application services section",
+            message:
+              "I would like to work with Muendo Tech Solutions on an application project.\n\nBusiness context:\n\nSystem or app needed:\n\nMain users:\n\nFeatures needed:\n\nTimeline:\n\nOther notes:",
+          })}
           className="inline-flex shrink-0 items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition"
         >
           Work With Us <ArrowRight className="size-4" />
@@ -2219,56 +2278,66 @@ export function ServicePackages() {
   return (
     <Section id="packages" eyebrow="Starting Points" title="Common Project Packages">
       <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
-        {SERVICE_PACKAGES.map((pkg, index) => (
-          <article
-            key={pkg.title}
-            className={`glass rounded-2xl p-6 card-hover flex flex-col ${
-              index === 1 ? "border-primary/60 shadow-lg shadow-primary/10" : ""
-            }`}
-          >
-            <div className="flex items-start justify-between gap-3">
-              <div className="size-11 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 grid place-items-center">
-                <pkg.icon className="size-5 text-foreground" />
+        {SERVICE_PACKAGES.map((pkg, index) => {
+          const contactDetails = SERVICE_PACKAGE_CONTACT_DETAILS[pkg.title];
+
+          return (
+            <article
+              key={pkg.title}
+              className={`glass rounded-2xl p-6 card-hover flex flex-col ${
+                index === 1 ? "border-primary/60 shadow-lg shadow-primary/10" : ""
+              }`}
+            >
+              <div className="flex items-start justify-between gap-3">
+                <div className="size-11 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 grid place-items-center">
+                  <pkg.icon className="size-5 text-foreground" />
+                </div>
+                {index === 1 && (
+                  <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
+                    Most custom
+                  </span>
+                )}
               </div>
-              {index === 1 && (
-                <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
-                  Most custom
-                </span>
-              )}
-            </div>
-            <h3 className="mt-5 text-lg font-semibold">{pkg.title}</h3>
-            <p className="mt-2 text-sm font-medium text-accent">{pkg.price}</p>
-            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{pkg.desc}</p>
-            <p className="mt-4 rounded-lg border border-border bg-secondary/35 p-3 text-xs text-muted-foreground leading-relaxed">
-              <span className="font-semibold text-foreground">Best for: </span>
-              {pkg.bestFor}
-            </p>
-            <ul className="mt-5 space-y-2 flex-1">
-              {pkg.items.map((item) => (
-                <li key={item} className="flex gap-2 text-xs text-muted-foreground">
-                  <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-accent" />
-                  <span>{item}</span>
-                </li>
-              ))}
-            </ul>
-            <div className="mt-6 flex flex-col gap-2">
-              <a
-                href="/contact"
-                className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
-              >
-                {pkg.cta} <ArrowRight className="size-4" />
-              </a>
-              <a
-                href={`https://wa.me/${WHATSAPP.replace(/\D/g, "")}?text=${encodeURIComponent(`Hello ${COMPANY}, I would like to discuss the ${pkg.title} package.`)}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-foreground transition hover:bg-secondary/50"
-              >
-                <MessageCircle className="size-4" /> Ask on WhatsApp
-              </a>
-            </div>
-          </article>
-        ))}
+              <h3 className="mt-5 text-lg font-semibold">{pkg.title}</h3>
+              <p className="mt-2 text-sm font-medium text-accent">{pkg.price}</p>
+              <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{pkg.desc}</p>
+              <p className="mt-4 rounded-lg border border-border bg-secondary/35 p-3 text-xs text-muted-foreground leading-relaxed">
+                <span className="font-semibold text-foreground">Best for: </span>
+                {pkg.bestFor}
+              </p>
+              <ul className="mt-5 space-y-2 flex-1">
+                {pkg.items.map((item) => (
+                  <li key={item} className="flex gap-2 text-xs text-muted-foreground">
+                    <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-accent" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 flex flex-col gap-2">
+                <a
+                  href={contactProjectHref({
+                    title: pkg.title,
+                    service: contactDetails?.service,
+                    budget: contactDetails?.budget,
+                    source: "Service package card",
+                    message: contactDetails?.message,
+                  })}
+                  className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+                >
+                  {pkg.cta} <ArrowRight className="size-4" />
+                </a>
+                <a
+                  href={`https://wa.me/${WHATSAPP.replace(/\D/g, "")}?text=${encodeURIComponent(`Hello ${COMPANY}, I would like to discuss the ${pkg.title} package.`)}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-foreground transition hover:bg-secondary/50"
+                >
+                  <MessageCircle className="size-4" /> Ask on WhatsApp
+                </a>
+              </div>
+            </article>
+          );
+        })}
       </div>
     </Section>
   );
@@ -2537,13 +2606,25 @@ export function CTA() {
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <a
-                href="/contact"
+                href={contactProjectHref({
+                  title: "New software project",
+                  service: "Business System",
+                  source: "Section CTA",
+                  message:
+                    "I am ready to build software for my business.\n\nBusiness goal:\n\nProject type:\n\nFeatures needed:\n\nTimeline:\n\nBudget range:",
+                })}
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-primary text-primary-foreground font-medium hover:opacity-90 transition"
               >
                 Start a Project <ArrowRight className="size-4" />
               </a>
               <a
-                href="/contact"
+                href={contactProjectHref({
+                  title: "Project quote request",
+                  service: "Other",
+                  source: "Section quote CTA",
+                  message:
+                    "I would like to request a project quote.\n\nWhat I need built:\n\nCurrent status:\n\nImportant features:\n\nTimeline:\n\nBudget range:",
+                })}
                 className="inline-flex items-center gap-2 px-5 py-3 rounded-lg glass text-foreground font-medium hover:bg-white/10 transition"
               >
                 Request a Quote
@@ -2566,6 +2647,42 @@ export function CTA() {
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const [prefill, setPrefill] = useState(EMPTY_CONTACT_PREFILL);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const service = params.get("service") || "";
+    const budget = params.get("budget") || "";
+    const project = params.get("project") || "";
+    const source = params.get("source") || "";
+    const customMessage = params.get("message") || "";
+
+    if (!service && !budget && !project && !source && !customMessage) {
+      return;
+    }
+
+    const message =
+      customMessage ||
+      [
+        project ? `Project / package: ${project}` : "",
+        service ? `Service needed: ${service}` : "",
+        source ? `Source page: ${source}` : "",
+        "",
+        "Business goal:",
+        "",
+        "Important features:",
+        "",
+        "Timeline:",
+        "",
+        "Budget range:",
+        "",
+        "Other notes:",
+      ]
+        .filter((line, index, lines) => line || lines[index - 1])
+        .join("\n");
+
+    setPrefill({ service, budget, message, project });
+  }, []);
 
   function onSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -2590,6 +2707,8 @@ export function Contact() {
     );
     setSent(true);
   }
+
+  const prefillKey = `${prefill.service}|${prefill.budget}|${prefill.project}|${prefill.message}`;
 
   return (
     <Section
@@ -2664,7 +2783,17 @@ export function Contact() {
             </div>
           </div>
         </div>
-        <form onSubmit={onSubmit} className="lg:col-span-3 glass rounded-2xl p-6 sm:p-8 space-y-4">
+        <form
+          key={prefillKey}
+          onSubmit={onSubmit}
+          className="lg:col-span-3 glass rounded-2xl p-6 sm:p-8 space-y-4"
+        >
+          {prefill.project && (
+            <p className="rounded-lg border border-accent/30 bg-accent/10 px-4 py-3 text-sm text-foreground/85">
+              We prefilled this brief from <span className="font-medium">{prefill.project}</span>.
+              You can edit anything before sending it on WhatsApp.
+            </p>
+          )}
           <div className="grid sm:grid-cols-2 gap-4">
             <Field label="Full Name" name="name" required />
             <Field label="Email Address" name="email" type="email" required />
@@ -2681,6 +2810,7 @@ export function Contact() {
                 "Backend / API",
                 "Business System",
                 "Point of Sale / Retail System",
+                "M-Pesa Integration",
                 "Website Maintenance",
                 "Google Business Profile / Local SEO",
                 "Business Email Setup",
@@ -2692,6 +2822,7 @@ export function Contact() {
                 "Deployment & Maintenance",
                 "Other",
               ]}
+              defaultValue={prefill.service}
             />
             <SelectField
               label="Project Budget (KES)"
@@ -2705,6 +2836,7 @@ export function Contact() {
                 "KES 1,000,000+",
                 "Not sure yet",
               ]}
+              defaultValue={prefill.budget}
             />
           </div>
           <div>
@@ -2716,6 +2848,7 @@ export function Contact() {
               required
               rows={5}
               maxLength={2000}
+              defaultValue={prefill.message}
               className="w-full rounded-lg bg-background/50 border border-border px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
               placeholder="Tell us about your project, goals, and timeline..."
             />
@@ -2743,11 +2876,13 @@ function Field({
   name,
   type = "text",
   required,
+  defaultValue,
 }: {
   label: string;
   name: string;
   type?: string;
   required?: boolean;
+  defaultValue?: string;
 }) {
   return (
     <div>
@@ -2759,6 +2894,7 @@ function Field({
         name={name}
         type={type}
         required={required}
+        defaultValue={defaultValue}
         inputMode={type === "tel" ? "tel" : type === "email" ? "email" : undefined}
         maxLength={200}
         className="w-full rounded-lg bg-background/50 border border-border px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
@@ -2767,12 +2903,23 @@ function Field({
   );
 }
 
-function SelectField({ label, name, options }: { label: string; name: string; options: string[] }) {
+function SelectField({
+  label,
+  name,
+  options,
+  defaultValue,
+}: {
+  label: string;
+  name: string;
+  options: string[];
+  defaultValue?: string;
+}) {
   return (
     <div>
       <label className="block text-xs font-medium text-muted-foreground mb-1.5">{label}</label>
       <select
         name={name}
+        defaultValue={defaultValue}
         className="w-full rounded-lg bg-background/50 border border-border px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
       >
         <option value="">Select…</option>

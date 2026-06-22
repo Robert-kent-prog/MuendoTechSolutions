@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 
+import { contactProjectHref } from "@/lib/contact-project";
 import { COMPANY, SITE_URL, pageHead } from "@/lib/seo";
 import { CTA, PROJECT_CASE_STUDIES } from "./index";
 
@@ -66,6 +67,40 @@ function ProjectCaseStudyPage() {
     );
   }
 
+  const contactService =
+    project.tag.includes("Retail") || project.title.includes("Bookkeeping")
+      ? "Point of Sale / Retail System"
+      : project.tag.includes("Fleet")
+        ? "Fleet Management System"
+        : project.tag.includes("Health")
+          ? "Business System"
+          : project.tag.includes("DocTech")
+            ? "Document Management System"
+            : project.tag.includes("Mobile")
+              ? "Mobile App"
+              : "Business System";
+  const contactHref = contactProjectHref({
+    title: project.title,
+    service: contactService,
+    source: `/projects/${project.slug}`,
+    message: [
+      `I am interested in building something similar to ${project.title}.`,
+      "",
+      `Reference context: ${project.summary}`,
+      `Useful proof point: ${project.metrics.join(", ")}`,
+      "",
+      "What I want to keep from this example:",
+      "",
+      "Changes or extra features I need:",
+      "",
+      "Users and roles:",
+      "",
+      "Timeline:",
+      "",
+      "Budget range:",
+    ].join("\n"),
+  });
+
   return (
     <>
       <article>
@@ -90,7 +125,7 @@ function ProjectCaseStudyPage() {
                   {project.summary}
                 </p>
                 <a
-                  href="/contact"
+                  href={contactHref}
                   className="mt-8 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-medium text-primary-foreground shadow-lg shadow-primary/30 transition hover:opacity-90"
                 >
                   Build Something Similar <ArrowRight className="size-4" />
