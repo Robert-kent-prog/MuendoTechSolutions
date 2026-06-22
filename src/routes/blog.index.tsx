@@ -1,9 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowRight, Calendar } from "lucide-react";
-import { useMemo, useState } from "react";
+import { ArrowLeft, ArrowRight, Calendar } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
 
 import { COMPANY, pageHead } from "@/lib/seo";
 import { BLOG_CATEGORIES, CTA, INSIGHTS } from "./index";
+
+const POSTS_PER_PAGE = 6;
 
 export const Route = createFileRoute("/blog/")({
   component: BlogIndexPage,
@@ -11,20 +13,29 @@ export const Route = createFileRoute("/blog/")({
     pageHead({
       title: `Software Development Blog | ${COMPANY}`,
       description:
-        "Read practical software development notes from Muendo Tech Solutions covering M-Pesa, AI automation, deployment, MVP planning, security, and backend architecture.",
+        "Read practical software development notes from Muendo Tech Solutions covering Kenyan business websites, SEO, M-Pesa, POS systems, AI automation, deployment, MVP planning, security, and backend architecture.",
       path: "/blog",
     }),
 });
 
 function BlogIndexPage() {
   const [activeCategory, setActiveCategory] = useState("All Posts");
-  const posts = useMemo(
-    () =>
+  const [page, setPage] = useState(1);
+  const posts = useMemo(() => {
+    const filtered =
       activeCategory === "All Posts"
         ? INSIGHTS
-        : INSIGHTS.filter((post) => post.category === activeCategory),
-    [activeCategory],
-  );
+        : INSIGHTS.filter((post) => post.category === activeCategory);
+    return [...filtered].sort(
+      (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
+    );
+  }, [activeCategory]);
+  const totalPages = Math.max(1, Math.ceil(posts.length / POSTS_PER_PAGE));
+  const visiblePosts = posts.slice((page - 1) * POSTS_PER_PAGE, page * POSTS_PER_PAGE);
+
+  useEffect(() => {
+    setPage(1);
+  }, [activeCategory]);
 
   return (
     <>
@@ -67,7 +78,7 @@ function BlogIndexPage() {
           </div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {posts.map((post) => (
+            {visiblePosts.map((post) => (
               <article key={post.slug} className="glass rounded-2xl p-7 card-hover flex flex-col">
                 <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground mb-3">
                   <span className="text-accent font-semibold uppercase tracking-wider">
@@ -91,9 +102,34 @@ function BlogIndexPage() {
             ))}
           </div>
 
-          <p className="mt-8 text-sm text-muted-foreground">
-            Showing 1 to {posts.length} of {INSIGHTS.length} results
-          </p>
+          <div className="mt-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-sm text-muted-foreground">
+              Showing {(page - 1) * POSTS_PER_PAGE + 1} to{" "}
+              {Math.min(page * POSTS_PER_PAGE, posts.length)} of {posts.length} posts
+              {activeCategory !== "All Posts" ? ` in ${activeCategory}` : ""}
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => setPage((current) => Math.max(1, current - 1))}
+                disabled={page === 1}
+                className="inline-flex items-center gap-2 rounded-lg border border-border px-3.5 py-2 text-sm font-medium text-foreground transition hover:bg-secondary/50 disabled:cursor-not-allowed disabled:opacity-45"
+              >
+                <ArrowLeft className="size-4" /> Previous
+              </button>
+              <span className="rounded-lg border border-border bg-secondary/35 px-3.5 py-2 text-sm text-muted-foreground">
+                Page {page} of {totalPages}
+              </span>
+              <button
+                type="button"
+                onClick={() => setPage((current) => Math.min(totalPages, current + 1))}
+                disabled={page === totalPages}
+                className="inline-flex items-center gap-2 rounded-lg border border-border px-3.5 py-2 text-sm font-medium text-foreground transition hover:bg-secondary/50 disabled:cursor-not-allowed disabled:opacity-45"
+              >
+                Next <ArrowRight className="size-4" />
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 

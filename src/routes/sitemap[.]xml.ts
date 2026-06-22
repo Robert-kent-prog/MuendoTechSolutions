@@ -3,7 +3,7 @@ import type {} from "@tanstack/react-start";
 
 import { SITE_URL } from "@/lib/seo";
 
-const LAST_MODIFIED = "2026-06-13";
+const LAST_MODIFIED = "2026-06-22";
 
 const pages = [
   { path: "/", changefreq: "weekly", priority: "1.0", lastmod: LAST_MODIFIED },
@@ -47,6 +47,78 @@ const pages = [
     changefreq: "monthly",
     priority: "0.7",
     lastmod: "2026-05-13",
+  },
+  {
+    path: "/blog/how-much-does-a-business-website-cost-in-kenya-in-2026",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2026-06-22",
+  },
+  {
+    path: "/blog/website-maintenance-checklist-for-kenyan-businesses",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2026-06-22",
+  },
+  {
+    path: "/blog/website-vs-web-app-what-should-your-business-build-first",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2026-06-22",
+  },
+  {
+    path: "/blog/pos-system-features-every-kenyan-retail-shop-needs",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2026-06-18",
+  },
+  {
+    path: "/blog/google-business-profile-and-local-seo-basics-for-kenyan-smes",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2026-05-20",
+  },
+  {
+    path: "/blog/mpesa-payment-reconciliation-for-kenyan-business-systems",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2026-04-17",
+  },
+  {
+    path: "/blog/school-management-systems-in-kenya-what-to-build-first",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2026-03-19",
+  },
+  {
+    path: "/blog/clinic-and-vaccination-tracker-features-for-kenyan-health-teams",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2026-02-18",
+  },
+  {
+    path: "/blog/website-redesign-checklist-for-kenyan-companies",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2026-01-21",
+  },
+  {
+    path: "/blog/business-email-setup-for-kenyan-smes",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2025-12-18",
+  },
+  {
+    path: "/blog/ecommerce-website-features-for-kenyan-online-shops",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2025-11-20",
+  },
+  {
+    path: "/blog/fleet-management-software-for-kenyan-logistics-teams",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: "2025-10-16",
   },
   { path: "/faq", changefreq: "monthly", priority: "0.7", lastmod: LAST_MODIFIED },
   { path: "/contact", changefreq: "monthly", priority: "0.8", lastmod: LAST_MODIFIED },
