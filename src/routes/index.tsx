@@ -105,18 +105,21 @@ const TESTIMONIALS = [
   {
     name: "John Muasya",
     role: "Founder, Machakos Retail SME",
+    result: "Cleaner sales and profit visibility",
     quote:
       "Muendo Tech rebuilt our bookkeeping flow into a clean web platform. Daily sales, expenses, and profit are now one click away. Easy to work with and very responsive.",
   },
   {
     name: "Yvonne Wanjiru",
     role: "Operations Manager, Logistics Firm",
+    result: "Fleet records moved out of spreadsheets",
     quote:
       "The fleet management system replaced three spreadsheets. We finally have visibility on every vehicle, driver, and trip. Worth every shilling.",
   },
   {
     name: "Xelvora Team",
     role: "Digital Agency Client",
+    result: "Clearer agency website and booking flow",
     quote:
       "Muendo Tech helped shape Xelvora's website into a clear digital agency platform with services, products, portfolio, blogs, and a strong booking flow. The execution was practical and reliable.",
   },
@@ -1180,6 +1183,169 @@ const SERVICE_PACKAGES = [
   },
 ];
 
+export const SERVICE_DETAIL_PAGES = [
+  {
+    slug: "business-websites",
+    title: "Business Website Design and Development in Kenya",
+    eyebrow: "Business Websites",
+    summary:
+      "Fast, responsive company websites for Kenyan SMEs that need trust, clear service pages, WhatsApp-ready enquiries, SEO basics, and a professional first impression.",
+    bestFor:
+      "Consultants, agencies, clinics, schools, salons, real estate firms, NGOs, and local service businesses.",
+    price: "Starts from KES 25,000",
+    outcomes: [
+      "A credible online presence clients can trust",
+      "Clear service pages that explain what you offer",
+      "Mobile-first contact paths through WhatsApp, phone, and forms",
+      "SEO-ready structure for Kenyan search intent",
+    ],
+    features: [
+      "Homepage and core service pages",
+      "Responsive UI for phone, tablet, and desktop",
+      "Contact forms and WhatsApp CTA setup",
+      "Basic SEO metadata, sitemap, and analytics",
+      "Deployment and launch support",
+      "Optional maintenance retainer",
+    ],
+    process: [
+      "Clarify services, target customers, and page structure",
+      "Design the content flow and primary calls to action",
+      "Build, test, optimize, and deploy the website",
+      "Handover access and support future updates",
+    ],
+    proof:
+      "This is the right first build when visibility and trust are the bottleneck, not complex internal workflow automation.",
+  },
+  {
+    slug: "ecommerce-websites",
+    title: "E-Commerce Website Development for Kenyan Online Shops",
+    eyebrow: "E-Commerce",
+    summary:
+      "Online shop builds for businesses that need product catalogs, carts, checkout planning, customer details, admin controls, and M-Pesa-ready payment workflows.",
+    bestFor:
+      "Boutiques, electronics shops, food vendors, school uniform suppliers, hardware shops, and product-led SMEs.",
+    price: "Scoped after catalog and checkout discovery",
+    outcomes: [
+      "Customers can browse products clearly on mobile",
+      "Admins can manage products, categories, stock, and orders",
+      "Checkout flow matches the way the business sells",
+      "Payment and delivery records are easier to reconcile",
+    ],
+    features: [
+      "Product catalog and categories",
+      "Cart and checkout flow",
+      "Admin product and order management",
+      "Customer details and order notes",
+      "M-Pesa or WhatsApp-order planning",
+      "Stock and fulfillment reporting",
+    ],
+    process: [
+      "Map products, delivery, payment, and fulfillment flow",
+      "Choose lightweight catalog or full checkout",
+      "Build the storefront and admin dashboard",
+      "Test ordering, notifications, and payment records",
+    ],
+    proof:
+      "We keep e-commerce practical: start with the checkout model the business can operate, then expand into deeper automation as sales volume grows.",
+  },
+  {
+    slug: "pos-systems",
+    title: "POS System Development for Kenyan Retail Businesses",
+    eyebrow: "POS Systems",
+    summary:
+      "Custom point-of-sale and retail systems for shops that need cleaner sales, stock, expenses, staff roles, receipts, and daily reports.",
+    bestFor:
+      "Mini marts, pharmacies, hardware shops, boutiques, salons, service counters, and retail SMEs.",
+    price: "Scoped after workflow discovery",
+    outcomes: [
+      "Faster sales and receipt workflows",
+      "Clear stock movement and low-stock visibility",
+      "Daily sales, expense, and profit reporting",
+      "Better control through staff roles and audit trails",
+    ],
+    features: [
+      "Product and price management",
+      "Sales, receipts, returns, and expenses",
+      "Stock control and supplier records",
+      "Cashier and admin roles",
+      "Daily, weekly, and monthly reports",
+      "Optional M-Pesa reconciliation planning",
+    ],
+    process: [
+      "Study current shop workflow and reporting pain points",
+      "Define cashier, admin, and owner roles",
+      "Build sales, stock, reports, and permissions",
+      "Train users and iterate after real shop usage",
+    ],
+    proof:
+      "A good POS system should make everyday shop work faster while giving the owner a reliable financial picture.",
+  },
+  {
+    slug: "website-maintenance",
+    title: "Website Maintenance Services for Kenyan Businesses",
+    eyebrow: "Maintenance",
+    summary:
+      "Ongoing website support for businesses that need content updates, form checks, bug fixes, uptime reviews, SEO edits, backups, and performance improvements.",
+    bestFor:
+      "Live company websites, e-commerce websites, business portals, and lead-generation pages.",
+    price: "Monthly retainer or task-based support",
+    outcomes: [
+      "Contact forms, WhatsApp links, and CTAs keep working",
+      "Content remains current as services change",
+      "SEO and performance issues are handled early",
+      "Technical problems are fixed without waiting for a full rebuild",
+    ],
+    features: [
+      "Content and page updates",
+      "Form, link, and CTA checks",
+      "Performance and accessibility improvements",
+      "Backup and deployment checks",
+      "SEO metadata and sitemap updates",
+      "Bug fixes and small feature improvements",
+    ],
+    process: [
+      "Audit the current website and deployment setup",
+      "Agree on monthly or task-based support scope",
+      "Handle fixes, updates, checks, and reports",
+      "Recommend larger improvements only when needed",
+    ],
+    proof:
+      "Maintenance protects the business value of a website after launch, especially when the site is used for leads, orders, or customer support.",
+  },
+  {
+    slug: "mpesa-integrations",
+    title: "M-Pesa Daraja Integration for Kenyan Business Systems",
+    eyebrow: "M-Pesa Integrations",
+    summary:
+      "Payment integrations for web apps, mobile apps, portals, POS systems, and dashboards that need STK Push, callbacks, transaction status, and reconciliation.",
+    bestFor:
+      "E-commerce platforms, billing systems, portals, booking apps, POS systems, and subscription workflows.",
+    price: "Scoped by payment flow and reconciliation needs",
+    outcomes: [
+      "Customers can pay through guided M-Pesa flows",
+      "Admins can see payment status and receipt records",
+      "Orders or invoices are connected to transactions",
+      "Delayed, failed, and duplicate callbacks are handled safely",
+    ],
+    features: [
+      "STK Push integration",
+      "Callback handling and validation",
+      "Transaction status checks",
+      "Payment states and duplicate protection",
+      "Admin reconciliation views",
+      "Secure credentials and environment setup",
+    ],
+    process: [
+      "Map the payment event to order, invoice, or account logic",
+      "Integrate Daraja endpoints and secure callbacks",
+      "Build payment records and admin reconciliation",
+      "Test sandbox, production credentials, and edge cases",
+    ],
+    proof:
+      "The goal is not only accepting payment; it is giving the business a reliable way to verify, reconcile, and support payment events.",
+  },
+];
+
 const SOLUTIONS = [
   "Point of sale (POS) systems",
   "Retail and bookkeeping systems",
@@ -1419,6 +1585,157 @@ const PROJECTS = [
   },
 ];
 
+export const PROJECT_CASE_STUDIES = [
+  {
+    slug: "retail-bookkeeping-platform",
+    title: "Retail Bookkeeping Platform",
+    tag: "FinTech / Retail",
+    client: "Machakos Retail SME",
+    summary:
+      "A bookkeeping platform that replaced notebook and spreadsheet tracking with role-based sales, expense, and profit visibility for a Kenyan retail business.",
+    problem:
+      "The business needed a clearer way to track daily sales, expenses, and profit without waiting for manual spreadsheet consolidation or scattered paper records.",
+    solution:
+      "We built a full-stack bookkeeping system with admin, accountant, and sales workflows, KES-based reporting, protected routes, validation, and practical dashboards.",
+    outcome:
+      "The owner can now review daily sales, expenses, and profit from one place, while staff work through cleaner role-based workflows.",
+    metrics: ["KES reporting", "3 user roles", "Daily profit view"],
+    features: [
+      "Sales and expense capture",
+      "Admin, accountant, and sales workflows",
+      "KES-based reports",
+      "Role-based access",
+      "Validation and protected routes",
+      "Dashboard summaries",
+    ],
+    stack: ["React", "Vite", "Express", "MongoDB", "Zod", "Role Access", "KES Reports"],
+  },
+  {
+    slug: "fleet-management-system",
+    title: "Fleet Management System",
+    tag: "Logistics / Fleet",
+    client: "Kenyan logistics operator",
+    summary:
+      "A fleet operations platform for tracking vehicles, drivers, maintenance schedules, fuel, trips, and expense reporting.",
+    problem:
+      "Fleet records were split across manual logs and separate documents, making it hard to see vehicle status, maintenance risk, and operating costs quickly.",
+    solution:
+      "We designed a web platform with vehicle records, driver assignment, fuel entries, trip logs, maintenance schedules, expense reporting, and map-ready structures.",
+    outcome:
+      "Managers gained a clearer operating picture across vehicles, drivers, costs, and maintenance events.",
+    metrics: ["Vehicle records", "Trip logs", "Maintenance alerts"],
+    features: [
+      "Vehicle and driver records",
+      "Fuel and maintenance tracking",
+      "Trip logs and expense reports",
+      "Document visibility",
+      "Map-ready workflow planning",
+      "Admin dashboard",
+    ],
+    stack: ["React", "Vite", "Node.js", "Express", "MongoDB", "Maps", "JWT", "Reports"],
+  },
+  {
+    slug: "vaccination-tracker-system",
+    title: "Vaccination Tracker System",
+    tag: "HealthTech / Tracking",
+    client: "Clinic-style health workflow",
+    summary:
+      "A health-record tracker for vaccination schedules, patient records, appointment follow-ups, stock visibility, dose history, and reports.",
+    problem:
+      "Clinic teams need reliable visibility into patient schedules, vaccine history, appointment follow-ups, and stock without depending on fragile paper processes.",
+    solution:
+      "We shaped a tracker around patient records, dose schedules, appointment follow-ups, vaccine stock visibility, admin roles, and reporting workflows.",
+    outcome:
+      "The system gives health teams clearer follow-up visibility and a cleaner way to manage vaccination records.",
+    metrics: ["Dose history", "Stock visibility", "Admin reports"],
+    features: [
+      "Patient and dose records",
+      "Appointment follow-ups",
+      "Vaccine stock visibility",
+      "Admin roles",
+      "Reports and dashboards",
+      "Clinic-style workflows",
+    ],
+    stack: [
+      "Python",
+      "Django",
+      "FastAPI",
+      "PostgreSQL",
+      "SQLite",
+      "Dashboards",
+      "Reports",
+      "Admin Roles",
+    ],
+  },
+  {
+    slug: "digital-file-document-management-system",
+    title: "Digital File & Document Management System",
+    tag: "DocTech / Compliance",
+    client: "Kenyan business client",
+    summary:
+      "A secure digital filing system for KRA documents, certificates, policies, licences, permits, expiry reminders, and role-based access.",
+    problem:
+      "Important company documents were difficult to organize, monitor, and renew before expiry, creating compliance and operational risk.",
+    solution:
+      "We built a digital filing workflow with secure storage, categories, expiry reminders, role-based access, and document visibility.",
+    outcome:
+      "The business gained a more dependable way to track critical documents and reduce expiry surprises.",
+    metrics: ["Expiry alerts", "Secure storage", "Role-based access"],
+    features: [
+      "Document categories",
+      "Expiry reminders",
+      "Role-based access",
+      "Secure file storage",
+      "Searchable records",
+      "Compliance-oriented dashboard",
+    ],
+    stack: [
+      "React",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "JWT",
+      "Cloud Storage",
+      "Expiry Alerts",
+      "RBAC",
+    ],
+  },
+  {
+    slug: "linkfy-service-marketplace-app",
+    title: "Linkfy Service Marketplace App",
+    tag: "Mobile / Marketplace",
+    client: "Service marketplace product",
+    summary:
+      "A mobile marketplace connecting customers with verified service providers across Kenya with chat, calls, maps, ratings, and M-Pesa flows.",
+    problem:
+      "Customers needed a cleaner way to find trusted service providers, while providers needed a digital channel for jobs, communication, and payments.",
+    solution:
+      "We built a mobile-first marketplace architecture with provider profiles, customer flows, chat/call actions, location maps, ratings, and M-Pesa Daraja planning.",
+    outcome:
+      "The product creates a structured flow for service discovery, contact, booking, trust, and payment readiness.",
+    metrics: ["Mobile-first", "Provider matching", "M-Pesa ready"],
+    features: [
+      "Provider and customer flows",
+      "In-app communication paths",
+      "Maps and location support",
+      "Ratings and trust signals",
+      "JWT authentication",
+      "M-Pesa Daraja payment planning",
+    ],
+    stack: [
+      "React Native",
+      "Expo",
+      "TypeScript",
+      "Node.js",
+      "Express",
+      "MongoDB",
+      "M-Pesa Daraja",
+      "Maps",
+      "JWT",
+    ],
+  },
+];
+
 const TRUSTED_PARTNERS = [
   { initials: "LF", name: "Linkfy", type: "Service marketplace" },
   { initials: "XV", name: "Xelvora", type: "Digital agency website" },
@@ -1438,6 +1755,45 @@ const INDUSTRIES = [
   { icon: Briefcase, label: "Professional Firms" },
   { icon: Users, label: "Community Orgs" },
   { icon: Workflow, label: "Internal Ops Teams" },
+];
+
+const INDUSTRY_SOLUTIONS = [
+  {
+    icon: Store,
+    title: "Retail and POS",
+    desc: "Sales, stock, receipts, expenses, staff roles, M-Pesa records, and daily reports for shops and service counters.",
+    outcomes: ["Cleaner sales records", "Stock visibility", "Owner reports"],
+  },
+  {
+    icon: GraduationCap,
+    title: "Schools and Colleges",
+    desc: "Student records, fees, attendance, exams, portals, document workflows, and parent or staff communication.",
+    outcomes: ["Student records", "Exam workflows", "Admin visibility"],
+  },
+  {
+    icon: Truck,
+    title: "Logistics and Fleet",
+    desc: "Vehicles, drivers, fuel, trips, maintenance, expenses, documents, and operational reporting for transport teams.",
+    outcomes: ["Trip logs", "Maintenance tracking", "Cost control"],
+  },
+  {
+    icon: Building2,
+    title: "Clinics and Health Teams",
+    desc: "Patient records, vaccination schedules, stock visibility, appointments, follow-ups, and reporting dashboards.",
+    outcomes: ["Follow-up tracking", "Dose history", "Stock reports"],
+  },
+  {
+    icon: Users,
+    title: "NGOs and Community Teams",
+    desc: "Beneficiary records, donor reporting, field data, document tracking, dashboards, and approval workflows.",
+    outcomes: ["Field records", "Donor reports", "Workflow control"],
+  },
+  {
+    icon: Briefcase,
+    title: "Professional Services",
+    desc: "Websites, CRMs, booking flows, client portals, document workflows, billing, and local SEO support.",
+    outcomes: ["Lead capture", "Client records", "Service clarity"],
+  },
 ];
 
 const VALUES = [
@@ -1861,12 +2217,7 @@ export function Services() {
 
 export function ServicePackages() {
   return (
-    <Section
-      id="packages"
-      eyebrow="Starting Points"
-      title="Common Project Packages"
-      subtitle="Clear entry points for businesses that know the outcome they need, even if the final feature list still needs discovery."
-    >
+    <Section id="packages" eyebrow="Starting Points" title="Common Project Packages">
       <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
         {SERVICE_PACKAGES.map((pkg, index) => (
           <article
@@ -1916,6 +2267,41 @@ export function ServicePackages() {
                 <MessageCircle className="size-4" /> Ask on WhatsApp
               </a>
             </div>
+          </article>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+export function ServicePagePreview() {
+  return (
+    <Section
+      id="service-pages"
+      eyebrow="Dedicated Services"
+      title="Explore Focused Service Pages"
+      subtitle="Each page explains the outcome, features, process, and fit for a specific service so clients can choose the right starting point."
+    >
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {SERVICE_DETAIL_PAGES.map((service) => (
+          <article key={service.slug} className="glass rounded-2xl p-6 card-hover flex flex-col">
+            <div className="text-xs font-semibold uppercase tracking-wider text-accent">
+              {service.eyebrow}
+            </div>
+            <h3 className="mt-3 text-xl font-semibold leading-snug">{service.title}</h3>
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
+              {service.summary}
+            </p>
+            <div className="mt-5 rounded-lg border border-border bg-secondary/35 p-3 text-xs text-muted-foreground">
+              <span className="font-semibold text-foreground">Best for: </span>
+              {service.bestFor}
+            </div>
+            <a
+              href={`/services/${service.slug}`}
+              className="mt-5 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all"
+            >
+              View service page <ArrowRight className="size-4" />
+            </a>
           </article>
         ))}
       </div>
@@ -1996,27 +2382,50 @@ export function Projects() {
       subtitle="A look at production systems we've designed, engineered, and deployed for real operational use."
     >
       <div className="grid md:grid-cols-2 gap-5">
-        {PROJECTS.map((p) => (
-          <article key={p.title} className="glass rounded-2xl p-7 card-hover">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-xs font-semibold uppercase tracking-wider text-accent">
-                {p.tag}
-              </span>
-            </div>
-            <h3 className="text-xl font-semibold mb-3">{p.title}</h3>
-            <p className="text-muted-foreground text-sm leading-relaxed mb-5">{p.desc}</p>
-            <div className="flex flex-wrap gap-2">
-              {p.stack.map((t) => (
-                <span
-                  key={t}
-                  className="text-xs px-2.5 py-1 rounded-md bg-secondary border border-border text-secondary-foreground"
-                >
-                  {t}
+        {PROJECTS.map((p) => {
+          const caseStudy = PROJECT_CASE_STUDIES.find((study) => study.title === p.title);
+          return (
+            <article key={p.title} className="glass rounded-2xl p-7 card-hover">
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-xs font-semibold uppercase tracking-wider text-accent">
+                  {p.tag}
                 </span>
-              ))}
-            </div>
-          </article>
-        ))}
+              </div>
+              <h3 className="text-xl font-semibold mb-3">{p.title}</h3>
+              <p className="text-muted-foreground text-sm leading-relaxed mb-5">{p.desc}</p>
+              {caseStudy && (
+                <div className="mb-5 grid sm:grid-cols-3 gap-2">
+                  {caseStudy.metrics.map((metric) => (
+                    <div
+                      key={metric}
+                      className="rounded-lg border border-border bg-secondary/35 px-3 py-2 text-xs font-medium text-foreground"
+                    >
+                      {metric}
+                    </div>
+                  ))}
+                </div>
+              )}
+              <div className="flex flex-wrap gap-2">
+                {p.stack.map((t) => (
+                  <span
+                    key={t}
+                    className="text-xs px-2.5 py-1 rounded-md bg-secondary border border-border text-secondary-foreground"
+                  >
+                    {t}
+                  </span>
+                ))}
+              </div>
+              {caseStudy && (
+                <a
+                  href={`/projects/${caseStudy.slug}`}
+                  className="mt-5 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all"
+                >
+                  View case study <ArrowRight className="size-4" />
+                </a>
+              )}
+            </article>
+          );
+        })}
       </div>
     </Section>
   );
@@ -2073,6 +2482,39 @@ export function Industries() {
             </div>
             <span className="text-sm font-medium">{i.label}</span>
           </div>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+export function IndustrySolutions() {
+  return (
+    <Section
+      id="industry-solutions"
+      eyebrow="Industry Solutions"
+      title="Systems Shaped Around Kenyan Workflows"
+      subtitle="Different industries need different defaults. These are the practical workflows we prioritize when shaping a first release."
+    >
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {INDUSTRY_SOLUTIONS.map((solution) => (
+          <article key={solution.title} className="glass rounded-2xl p-6 card-hover">
+            <div className="size-11 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 grid place-items-center mb-4">
+              <solution.icon className="size-5 text-foreground" />
+            </div>
+            <h3 className="text-xl font-semibold">{solution.title}</h3>
+            <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{solution.desc}</p>
+            <div className="mt-5 flex flex-wrap gap-2">
+              {solution.outcomes.map((outcome) => (
+                <span
+                  key={outcome}
+                  className="rounded-md border border-border bg-secondary px-2.5 py-1 text-xs text-secondary-foreground"
+                >
+                  {outcome}
+                </span>
+              ))}
+            </div>
+          </article>
         ))}
       </div>
     </Section>
@@ -2526,6 +2968,9 @@ export function Testimonials() {
             <figcaption className="mt-5 pt-5 border-t border-border">
               <div className="font-semibold text-sm">{t.name}</div>
               <div className="text-xs text-muted-foreground">{t.role}</div>
+              <div className="mt-3 inline-flex rounded-full border border-accent/25 bg-accent/10 px-3 py-1 text-xs font-medium text-accent">
+                {t.result}
+              </div>
             </figcaption>
           </figure>
         ))}
@@ -2728,6 +3173,7 @@ function Index() {
             <TrustedPartners />
             <Technologies />
             <Industries />
+            <IndustrySolutions />
             <Why />
             <Insights />
             <FAQ />
@@ -2742,6 +3188,7 @@ function Index() {
             <Projects />
             <Testimonials />
             <TrustedPartners />
+            <IndustrySolutions />
             <CTA />
           </>
         )}
