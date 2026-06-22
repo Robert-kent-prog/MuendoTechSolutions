@@ -968,16 +968,8 @@ function Nav() {
           <img
             src={LOGO_SRC}
             alt={`${COMPANY} logo`}
-            className="h-10 w-10 rounded-xl object-cover sm:h-11 sm:w-11 dark-logo"
+            className="h-10 w-auto max-w-[190px] rounded-md object-contain bg-white/95 px-1.5 py-1 sm:h-11 sm:max-w-[240px]"
           />
-          <img
-            src={LOGO_SRC}
-            alt={`${COMPANY} logo`}
-            className="h-10 w-10 rounded-xl object-cover sm:h-11 sm:w-11 light-logo"
-          />
-          <span className="min-w-0 truncate text-sm font-bold tracking-tight text-foreground xs:text-base sm:text-base">
-            {COMPANY}
-          </span>
         </a>
         <nav className="hidden lg:flex items-center gap-1">
           {NAV.map((n) => {
@@ -1709,14 +1701,8 @@ function Footer() {
               <img
                 src={LOGO_SRC}
                 alt={`${COMPANY} logo`}
-                className="h-16 w-16 rounded-2xl object-cover dark-logo"
+                className="h-16 w-auto max-w-full rounded-lg object-contain bg-white/95 px-2 py-1.5"
               />
-              <img
-                src={LOGO_SRC}
-                alt={`${COMPANY} logo`}
-                className="h-16 w-16 rounded-2xl object-cover light-logo"
-              />
-              <span className="font-bold">{COMPANY}</span>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Building reliable web, mobile, backend, and business software solutions from Nairobi,

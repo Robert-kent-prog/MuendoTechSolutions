@@ -1,0 +1,28 @@
+{
+  "name": "Muendo Tech Solutions",
+  "short_name": "Muendo Tech",
+  "description": "Software development, web apps, mobile apps, backend APIs, AI integrations, POS systems, and business platforms from Nairobi, Kenya.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#050b1e",
+  "theme_color": "#050b1e",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/maskable-icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}
