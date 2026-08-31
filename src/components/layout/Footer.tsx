@@ -106,8 +106,16 @@ export function Footer() {
             © {new Date().getFullYear()} {COMPANY}. All rights reserved.
           </div>
           <div className="flex gap-4">
-            <a href="/sitemap.xml" className="hover:text-foreground transition">
+            <a href="/sitemap" className="hover:text-foreground transition">
               Sitemap
+            </a>
+            <a
+              href="/sitemap.xml"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-foreground transition opacity-75"
+            >
+              XML Sitemap
             </a>
             <a href="/faq" className="hover:text-foreground transition">
               FAQ
