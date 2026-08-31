@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { COMPANY, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { FAQ } from "@/components/sections/FAQSection";
+import { CTA } from "@/components/sections/CTASection";
 import { FAQS } from "@/data/faqs";
 
 export const Route = createFileRoute("/faq")({
@@ -35,6 +36,7 @@ function FAQPage() {
     <PageShell>
       <main className="pt-16">
         <FAQ />
+        <CTA />
       </main>
     </PageShell>
   );

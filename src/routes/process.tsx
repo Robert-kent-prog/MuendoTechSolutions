@@ -3,6 +3,7 @@ import { COMPANY, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { Process } from "@/components/sections/ProcessSection";
 import { Why } from "@/components/sections/ServicePackagesSection";
+import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/process")({
   component: ProcessPage,
@@ -21,6 +22,7 @@ function ProcessPage() {
       <main className="pt-16">
         <Process />
         <Why />
+        <CTA />
       </main>
     </PageShell>
   );

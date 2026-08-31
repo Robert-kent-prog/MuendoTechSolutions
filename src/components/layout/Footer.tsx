@@ -42,7 +42,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub profile"
-                className="size-9 rounded-lg border border-border grid place-items-center hover:text-foreground hover:bg-secondary transition"
+                className="size-9 rounded-lg border border-border grid place-items-center hover:text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Github className="size-4" />
               </a>
@@ -51,7 +51,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn profile"
-                className="size-9 rounded-lg border border-border grid place-items-center hover:text-foreground hover:bg-secondary transition"
+                className="size-9 rounded-lg border border-border grid place-items-center hover:text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <Linkedin className="size-4" />
               </a>
@@ -60,7 +60,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="WhatsApp contact"
-                className="size-9 rounded-lg border border-border grid place-items-center hover:text-foreground hover:bg-secondary transition"
+                className="size-9 rounded-lg border border-border grid place-items-center hover:text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <MessageCircle className="size-4" />
               </a>
@@ -108,14 +108,6 @@ export function Footer() {
           <div className="flex gap-4">
             <a href="/sitemap" className="hover:text-foreground transition">
               Sitemap
-            </a>
-            <a
-              href="/sitemap.xml"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-foreground transition opacity-75"
-            >
-              XML Sitemap
             </a>
             <a href="/faq" className="hover:text-foreground transition">
               FAQ

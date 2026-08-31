@@ -3,6 +3,8 @@ import { COMPANY, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { About } from "@/components/sections/AboutSection";
 import { Team } from "@/components/sections/TeamSection";
+import { Why } from "@/components/sections/ServicePackagesSection";
+import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -21,6 +23,8 @@ function AboutPage() {
       <main className="pt-16">
         <About />
         <Team />
+        <Why />
+        <CTA />
       </main>
     </PageShell>
   );

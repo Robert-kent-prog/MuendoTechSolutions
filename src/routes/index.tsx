@@ -22,7 +22,7 @@ import { FAQ } from "@/components/sections/FAQSection";
 import { CTA } from "@/components/sections/CTASection";
 import { Contact } from "@/components/sections/ContactSection";
 
-// Re-export domain data and components for clean backwards compatibility
+// Re-export domain data and components for backwards compatibility
 export * from "@/data/nav";
 export * from "@/data/stats";
 export * from "@/data/testimonials";
@@ -90,26 +90,33 @@ function IndexPage() {
   return (
     <PageShell>
       <main>
+        {/* 1. High-Impact Asymmetric Hero */}
         <Hero />
+
+        {/* 2. Key Track Record Metrics */}
         <Counters />
+
+        {/* 3. Company Capability Teaser */}
         <About />
-        <Team />
+
+        {/* 4. Core Software Development Services */}
         <Services />
-        <ServicePackages />
-        <ServicePagePreview />
-        <Solutions />
-        <Why />
+
+        {/* 5. Proven Software Engineering Process */}
         <Process />
+
+        {/* 6. Featured Client Case Studies */}
         <Projects />
-        <Technologies />
-        <Industries />
-        <IndustrySolutions />
+
+        {/* 7. Client Reviews & Delivery Proof */}
         <Testimonials />
         <TrustedPartners />
+
+        {/* 8. Workshop Field Notes & Insights */}
         <Insights />
-        <FAQ />
+
+        {/* 9. High-Conversion Project CTA Driving to /contact */}
         <CTA />
-        <Contact />
       </main>
     </PageShell>
   );
