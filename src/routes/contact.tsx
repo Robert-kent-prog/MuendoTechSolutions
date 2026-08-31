@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-
 import { COMPANY, pageHead } from "@/lib/seo";
-import { Contact, PageShell } from "./index";
+import { PageShell } from "@/components/layout/PageShell";
+import { Contact } from "@/components/sections/ContactSection";
 
 export const Route = createFileRoute("/contact")({
   component: ContactPage,

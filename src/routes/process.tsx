@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-
 import { COMPANY, pageHead } from "@/lib/seo";
-import { PageShell, Process, Why } from "./index";
+import { PageShell } from "@/components/layout/PageShell";
+import { Process } from "@/components/sections/ProcessSection";
+import { Why } from "@/components/sections/ServicePackagesSection";
 
 export const Route = createFileRoute("/process")({
   component: ProcessPage,

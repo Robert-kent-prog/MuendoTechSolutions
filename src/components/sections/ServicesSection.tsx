@@ -1,0 +1,73 @@
+import { CheckCircle2, ArrowRight } from "lucide-react";
+import { Section } from "@/components/ui/SectionHeading";
+import { SERVICES, WEB_PRESENCE_SERVICES } from "@/data/services";
+import { contactProjectHref } from "@/lib/contact-project";
+
+export function Services() {
+  return (
+    <Section
+      id="services"
+      eyebrow="Services"
+      title="Complete Software & Web Capabilities"
+      subtitle="From core business software and mobile tools to web presence, SEO, and hosting support — we cover every layer needed to ship and operate modern software."
+    >
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {SERVICES.map((s) => {
+          const Icon = s.icon;
+          return (
+            <div key={s.title} className="glass rounded-2xl p-6 card-hover flex flex-col">
+              <div className="size-11 rounded-xl bg-primary/15 text-primary grid place-items-center mb-4">
+                <Icon className="size-5" />
+              </div>
+              <h3 className="font-semibold text-lg mb-2">{s.title}</h3>
+              <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{s.desc}</p>
+              <ul className="space-y-1.5 mt-auto pt-4 border-t border-border/50 text-xs text-muted-foreground">
+                {s.items.map((item) => (
+                  <li key={item} className="flex items-center gap-1.5">
+                    <CheckCircle2 className="size-3 text-accent shrink-0" />
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+
+      <div className="mt-16 pt-12 border-t border-border">
+        <div className="max-w-3xl mb-8">
+          <div className="text-xs uppercase tracking-[0.2em] text-accent font-semibold mb-2">
+            Web & Growth
+          </div>
+          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">
+            Web Presence, SEO & Maintenance
+          </h3>
+          <p className="mt-2 text-muted-foreground text-sm leading-relaxed">
+            For businesses that need a clean company website, landing pages, e-commerce, Google
+            visibility, or maintenance support without building a full enterprise app first.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {WEB_PRESENCE_SERVICES.map((item) => (
+            <div key={item.title} className="glass rounded-xl p-5 card-hover">
+              <h4 className="font-semibold text-sm text-foreground mb-1.5">{item.title}</h4>
+              <p className="text-xs text-muted-foreground leading-relaxed mb-4">{item.desc}</p>
+              <a
+                href={contactProjectHref({
+                  title: `Enquiry about ${item.title}`,
+                  service: item.title,
+                  source: "Web & Growth Services",
+                  message: `I would like to discuss ${item.title}.\n\nBusiness type:\n\nMain goals:\n\nTimeline:\n\nOther notes:`,
+                })}
+                className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"
+              >
+                Discuss {item.title} <ArrowRight className="size-3" />
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </Section>
+  );
+}

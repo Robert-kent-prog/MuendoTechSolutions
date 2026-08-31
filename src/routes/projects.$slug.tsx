@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
-
 import { contactProjectHref } from "@/lib/contact-project";
 import { COMPANY, SITE_URL, pageHead } from "@/lib/seo";
-import { CTA, PROJECT_CASE_STUDIES } from "./index";
+import { PageShell } from "@/components/layout/PageShell";
+import { PROJECT_CASE_STUDIES } from "@/data/projects";
+import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/projects/$slug")({
-  component: ProjectCaseStudyPage,
+  component: ProjectCaseStudyRoute,
   head: ({ params }) => {
     const project = PROJECT_CASE_STUDIES.find((item) => item.slug === params.slug);
 
@@ -43,6 +44,14 @@ export const Route = createFileRoute("/projects/$slug")({
     };
   },
 });
+
+function ProjectCaseStudyRoute() {
+  return (
+    <PageShell>
+      <ProjectCaseStudyPage />
+    </PageShell>
+  );
+}
 
 function ProjectCaseStudyPage() {
   const { slug } = Route.useParams();
@@ -126,7 +135,7 @@ function ProjectCaseStudyPage() {
                 </p>
                 <a
                   href={contactHref}
-                  className="mt-8 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-medium text-primary-foreground shadow-lg shadow-primary/30 transition hover:opacity-90"
+                  className="mt-8 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-medium text-primary-foreground shadow-lg shadow-primary/30 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   Build Something Similar <ArrowRight className="size-4" />
                 </a>

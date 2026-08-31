@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
-
 import { COMPANY, pageHead } from "@/lib/seo";
-import { Projects, Testimonials } from "./index";
+import { PageShell } from "@/components/layout/PageShell";
+import { Projects } from "@/components/sections/ProjectsSection";
+import { Testimonials } from "@/components/sections/TestimonialsSection";
 
 export const Route = createFileRoute("/projects/")({
   component: ProjectsIndexPage,
@@ -16,9 +17,11 @@ export const Route = createFileRoute("/projects/")({
 
 function ProjectsIndexPage() {
   return (
-    <>
-      <Projects />
-      <Testimonials />
-    </>
+    <PageShell>
+      <main className="pt-16">
+        <Projects />
+        <Testimonials />
+      </main>
+    </PageShell>
   );
 }

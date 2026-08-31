@@ -1,11 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, Calendar } from "lucide-react";
-
 import { COMPANY, SITE_URL, pageHead } from "@/lib/seo";
-import { CTA, INSIGHTS } from "./index";
+import { PageShell } from "@/components/layout/PageShell";
+import { INSIGHTS } from "@/data/insights";
+import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/blog/$slug")({
-  component: BlogArticlePage,
+  component: BlogArticleRoute,
   head: ({ params }) => {
     const post = INSIGHTS.find((item) => item.slug === params.slug);
 
@@ -52,6 +53,14 @@ export const Route = createFileRoute("/blog/$slug")({
     };
   },
 });
+
+function BlogArticleRoute() {
+  return (
+    <PageShell>
+      <BlogArticlePage />
+    </PageShell>
+  );
+}
 
 function BlogArticlePage() {
   const { slug } = Route.useParams();

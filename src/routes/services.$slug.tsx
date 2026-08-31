@@ -1,12 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
-
 import { contactProjectHref } from "@/lib/contact-project";
 import { COMPANY, SITE_URL, WHATSAPP, pageHead } from "@/lib/seo";
-import { CTA, SERVICE_DETAIL_PAGES } from "./index";
+import { PageShell } from "@/components/layout/PageShell";
+import { SERVICE_DETAIL_PAGES } from "@/data/services";
+import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/services/$slug")({
-  component: ServiceDetailPage,
+  component: ServiceDetailRoute,
   head: ({ params }) => {
     const service = SERVICE_DETAIL_PAGES.find((item) => item.slug === params.slug);
 
@@ -56,6 +57,14 @@ export const Route = createFileRoute("/services/$slug")({
     };
   },
 });
+
+function ServiceDetailRoute() {
+  return (
+    <PageShell>
+      <ServiceDetailPage />
+    </PageShell>
+  );
+}
 
 function ServiceDetailPage() {
   const { slug } = Route.useParams();
@@ -135,7 +144,7 @@ function ServiceDetailPage() {
               <div className="mt-8 flex flex-wrap gap-3">
                 <a
                   href={contactHref}
-                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-medium text-primary-foreground shadow-lg shadow-primary/30 transition hover:opacity-90"
+                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-medium text-primary-foreground shadow-lg shadow-primary/30 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   Start This Project <ArrowRight className="size-4" />
                 </a>
@@ -143,7 +152,7 @@ function ServiceDetailPage() {
                   href={`https://wa.me/${WHATSAPP.replace(/\D/g, "")}?text=${encodeURIComponent(whatsappText)}`}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-3 font-medium text-foreground transition hover:bg-secondary/50"
+                  className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-3 font-medium text-foreground transition hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
                   <MessageCircle className="size-4" /> Ask on WhatsApp
                 </a>

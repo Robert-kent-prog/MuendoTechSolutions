@@ -1,15 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-
 import { COMPANY, pageHead } from "@/lib/seo";
-import {
-  Industries,
-  IndustrySolutions,
-  ServicePackages,
-  ServicePagePreview,
-  Services,
-  Solutions,
-  Technologies,
-} from "./index";
+import { PageShell } from "@/components/layout/PageShell";
+import { Services } from "@/components/sections/ServicesSection";
+import { ServicePackages, ServicePagePreview, Solutions } from "@/components/sections/ServicePackagesSection";
+import { Technologies } from "@/components/sections/TechStackSection";
+import { Industries, IndustrySolutions } from "@/components/sections/IndustriesSection";
 
 export const Route = createFileRoute("/services/")({
   component: ServicesIndexPage,
@@ -24,14 +19,16 @@ export const Route = createFileRoute("/services/")({
 
 function ServicesIndexPage() {
   return (
-    <>
-      <Services />
-      <ServicePackages />
-      <ServicePagePreview />
-      <Solutions />
-      <Technologies />
-      <Industries />
-      <IndustrySolutions />
-    </>
+    <PageShell>
+      <main className="pt-16">
+        <Services />
+        <ServicePackages />
+        <ServicePagePreview />
+        <Solutions />
+        <Technologies />
+        <Industries />
+        <IndustrySolutions />
+      </main>
+    </PageShell>
   );
 }

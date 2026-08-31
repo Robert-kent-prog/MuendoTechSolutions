@@ -1,14 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Calendar } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-
 import { COMPANY, pageHead } from "@/lib/seo";
-import { BLOG_CATEGORIES, CTA, INSIGHTS } from "./index";
+import { PageShell } from "@/components/layout/PageShell";
+import { BLOG_CATEGORIES, INSIGHTS } from "@/data/insights";
+import { CTA } from "@/components/sections/CTASection";
 
 const POSTS_PER_PAGE = 6;
 
 export const Route = createFileRoute("/blog/")({
-  component: BlogIndexPage,
+  component: BlogIndexRoute,
   head: () =>
     pageHead({
       title: `Software Development Blog | ${COMPANY}`,
@@ -17,6 +18,14 @@ export const Route = createFileRoute("/blog/")({
       path: "/blog",
     }),
 });
+
+function BlogIndexRoute() {
+  return (
+    <PageShell>
+      <BlogIndexPage />
+    </PageShell>
+  );
+}
 
 function BlogIndexPage() {
   const [activeCategory, setActiveCategory] = useState("All Posts");
@@ -65,7 +74,7 @@ function BlogIndexPage() {
                   key={category}
                   type="button"
                   onClick={() => setActiveCategory(category)}
-                  className={`rounded-full border px-3.5 py-2 text-sm transition ${
+                  className={`rounded-full border px-3.5 py-2 text-sm transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                     isActive
                       ? "border-primary bg-primary text-primary-foreground"
                       : "border-border bg-secondary/40 text-muted-foreground hover:text-foreground"
