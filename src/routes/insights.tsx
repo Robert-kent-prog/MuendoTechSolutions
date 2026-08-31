@@ -1,4 +1,5 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
+import { COMPANY } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { Insights } from "@/components/sections/InsightsSection";
 
@@ -8,7 +9,7 @@ export const Route = createFileRoute("/insights")({
   },
   component: InsightsPage,
   head: () => ({
-    meta: [{ title: "Insights | Muendo Tech Solutions" }],
+    meta: [{ title: `Insights | ${COMPANY}` }],
   }),
 });
 

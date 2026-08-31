@@ -61,7 +61,7 @@ export const INSIGHTS: InsightItem[] = [
         heading: "A Practical Rule For New Builds",
         paragraphs: [
           "If the product needs fast validation, frequent interface changes, a smaller budget, and a small engineering team, MERN is usually a strong default. If the product is closer to core banking logic, high-volume account operations, insurance workflows, regulated data, or complex internal approvals, Spring Boot deserves serious consideration.",
-          "At Muendo Tech Solutions, we also look at the client team. If the person who will support the product is more comfortable with JavaScript, a Java stack can become expensive even when it is technically solid. If the client already has Java developers or enterprise systems, forcing a JavaScript stack can create avoidable operational friction.",
+          "At Muendo Software Labs, we also look at the client team. If the person who will support the product is more comfortable with JavaScript, a Java stack can become expensive even when it is technically solid. If the client already has Java developers or enterprise systems, forcing a JavaScript stack can create avoidable operational friction.",
         ],
       },
     ],
@@ -184,7 +184,7 @@ export const INSIGHTS: InsightItem[] = [
         heading: "Our Deployment Checklist",
         paragraphs: [
           "Before choosing infrastructure, we check the framework, backend runtime, database needs, file uploads, expected traffic, admin access, payment callbacks, email or SMS integrations, and whether background jobs are required. Those details quickly reveal whether a managed platform or a controlled server is the better fit.",
-          "For many Muendo Tech Solutions projects, the best answer is a hybrid: Vercel for the frontend, a managed database, Cloudflare for DNS and protection, and a separate backend environment when the API needs more control. The goal is to keep deployment reliable without overbuilding the operations layer.",
+          "For many Muendo Software Labs projects, the best answer is a hybrid: Vercel for the frontend, a managed database, Cloudflare for DNS and protection, and a separate backend environment when the API needs more control. The goal is to keep deployment reliable without overbuilding the operations layer.",
         ],
       },
     ],
@@ -314,7 +314,7 @@ export const INSIGHTS: InsightItem[] = [
         heading: "Do Not Forget Maintenance",
         paragraphs: [
           "A website is not finished just because it is live. Forms need checking, pages need updates, hosting needs monitoring, security headers and dependencies need attention, and business details can change. For serious companies, maintenance should be part of the plan, especially when the site brings leads or handles orders.",
-          "At Muendo Tech Solutions, we prefer pricing that is honest about ownership. The client should know what is included, what is optional, what happens after launch, and whether future edits are billed hourly, monthly, or per feature. A clear scope prevents disappointment and makes the project easier to maintain.",
+          "At Muendo Software Labs, we prefer pricing that is honest about ownership. The client should know what is included, what is optional, what happens after launch, and whether future edits are billed hourly, monthly, or per feature. A clear scope prevents disappointment and makes the project easier to maintain.",
         ],
       },
     ],
@@ -362,7 +362,7 @@ export const INSIGHTS: InsightItem[] = [
         heading: "Track What Matters",
         paragraphs: [
           "Analytics should answer practical business questions. Which pages bring enquiries? Which blog posts get organic traffic? Which service pages have high exits? Which devices are most common? Without that visibility, website decisions become guesswork.",
-          "For Muendo Tech clients, a maintenance plan can include monthly checks, small content updates, form testing, uptime reviews, SEO edits, and technical improvements. The exact scope depends on how much the business depends on the website for leads, sales, bookings, or support.",
+          "For Muendo Software Labs clients, a maintenance plan can include monthly checks, small content updates, form testing, uptime reviews, SEO edits, and technical improvements. The exact scope depends on how much the business depends on the website for leads, sales, bookings, or support.",
         ],
       },
     ],
@@ -410,7 +410,7 @@ export const INSIGHTS: InsightItem[] = [
         heading: "How To Choose The First Build",
         paragraphs: [
           "If the business lacks credibility online, start with a website. If the business already gets leads but struggles to manage operations, start with a web app or internal dashboard. If the business sells products, decide whether the first version needs a full checkout or a lighter catalog-to-WhatsApp flow.",
-          "Muendo Tech Solutions can build both, but the recommendation should follow the business bottleneck. Build the thing that removes the most friction first, then grow from there. A good first release should be useful on its own and still leave room for the next phase.",
+          "Muendo Software Labs can build both, but the recommendation should follow the business bottleneck. Build the thing that removes the most friction first, then grow from there. A good first release should be useful on its own and still leave room for the next phase.",
         ],
       },
     ],

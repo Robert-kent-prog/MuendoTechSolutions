@@ -7,7 +7,7 @@ describe("contactBriefSchema", () => {
       name: "Robert Muendo",
       email: "robert@company.co.ke",
       phone: "+254 793 587 026",
-      company: "Muendo Tech Solutions",
+      company: "Muendo Software Labs",
       service: "Business System",
       budget: "KES 150,000 – 400,000",
       message: "We need a custom inventory management system for our retail shop.",

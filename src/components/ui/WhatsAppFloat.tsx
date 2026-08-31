@@ -1,11 +1,11 @@
 import { MessageCircle } from "lucide-react";
-import { WHATSAPP } from "@/lib/seo";
+import { COMPANY, WHATSAPP } from "@/lib/seo";
 
 export function WhatsAppFloat() {
   return (
     <a
       href={`https://wa.me/${WHATSAPP.replace(/\D/g, "")}?text=${encodeURIComponent(
-        "Hello Muendo Tech Solutions, I would like to enquire about a software development project.",
+        `Hello ${COMPANY}, I would like to enquire about a software development project.`,
       )}`}
       target="_blank"
       rel="noopener noreferrer"

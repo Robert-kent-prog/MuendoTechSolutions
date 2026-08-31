@@ -11,7 +11,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Founder, Machakos Retail SME",
     result: "Cleaner sales and profit visibility",
     quote:
-      "Muendo Tech rebuilt our bookkeeping flow into a clean web platform. Daily sales, expenses, and profit are now one click away. Easy to work with and very responsive.",
+      "Muendo Software Labs rebuilt our bookkeeping flow into a clean web platform. Daily sales, expenses, and profit are now one click away. Easy to work with and very responsive.",
   },
   {
     name: "Yvonne Wanjiru",
@@ -25,7 +25,7 @@ export const TESTIMONIALS: Testimonial[] = [
     role: "Digital Agency Client",
     result: "Clearer agency website and booking flow",
     quote:
-      "Muendo Tech helped shape Xelvora's website into a clear digital agency platform with services, products, portfolio, blogs, and a strong booking flow. The execution was practical and reliable.",
+      "Muendo Software Labs helped shape Xelvora's website into a clear digital agency platform with services, products, portfolio, blogs, and a strong booking flow. The execution was practical and reliable.",
   },
 ];
 
