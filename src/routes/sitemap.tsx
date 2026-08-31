@@ -13,7 +13,7 @@ export const Route = createFileRoute("/sitemap")({
     pageHead({
       title: `HTML Sitemap | ${COMPANY}`,
       description:
-        "Comprehensive page index of Muendo Tech Solutions: explore our core pages, software development services, project case studies, technical field notes, and contact options.",
+        "Comprehensive page index of Muendo Software Labs: explore our core pages, software development services, project case studies, technical field notes, and contact options.",
       path: "/sitemap",
     }),
 });

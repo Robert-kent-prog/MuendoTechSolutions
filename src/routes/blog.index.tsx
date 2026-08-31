@@ -14,7 +14,7 @@ export const Route = createFileRoute("/blog/")({
     pageHead({
       title: `Software Development Blog | ${COMPANY}`,
       description:
-        "Read practical software development notes from Muendo Tech Solutions covering Kenyan business websites, SEO, M-Pesa, POS systems, AI automation, deployment, MVP planning, security, and backend architecture.",
+        "Read practical software development notes from Muendo Software Labs covering Kenyan business websites, SEO, M-Pesa, POS systems, AI automation, deployment, MVP planning, security, and backend architecture.",
       path: "/blog",
     }),
 });

@@ -1,13 +1,13 @@
-export const COMPANY = "Muendo Tech Solutions";
+export const COMPANY = "Muendo Software Labs";
 export const SITE_URL = "https://muendo-tech-solutions.vercel.app";
 export const SITE_IMAGE = `${SITE_URL}/og-image.png`;
-export const EMAIL = "muendotechsolutions@gmail.com";
+export const EMAIL = "muendosoftwarelabs@gmail.com";
 export const WHATSAPP = "+254793587026";
 export const GITHUB = "Robert-kent-prog";
 export const LINKEDIN = "robert-muendo-0329a0285";
 
 export const defaultDescription =
-  "Muendo Tech Solutions is a Nairobi-based software development company building reliable web apps, mobile apps, backend APIs, AI integrations, POS systems, and business software for SMEs and institutions in Kenya.";
+  "Muendo Software Labs is a Nairobi-based software development company building reliable web apps, mobile apps, backend APIs, AI integrations, POS systems, and business software for SMEs and institutions in Kenya.";
 
 export function absoluteUrl(path = "/") {
   return `${SITE_URL}${path === "/" ? "" : path}`;

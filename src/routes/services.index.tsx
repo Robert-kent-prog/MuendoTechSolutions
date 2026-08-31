@@ -13,7 +13,7 @@ export const Route = createFileRoute("/services/")({
     pageHead({
       title: `Software Development Services | ${COMPANY}`,
       description:
-        "Explore Muendo Tech Solutions services: business websites, e-commerce websites, SEO setup, web app development, mobile apps, backend APIs, POS systems, Laravel, Django, Spring Boot, AI integrations, and maintenance.",
+        "Explore Muendo Software Labs services: business websites, e-commerce websites, SEO setup, web app development, mobile apps, backend APIs, POS systems, Laravel, Django, Spring Boot, AI integrations, and maintenance.",
       path: "/services",
     }),
 });

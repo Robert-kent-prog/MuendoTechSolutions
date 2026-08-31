@@ -11,7 +11,7 @@ export const Route = createFileRoute("/process")({
     pageHead({
       title: `Software Development Process | ${COMPANY}`,
       description:
-        "Learn how Muendo Tech Solutions plans, designs, builds, tests, deploys, and supports reliable software products for businesses, schools, startups, and SMEs.",
+        "Learn how Muendo Software Labs plans, designs, builds, tests, deploys, and supports reliable software products for businesses, schools, startups, and SMEs.",
       path: "/process",
     }),
 });

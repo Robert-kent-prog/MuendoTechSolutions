@@ -12,7 +12,7 @@ export const Route = createFileRoute("/about")({
     pageHead({
       title: `About ${COMPANY} | Nairobi Software Development Team`,
       description:
-        "Meet Muendo Tech Solutions, a Nairobi-based software development team building web apps, mobile apps, backend APIs, business systems, AI integrations, and payment-ready platforms.",
+        "Meet Muendo Software Labs, a Nairobi-based software development team building web apps, mobile apps, backend APIs, business systems, AI integrations, and payment-ready platforms.",
       path: "/about",
     }),
 });

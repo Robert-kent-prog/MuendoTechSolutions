@@ -9,7 +9,7 @@ export const Route = createFileRoute("/contact")({
     pageHead({
       title: `Contact ${COMPANY} | Request a Software Project Quote`,
       description:
-        "Contact Muendo Tech Solutions in Nairobi to discuss a website, mobile app, backend API, POS system, business platform, AI integration, or deployment support.",
+        "Contact Muendo Software Labs in Nairobi to discuss a website, mobile app, backend API, POS system, business platform, AI integration, or deployment support.",
       path: "/contact",
     }),
 });

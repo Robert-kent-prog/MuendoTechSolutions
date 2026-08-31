@@ -10,7 +10,7 @@ export const Route = createFileRoute("/projects/")({
     pageHead({
       title: `Software Projects and Case Studies | ${COMPANY}`,
       description:
-        "View Muendo Tech Solutions project references across service marketplaces, fleet management, document systems, AI integrations, vaccination tracking, bookkeeping, websites, and e-commerce.",
+        "View Muendo Software Labs project references across service marketplaces, fleet management, document systems, AI integrations, vaccination tracking, bookkeeping, websites, and e-commerce.",
       path: "/projects",
     }),
 });

@@ -11,7 +11,7 @@ export const Route = createFileRoute("/faq")({
     ...pageHead({
       title: `Software Development FAQ | ${COMPANY}`,
       description:
-        "Answers to common questions about Muendo Tech Solutions pricing, timelines, M-Pesa integration, source-code ownership, retainers, deployment, training, and support.",
+        "Answers to common questions about Muendo Software Labs pricing, timelines, M-Pesa integration, source-code ownership, retainers, deployment, training, and support.",
       path: "/faq",
     }),
     scripts: [

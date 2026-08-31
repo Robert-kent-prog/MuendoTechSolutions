@@ -14,7 +14,7 @@ export const TEAM: TeamMember[] = [
     name: "Robert Muendo",
     role: "Founder & Lead Software Architect",
     experience: "Lead Engineer · Production Systems Since 2023",
-    bio: "Software architect and engineering lead directing overall technical strategy, client solutions, and core application development at Muendo Tech Solutions. Specializes in full-stack web and mobile architecture, backend systems (Node.js, Python/Django, Spring Boot), database design, M-Pesa payment gateways, and cloud deployment pipelines. Works directly with business founders and operations leads to translate complex requirements into scalable, production-ready software.",
+    bio: "Software architect and engineering lead directing overall technical strategy, client solutions, and core application development at Muendo Software Labs. Specializes in full-stack web and mobile architecture, backend systems (Node.js, Python/Django, Spring Boot), database design, M-Pesa payment gateways, and cloud deployment pipelines. Works directly with business founders and operations leads to translate complex requirements into scalable, production-ready software.",
     featuredQuote: "Software should be simple for users, resilient in production, and built to solve real business bottlenecks.",
     focus: [
       "Full-Stack Architecture",
