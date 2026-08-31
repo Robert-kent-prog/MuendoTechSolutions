@@ -4,59 +4,12 @@ import { PageShell } from "@/components/layout/PageShell";
 import { Hero } from "@/components/sections/Hero";
 import { Counters } from "@/components/sections/CountersSection";
 import { About } from "@/components/sections/AboutSection";
-import { Team } from "@/components/sections/TeamSection";
 import { Services } from "@/components/sections/ServicesSection";
-import {
-  ServicePackages,
-  ServicePagePreview,
-  Solutions,
-  Why,
-} from "@/components/sections/ServicePackagesSection";
 import { Process } from "@/components/sections/ProcessSection";
 import { Projects } from "@/components/sections/ProjectsSection";
-import { Technologies } from "@/components/sections/TechStackSection";
-import { Industries, IndustrySolutions } from "@/components/sections/IndustriesSection";
 import { Testimonials, TrustedPartners } from "@/components/sections/TestimonialsSection";
 import { Insights } from "@/components/sections/InsightsSection";
-import { FAQ } from "@/components/sections/FAQSection";
 import { CTA } from "@/components/sections/CTASection";
-import { Contact } from "@/components/sections/ContactSection";
-
-// Re-export domain data and components for backwards compatibility
-export * from "@/data/nav";
-export * from "@/data/stats";
-export * from "@/data/testimonials";
-export * from "@/data/team";
-export * from "@/data/faqs";
-export * from "@/data/insights";
-export * from "@/data/services";
-export * from "@/data/technologies";
-export * from "@/data/projects";
-export * from "@/data/industries";
-
-export {
-  PageShell,
-  Hero,
-  Counters,
-  About,
-  Team,
-  Services,
-  ServicePackages,
-  ServicePagePreview,
-  Solutions,
-  Why,
-  Process,
-  Projects,
-  Technologies,
-  Industries,
-  IndustrySolutions,
-  Testimonials,
-  TrustedPartners,
-  Insights,
-  FAQ,
-  CTA,
-  Contact,
-};
 
 const HOME_HEAD = pageHead({
   title: `${COMPANY} — Software Development Company in Nairobi, Kenya`,
@@ -121,5 +74,3 @@ function IndexPage() {
     </PageShell>
   );
 }
-
-export default IndexPage;
