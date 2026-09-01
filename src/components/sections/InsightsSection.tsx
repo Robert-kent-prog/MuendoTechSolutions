@@ -14,10 +14,15 @@ export function Insights() {
       subtitle="Short, practical write-ups on the tools and decisions behind the systems we build."
     >
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
-        {INSIGHTS.map((p) => {
+        {INSIGHTS.map((p, idx) => {
           const isOpen = openNote === p.title;
           return (
-            <article key={p.title} className="glass rounded-2xl p-7 card-hover flex flex-col">
+            <article
+              key={p.title}
+              className={`glass rounded-2xl p-7 card-hover flex-col ${
+                idx >= 3 ? (idx >= 6 ? "hidden" : "hidden md:flex") : "flex"
+              }`}
+            >
               <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
                 <span className="text-accent font-semibold uppercase tracking-wider">{p.tag}</span>
                 <span className="inline-flex items-center gap-1">
@@ -53,6 +58,15 @@ export function Insights() {
             </article>
           );
         })}
+      </div>
+
+      <div className="mt-12 text-center">
+        <a
+          href="/blog"
+          className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
+        >
+          View All Articles <ArrowRight className="size-4" />
+        </a>
       </div>
     </Section>
   );

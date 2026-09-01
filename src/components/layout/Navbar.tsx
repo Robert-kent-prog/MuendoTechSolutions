@@ -73,12 +73,11 @@ export function Navbar() {
         <div className="lg:hidden border-t border-border bg-background/95 backdrop-blur">
           <div className="px-4 py-4 flex flex-col gap-1">
             {NAV.map((n) => {
-              const mobileHref = n.mobileHref ?? n.href;
               const isActive = location.pathname === n.href;
               return (
                 <a
                   key={n.href}
-                  href={mobileHref}
+                  href={n.href}
                   onClick={() => setOpen(false)}
                   className={`text-sm py-2 px-3 rounded-md transition-colors ${
                     isActive
@@ -91,7 +90,7 @@ export function Navbar() {
               );
             })}
             <a
-              href="/#contact"
+              href="/contact"
               onClick={() => setOpen(false)}
               className="mt-2 inline-flex items-center justify-center gap-2 text-sm font-medium px-4 py-2 rounded-lg bg-primary text-primary-foreground"
             >

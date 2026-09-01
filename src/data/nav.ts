@@ -9,12 +9,12 @@ export const EMPTY_CONTACT_PREFILL = {
 };
 
 export const NAV = [
-  { label: "Home", href: "/", mobileHref: "/#home" },
-  { label: "About", href: "/about", mobileHref: "/#about" },
-  { label: "Services", href: "/services", mobileHref: "/#services" },
-  { label: "Projects", href: "/projects", mobileHref: "/#projects" },
-  { label: "Process", href: "/process", mobileHref: "/#process" },
-  { label: "Blog", href: "/blog", mobileHref: "/#insights" },
-  { label: "FAQ", href: "/faq", mobileHref: "/#faq" },
-  { label: "Contact", href: "/contact", mobileHref: "/#contact" },
+  { label: "Home", href: "/" },
+  { label: "About", href: "/about" },
+  { label: "Services", href: "/services" },
+  { label: "Projects", href: "/projects" },
+  { label: "Process", href: "/process" },
+  { label: "Blog", href: "/blog" },
+  { label: "FAQ", href: "/faq" },
+  { label: "Contact", href: "/contact" },
 ];

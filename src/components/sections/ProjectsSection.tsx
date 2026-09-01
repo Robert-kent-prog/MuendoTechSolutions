@@ -11,10 +11,15 @@ export function Projects() {
       subtitle="A look at production systems we've designed, engineered, and deployed for real operational use."
     >
       <div className="grid md:grid-cols-2 gap-5">
-        {PROJECTS.map((p) => {
+        {PROJECTS.map((p, idx) => {
           const caseStudy = PROJECT_CASE_STUDIES.find((study) => study.title === p.title);
           return (
-            <article key={p.title} className="glass rounded-2xl p-7 card-hover">
+            <article
+              key={p.title}
+              className={`glass rounded-2xl p-7 card-hover ${
+                idx >= 4 ? "hidden md:block" : "block"
+              }`}
+            >
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-xs font-semibold uppercase tracking-wider text-accent">
                   {p.tag}
@@ -55,6 +60,15 @@ export function Projects() {
             </article>
           );
         })}
+      </div>
+
+      <div className="mt-12 text-center">
+        <a
+          href="/projects"
+          className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
+        >
+          View All Projects <ArrowRight className="size-4" />
+        </a>
       </div>
     </Section>
   );

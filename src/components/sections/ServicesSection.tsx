@@ -12,10 +12,15 @@ export function Services() {
       subtitle="From core business software and mobile tools to web presence, SEO, and hosting support — we cover every layer needed to ship and operate modern software."
     >
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {SERVICES.map((s) => {
+        {SERVICES.map((s, idx) => {
           const Icon = s.icon;
           return (
-            <div key={s.title} className="glass rounded-2xl p-6 card-hover flex flex-col">
+            <div
+              key={s.title}
+              className={`glass rounded-2xl p-6 card-hover flex-col ${
+                idx >= 6 ? "hidden md:flex" : "flex"
+              }`}
+            >
               <div className="size-11 rounded-xl bg-primary/15 text-primary grid place-items-center mb-4">
                 <Icon className="size-5" />
               </div>
@@ -49,8 +54,13 @@ export function Services() {
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {WEB_PRESENCE_SERVICES.map((item) => (
-            <div key={item.title} className="glass rounded-xl p-5 card-hover">
+          {WEB_PRESENCE_SERVICES.map((item, idx) => (
+            <div
+              key={item.title}
+              className={`glass rounded-xl p-5 card-hover ${
+                idx >= 4 ? "hidden md:block" : "block"
+              }`}
+            >
               <h4 className="font-semibold text-sm text-foreground mb-1.5">{item.title}</h4>
               <p className="text-xs text-muted-foreground leading-relaxed mb-4">{item.desc}</p>
               <a
@@ -66,6 +76,15 @@ export function Services() {
               </a>
             </div>
           ))}
+        </div>
+
+        <div className="mt-12 text-center">
+          <a
+            href="/services"
+            className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
+          >
+            View All Services <ArrowRight className="size-4" />
+          </a>
         </div>
       </div>
     </Section>

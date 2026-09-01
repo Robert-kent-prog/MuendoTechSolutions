@@ -9,6 +9,7 @@ import { Process } from "@/components/sections/ProcessSection";
 import { Projects } from "@/components/sections/ProjectsSection";
 import { Testimonials, TrustedPartners } from "@/components/sections/TestimonialsSection";
 import { Insights } from "@/components/sections/InsightsSection";
+import { FAQ } from "@/components/sections/FAQSection";
 import { CTA } from "@/components/sections/CTASection";
 
 const HOME_HEAD = pageHead({
@@ -68,7 +69,10 @@ function IndexPage() {
         {/* 8. Workshop Field Notes & Insights */}
         <Insights />
 
-        {/* 9. High-Conversion Project CTA Driving to /contact */}
+        {/* 9. Frequently Asked Questions */}
+        <FAQ />
+
+        {/* 10. High-Conversion Project CTA Driving to /contact */}
         <CTA />
       </main>
     </PageShell>

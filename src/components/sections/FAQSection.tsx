@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HelpCircle, ChevronDown } from "lucide-react";
+import { HelpCircle, ChevronDown, ArrowRight } from "lucide-react";
 import { Section } from "@/components/ui/SectionHeading";
 import { FAQS } from "@/data/faqs";
 
@@ -16,7 +16,12 @@ export function FAQ() {
         {FAQS.map((f, i) => {
           const isOpen = open === i;
           return (
-            <div key={f.q} className="glass rounded-xl overflow-hidden">
+            <div
+              key={f.q}
+              className={`glass rounded-xl overflow-hidden ${
+                i >= 5 ? "hidden md:block" : "block"
+              }`}
+            >
               <button
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
@@ -38,6 +43,15 @@ export function FAQ() {
             </div>
           );
         })}
+      </div>
+
+      <div className="mt-8">
+        <a
+          href="/faq"
+          className="inline-flex items-center justify-center gap-2 text-sm font-medium px-5 py-2.5 rounded-lg border border-border bg-secondary/40 text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          View All FAQs <ArrowRight className="size-4" />
+        </a>
       </div>
     </Section>
   );

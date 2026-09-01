@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import { Section } from "@/components/ui/SectionHeading";
 import { PROCESS } from "@/data/services";
 
@@ -31,6 +32,14 @@ export function Process() {
             </div>
           ))}
         </div>
+      </div>
+      <div className="mt-8">
+        <a
+          href="/process"
+          className="inline-flex items-center justify-center gap-2 text-sm font-medium px-5 py-2.5 rounded-lg border border-border bg-secondary/40 text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          View Full Engineering Process <ArrowRight className="size-4" />
+        </a>
       </div>
     </Section>
   );
