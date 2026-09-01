@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://muendo-tech-solutions.vercel.app/sitemap.xml
-Host: muendo-tech-solutions.vercel.app
+Sitemap: https://muendosoftwarelabs.co.ke/sitemap.xml
+Host: muendosoftwarelabs.co.ke
