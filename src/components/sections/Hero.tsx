@@ -8,13 +8,13 @@ export function Hero() {
       id="home"
       className="relative scroll-mt-16 pt-28 pb-20 sm:pt-36 sm:pb-28 bg-hero-gradient overflow-hidden"
     >
-      <div className="absolute inset-0 grid-bg opacity-60 pointer-events-none" />
+      <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-12 gap-12 lg:items-center">
           {/* Left Column: Asymmetric 7-cols */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 glass rounded-full px-3.5 py-1.5 text-xs text-muted-foreground">
-              <Sparkles className="size-3.5 text-accent" />
+            <div className="inline-flex items-center gap-2 glass rounded-full px-3.5 py-1.5 text-xs text-muted-foreground tracking-wide uppercase font-semibold">
+              <span className="size-2 rounded-full bg-accent animate-pulse" />
               Software Development Company · Nairobi, Kenya
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.08]">
@@ -22,9 +22,8 @@ export function Hero() {
               <br className="hidden sm:block" /> for Your Business
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
-              We design and develop modern web applications, mobile apps, backend systems, APIs, and
-              database-driven platforms for businesses, startups, schools, retail operations, and
-              service providers across Kenya and beyond.
+              We design and build custom software that replaces manual workflows, connects your
+              operations, and gives your business reliable digital systems to operate and scale with confidence.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <a
@@ -70,7 +69,7 @@ export function Hero() {
                   <div className="size-3 rounded-full bg-primary/60" />
                 </div>
                 <div className="text-xs font-mono text-muted-foreground flex items-center gap-1.5">
-                  <Terminal className="size-3.5 text-accent" /> muendo-tech-stack.ts
+                  <Terminal className="size-3.5 text-accent" /> muendo-architecture.ts
                 </div>
               </div>
 
@@ -79,45 +78,56 @@ export function Hero() {
                   <Code2 className="size-4 text-primary shrink-0" /> Full-Stack Architecture
                 </div>
                 <p className="text-muted-foreground pl-6">
-                  React 19 · React Native · Node.js · Express · TypeScript · Python · Django · Spring Boot
+                  React 19 · React Native · TypeScript · Node.js · Express · Python FastAPI
                 </p>
 
                 <div className="flex items-center gap-2 text-foreground font-semibold pt-2">
                   <Database className="size-4 text-accent shrink-0" /> Database & Storage
                 </div>
                 <p className="text-muted-foreground pl-6">
-                  MongoDB · PostgreSQL · MySQL · Redis · Cloud Storage
+                  PostgreSQL · MongoDB · MySQL · Redis · Cloud Storage
                 </p>
 
                 <div className="flex items-center gap-2 text-foreground font-semibold pt-2">
-                  <ShieldCheck className="size-4 text-emerald-400 shrink-0" /> Security & Production Baseline
+                  <ShieldCheck className="size-4 text-emerald-400 shrink-0" /> Security & Integrations
                 </div>
                 <p className="text-muted-foreground pl-6">
-                  M-Pesa Daraja · JWT RBAC · Zod Validation · Audit Logging · Linux VPS / Vercel
+                  M-Pesa Daraja · JWT Auth & RBAC · Zod Validation · Audit Logging · Linux / Vercel
                 </p>
               </div>
 
               <div className="pt-3 border-t border-border flex items-center justify-between text-xs text-muted-foreground">
                 <span className="flex items-center gap-1.5">
-                  <Server className="size-3.5 text-accent" /> 100% Production Ready
+                  <Server className="size-3.5 text-accent" /> Production-Focused Engineering
                 </span>
-                <span className="text-accent font-medium">Verified Built in Kenya</span>
+                <span className="text-accent font-medium">Engineered in Nairobi, Kenya</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Feature Highlights Banner */}
-        <div className="mt-14 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          {HERO_HIGHLIGHTS.map((h) => (
-            <div
-              key={h}
-              className="glass card-hover rounded-xl px-3.5 py-2.5 flex items-center gap-2 text-xs"
-            >
-              <CheckCircle2 className="size-3.5 text-accent shrink-0" />
-              <span className="text-foreground/90 font-medium truncate">{h}</span>
-            </div>
-          ))}
+        {/* Capability Strip */}
+        <div className="mt-14 pt-8 border-t border-border/60">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 text-xs sm:text-sm text-muted-foreground font-medium">
+            <span className="flex items-center gap-2 text-foreground">
+              <span className="size-1.5 rounded-full bg-accent" /> Web Applications
+            </span>
+            <span className="flex items-center gap-2 text-foreground">
+              <span className="size-1.5 rounded-full bg-accent" /> Mobile Apps
+            </span>
+            <span className="flex items-center gap-2 text-foreground">
+              <span className="size-1.5 rounded-full bg-accent" /> Backend APIs
+            </span>
+            <span className="flex items-center gap-2 text-foreground">
+              <span className="size-1.5 rounded-full bg-accent" /> Business Systems
+            </span>
+            <span className="flex items-center gap-2 text-foreground">
+              <span className="size-1.5 rounded-full bg-accent" /> M-Pesa & Integrations
+            </span>
+            <span className="flex items-center gap-2 text-foreground">
+              <span className="size-1.5 rounded-full bg-accent" /> Deployment & Maintenance
+            </span>
+          </div>
         </div>
       </div>
     </section>
