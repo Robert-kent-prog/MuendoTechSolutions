@@ -5,6 +5,7 @@ import { COMPANY } from "@/lib/seo";
 import { contactProjectHref } from "@/lib/contact-project";
 import { NAV, LOGO_SRC } from "@/data/nav";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
+import { Logo } from "@/components/ui/Logo";
 
 export function Navbar() {
   const [open, setOpen] = useState(false);
@@ -14,11 +15,7 @@ export function Navbar() {
     <header className="fixed top-0 inset-x-0 z-50 nav-glass">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <a href="/" className="flex min-w-0 items-center gap-2 group" aria-label={COMPANY}>
-          <img
-            src={LOGO_SRC}
-            alt={`${COMPANY} logo`}
-            className="h-10 w-auto max-w-[190px] rounded-md object-contain bg-white/95 px-1.5 py-1 sm:h-11 sm:max-w-[240px]"
-          />
+          <Logo />
         </a>
         <nav className="hidden lg:flex items-center gap-1" aria-label="Main Navigation">
           {NAV.map((n) => {

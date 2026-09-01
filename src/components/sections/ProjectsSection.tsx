@@ -17,7 +17,7 @@ export function Projects({ showViewAll = false }: { showViewAll?: boolean } = {}
             <article
               key={p.title}
               className={`glass rounded-2xl p-7 card-hover ${
-                showViewAll && idx >= 4 ? "hidden md:block" : "block"
+                showViewAll && idx >= 6 ? "hidden" : "block"
               }`}
             >
               <div className="flex items-center gap-2 mb-3">

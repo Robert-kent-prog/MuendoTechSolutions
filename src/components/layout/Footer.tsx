@@ -1,6 +1,7 @@
 import { Mail, Phone, MapPin, Github, Linkedin, MessageCircle } from "lucide-react";
 import { COMPANY, EMAIL, GITHUB, LINKEDIN, SITE_URL, WHATSAPP } from "@/lib/seo";
-import { WHATSAPP_DISPLAY, LOGO_SRC } from "@/data/nav";
+import { WHATSAPP_DISPLAY } from "@/data/nav";
+import { Logo } from "@/components/ui/Logo";
 
 function FooterCol({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
@@ -26,11 +27,7 @@ export function Footer() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           <div className="col-span-2 space-y-4">
             <a href="/" className="flex items-center gap-2" aria-label={COMPANY}>
-              <img
-                src={LOGO_SRC}
-                alt={`${COMPANY} logo`}
-                className="h-10 w-auto max-w-[210px] rounded-md object-contain bg-white/95 px-1.5 py-1"
-              />
+              <Logo />
             </a>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
               Software development company based in Nairobi, Kenya. Building web apps, mobile products,
