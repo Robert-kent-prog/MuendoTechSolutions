@@ -2,7 +2,7 @@ import { ArrowRight } from "lucide-react";
 import { Section } from "@/components/ui/SectionHeading";
 import { PROJECTS, PROJECT_CASE_STUDIES } from "@/data/projects";
 
-export function Projects() {
+export function Projects({ showViewAll = false }: { showViewAll?: boolean } = {}) {
   return (
     <Section
       id="projects"
@@ -17,7 +17,7 @@ export function Projects() {
             <article
               key={p.title}
               className={`glass rounded-2xl p-7 card-hover ${
-                idx >= 4 ? "hidden md:block" : "block"
+                showViewAll && idx >= 4 ? "hidden md:block" : "block"
               }`}
             >
               <div className="flex items-center gap-2 mb-3">
@@ -62,14 +62,16 @@ export function Projects() {
         })}
       </div>
 
-      <div className="mt-12 text-center">
-        <a
-          href="/projects"
-          className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
-        >
-          View All Projects <ArrowRight className="size-4" />
-        </a>
-      </div>
+      {showViewAll && (
+        <div className="mt-12 text-center">
+          <a
+            href="/projects"
+            className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
+          >
+            View All Projects <ArrowRight className="size-4" />
+          </a>
+        </div>
+      )}
     </Section>
   );
 }

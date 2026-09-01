@@ -51,26 +51,26 @@ function IndexPage() {
         <Counters />
 
         {/* 3. Company Capability Teaser */}
-        <About />
+        <About showViewAll />
 
         {/* 4. Core Software Development Services */}
-        <Services />
+        <Services showViewAll />
 
         {/* 5. Proven Software Engineering Process */}
-        <Process />
+        <Process showViewAll />
 
         {/* 6. Featured Client Case Studies */}
-        <Projects />
+        <Projects showViewAll />
 
         {/* 7. Client Reviews & Delivery Proof */}
         <Testimonials />
         <TrustedPartners />
 
         {/* 8. Workshop Field Notes & Insights */}
-        <Insights />
+        <Insights showViewAll />
 
         {/* 9. Frequently Asked Questions */}
-        <FAQ />
+        <FAQ showViewAll />
 
         {/* 10. High-Conversion Project CTA Driving to /contact */}
         <CTA />

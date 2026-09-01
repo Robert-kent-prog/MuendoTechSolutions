@@ -3,7 +3,7 @@ import { Calendar, ChevronDown, ArrowRight } from "lucide-react";
 import { Section } from "@/components/ui/SectionHeading";
 import { INSIGHTS } from "@/data/insights";
 
-export function Insights() {
+export function Insights({ showViewAll = false }: { showViewAll?: boolean } = {}) {
   const [openNote, setOpenNote] = useState<string | null>(null);
 
   return (
@@ -20,7 +20,13 @@ export function Insights() {
             <article
               key={p.title}
               className={`glass rounded-2xl p-7 card-hover flex-col ${
-                idx >= 3 ? (idx >= 6 ? "hidden" : "hidden md:flex") : "flex"
+                showViewAll
+                  ? idx >= 3
+                    ? idx >= 6
+                      ? "hidden"
+                      : "hidden md:flex"
+                    : "flex"
+                  : "flex"
               }`}
             >
               <div className="flex items-center gap-3 text-xs text-muted-foreground mb-3">
@@ -60,14 +66,16 @@ export function Insights() {
         })}
       </div>
 
-      <div className="mt-12 text-center">
-        <a
-          href="/blog"
-          className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
-        >
-          View All Articles <ArrowRight className="size-4" />
-        </a>
-      </div>
+      {showViewAll && (
+        <div className="mt-12 text-center">
+          <a
+            href="/blog"
+            className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
+          >
+            View All Articles <ArrowRight className="size-4" />
+          </a>
+        </div>
+      )}
     </Section>
   );
 }

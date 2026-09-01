@@ -2,7 +2,7 @@ import { Rocket, Sparkles, CheckCircle2, ArrowRight } from "lucide-react";
 import { Section } from "@/components/ui/SectionHeading";
 import { VALUES } from "@/data/team";
 
-export function About() {
+export function About({ showViewAll = false }: { showViewAll?: boolean } = {}) {
   return (
     <Section
       id="about"
@@ -50,14 +50,16 @@ export function About() {
           ))}
         </div>
       </div>
-      <div className="mt-8 text-center sm:text-left">
-        <a
-          href="/about"
-          className="inline-flex items-center justify-center gap-2 text-sm font-medium px-5 py-2.5 rounded-lg border border-border bg-secondary/40 text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        >
-          Learn More About Us <ArrowRight className="size-4" />
-        </a>
-      </div>
+      {showViewAll && (
+        <div className="mt-8 text-center sm:text-left">
+          <a
+            href="/about"
+            className="inline-flex items-center justify-center gap-2 text-sm font-medium px-5 py-2.5 rounded-lg border border-border bg-secondary/40 text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          >
+            Learn More About Us <ArrowRight className="size-4" />
+          </a>
+        </div>
+      )}
     </Section>
   );
 }

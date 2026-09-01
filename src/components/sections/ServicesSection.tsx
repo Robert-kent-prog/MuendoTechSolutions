@@ -3,7 +3,7 @@ import { Section } from "@/components/ui/SectionHeading";
 import { SERVICES, WEB_PRESENCE_SERVICES } from "@/data/services";
 import { contactProjectHref } from "@/lib/contact-project";
 
-export function Services() {
+export function Services({ showViewAll = false }: { showViewAll?: boolean } = {}) {
   return (
     <Section
       id="services"
@@ -18,7 +18,7 @@ export function Services() {
             <div
               key={s.title}
               className={`glass rounded-2xl p-6 card-hover flex-col ${
-                idx >= 6 ? "hidden md:flex" : "flex"
+                showViewAll && idx >= 6 ? "hidden md:flex" : "flex"
               }`}
             >
               <div className="size-11 rounded-xl bg-primary/15 text-primary grid place-items-center mb-4">
@@ -58,7 +58,7 @@ export function Services() {
             <div
               key={item.title}
               className={`glass rounded-xl p-5 card-hover ${
-                idx >= 4 ? "hidden md:block" : "block"
+                showViewAll && idx >= 4 ? "hidden md:block" : "block"
               }`}
             >
               <h4 className="font-semibold text-sm text-foreground mb-1.5">{item.title}</h4>
@@ -78,14 +78,16 @@ export function Services() {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <a
-            href="/services"
-            className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
-          >
-            View All Services <ArrowRight className="size-4" />
-          </a>
-        </div>
+        {showViewAll && (
+          <div className="mt-12 text-center">
+            <a
+              href="/services"
+              className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
+            >
+              View All Services <ArrowRight className="size-4" />
+            </a>
+          </div>
+        )}
       </div>
     </Section>
   );
