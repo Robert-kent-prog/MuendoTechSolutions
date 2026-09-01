@@ -5,7 +5,7 @@ export interface StatItemData {
 }
 
 export const STATS: StatItemData[] = [
-  { value: 12, suffix: "+", label: "Projects Shipped" },
+  { value: 20, suffix: "+", label: "Projects Shipped" },
   { value: 8, suffix: "+", label: "Industries Served" },
   { value: 100, suffix: "%", label: "Kenyan-Built" },
   { value: 3, suffix: "+", label: "Years Experience" },

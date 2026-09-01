@@ -67,7 +67,7 @@ export function Insights({ showViewAll = false }: { showViewAll?: boolean } = {}
       </div>
 
       {showViewAll && (
-        <div className="mt-12 text-center">
+        <div className="mt-8 text-center sm:text-left">
           <a
             href="/blog"
             className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"

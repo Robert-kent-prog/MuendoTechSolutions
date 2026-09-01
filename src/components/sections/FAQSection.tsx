@@ -46,10 +46,10 @@ export function FAQ({ showViewAll = false }: { showViewAll?: boolean } = {}) {
       </div>
 
       {showViewAll && (
-        <div className="mt-8">
+        <div className="mt-8 text-center sm:text-left">
           <a
             href="/faq"
-            className="inline-flex items-center justify-center gap-2 text-sm font-medium px-5 py-2.5 rounded-lg border border-border bg-secondary/40 text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
           >
             View All FAQs <ArrowRight className="size-4" />
           </a>
