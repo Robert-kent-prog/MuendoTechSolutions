@@ -1,5 +1,5 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://muendosoftwarelabs.co.ke/sitemap.xml
-Host: muendosoftwarelabs.co.ke
+Sitemap: https://www.muendosoftwarelabs.co.ke/sitemap.xml
+Host: www.muendosoftwarelabs.co.ke

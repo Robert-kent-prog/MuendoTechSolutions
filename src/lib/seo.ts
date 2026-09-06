@@ -1,5 +1,5 @@
 export const COMPANY = "Muendo Software Labs";
-export const SITE_URL = "https://muendosoftwarelabs.co.ke";
+export const SITE_URL = "https://www.muendosoftwarelabs.co.ke";
 export const SITE_IMAGE = `${SITE_URL}/og-image.png`;
 export const EMAIL = "muendosoftwarelabs@gmail.com";
 export const WHATSAPP = "+254793587026";
