@@ -51,6 +51,11 @@ export interface ServiceDetailPage {
   proof: string;
 }
 
+export interface ServiceExtras {
+  stack: string[];
+  faqs: { q: string; a: string }[];
+}
+
 export interface WhyItem {
   title: string;
   desc: string;
@@ -716,6 +721,176 @@ export const SERVICE_DETAIL_PAGES: ServiceDetailPage[] = [
       "Our Fleet Management System replaced scattered manual logs and documents with vehicle, driver, fuel, trip, maintenance and expense records for a Kenyan logistics operator.",
   },
 ];
+
+export const SERVICE_EXTRAS: Record<string, ServiceExtras> = {
+  "business-websites": {
+    stack: ["React.js", "Vite", "HTML", "CSS", "JavaScript"],
+    faqs: [
+      {
+        q: "Can I update the website content myself?",
+        a: "Yes, if you want that. We can build the site content-managed with an admin area and run a handover session. Simple sites can also be updated by us under a maintenance plan.",
+      },
+      {
+        q: "Will the site rank on Google?",
+        a: "We set up the foundations: page titles, descriptions, a sitemap, structured data and fast mobile performance. Rankings depend on competition and content over time, so nobody can honestly guarantee a position.",
+      },
+      {
+        q: "Do I own the website?",
+        a: "Yes. Once the agreed payment terms are completed, you receive the delivered source code, assets and deployment access listed in the scope.",
+      },
+    ],
+  },
+  "ecommerce-websites": {
+    stack: ["React.js", "Node.js", "Express.js", "MongoDB", "PostgreSQL", "M-Pesa Daraja"],
+    faqs: [
+      {
+        q: "Can customers pay with M-Pesa?",
+        a: "Yes. We integrate M-Pesa Daraja (STK Push) with callback handling, so each order is linked to its payment record.",
+      },
+      {
+        q: "Who manages products and orders?",
+        a: "An admin dashboard lets your team manage products, stock and orders, with separate access levels for staff.",
+      },
+      {
+        q: "Can I move products from a spreadsheet?",
+        a: "Yes. Product lists can be imported during setup. Data migration is scoped in your written quote.",
+      },
+    ],
+  },
+  "pos-systems": {
+    stack: ["React.js", "Node.js", "PostgreSQL", "MongoDB", "M-Pesa Daraja"],
+    faqs: [
+      {
+        q: "Does it work when the internet drops?",
+        a: "That depends on the design. If your shop has unreliable internet, tell us during discovery and we will scope offline-capable sales capture that syncs later.",
+      },
+      {
+        q: "Can different staff have different access?",
+        a: "Yes. Staff roles control who can sell, edit stock, see reports or change prices.",
+      },
+      {
+        q: "Can I bring in my existing stock list?",
+        a: "Yes. We can import products and stock from spreadsheets during setup.",
+      },
+    ],
+  },
+  "website-maintenance": {
+    stack: ["Linux", "cPanel", "Git & GitHub", "Vercel"],
+    faqs: [
+      {
+        q: "What does maintenance cover?",
+        a: "Content and SEO updates, bug fixes, small features, security and uptime checks, backups and performance improvements, as set out in your plan.",
+      },
+      {
+        q: "Do I need a monthly retainer?",
+        a: "No, but we recommend one for live sites that bring in leads or orders. One-off fixes can be quoted separately.",
+      },
+    ],
+  },
+  "mpesa-integrations": {
+    stack: ["M-Pesa Daraja", "Node.js", "Python", "Django", "Laravel"],
+    faqs: [
+      {
+        q: "What do I need to start?",
+        a: "A Safaricom Daraja developer account to begin in the sandbox. For live payments you will need a paybill or till number and Safaricom's go-live approval. We guide you through testing and the switch to production.",
+      },
+      {
+        q: "How do you handle failed or duplicate callbacks?",
+        a: "Payment states and duplicate protection are built in, so delayed, failed or repeated callbacks do not create double records, and admins can reconcile them.",
+      },
+    ],
+  },
+  "web-applications": {
+    stack: ["React.js", "Node.js", "Django", "Laravel", "Spring Boot", "PostgreSQL"],
+    faqs: [
+      {
+        q: "How long does a web app take?",
+        a: "Most MVPs ship in 4 to 10 weeks depending on scope. Complex platforms with payments, AI and dashboards take longer. You get a timeline in your written quote.",
+      },
+      {
+        q: "Can you start from our spreadsheets or old system?",
+        a: "Yes. We map the current records and workflow, then import existing data as part of the build.",
+      },
+      {
+        q: "Can the system grow later?",
+        a: "Yes. We design around a first release and add modules afterwards, so you only pay for what you need now.",
+      },
+    ],
+  },
+  "mobile-apps": {
+    stack: ["React Native", "Expo Router", "TypeScript", "Node.js", "PostgreSQL"],
+    faqs: [
+      {
+        q: "Do you build for both Android and iOS?",
+        a: "Yes, from one React Native codebase. Store accounts (Google Play and Apple Developer) are created in your name.",
+      },
+      {
+        q: "Do you also build the backend?",
+        a: "Yes. The app, the secure API and an admin dashboard are built together.",
+      },
+    ],
+  },
+  "ai-integration": {
+    stack: ["OpenAI API", "Gemini API", "LangChain", "RAG pipelines", "Python", "FastAPI"],
+    faqs: [
+      {
+        q: "Will AI replace my staff?",
+        a: "That is not the aim. We scope AI to narrow tasks, keep a human review step where mistakes matter, and measure accuracy before expanding.",
+      },
+      {
+        q: "How do you control costs?",
+        a: "We add usage limits, logging and cost monitoring, so spending on AI providers stays predictable.",
+      },
+      {
+        q: "Is my data sent to AI providers?",
+        a: "Only what the feature needs. We decide with you what is sent, minimise personal data, and tell you which provider processes it.",
+      },
+    ],
+  },
+  "school-management-systems": {
+    stack: ["React.js", "Node.js", "PostgreSQL", "MongoDB", "Redis"],
+    faqs: [
+      {
+        q: "Can you import our existing student lists?",
+        a: "Yes. Student and fee data can be imported from Excel or CSV files during setup.",
+      },
+      {
+        q: "Do parents get access?",
+        a: "A parent portal and SMS reminders are best added in a later phase, once the core records are stable.",
+      },
+      {
+        q: "Is student data kept secure?",
+        a: "Role-based access means teachers, finance staff and admins only see what they need, and finance records are controlled separately.",
+      },
+    ],
+  },
+  "health-and-clinic-systems": {
+    stack: ["Python", "Django", "FastAPI", "PostgreSQL"],
+    faqs: [
+      {
+        q: "Is patient data secure?",
+        a: "Access is role-based and the system is built with backups and secure hosting. Health data carries legal duties under Kenya's Data Protection Act, so we recommend your clinic confirms its obligations with a qualified adviser.",
+      },
+      {
+        q: "Can it remind patients about follow-ups?",
+        a: "Follow-up tracking is built in. Patient reminders by SMS can be added through an SMS provider as an integration.",
+      },
+    ],
+  },
+  "fleet-management-systems": {
+    stack: ["React.js", "Node.js", "Express.js", "MongoDB"],
+    faqs: [
+      {
+        q: "Does it track vehicles live on a map?",
+        a: "The system is map-ready. Live GPS tracking needs a GPS device or provider integration, which we scope separately.",
+      },
+      {
+        q: "Can we record fuel, trips and maintenance?",
+        a: "Yes. Vehicles, drivers, fuel, trips, maintenance schedules and expenses are all tracked, with reports for managers.",
+      },
+    ],
+  },
+};
 
 export const SOLUTIONS = [
   "Point of sale (POS) systems",

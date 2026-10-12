@@ -3,6 +3,7 @@ import { z } from "zod";
 import { COMPANY, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { Contact } from "@/components/sections/ContactSection";
+import { FAQ } from "@/components/sections/FAQSection";
 
 const optionalText = z.preprocess(
   (v) => (typeof v === "string" || typeof v === "number" ? String(v) : undefined),
@@ -37,6 +38,7 @@ function ContactPage() {
     <PageShell>
       <main className="pt-16">
         <Contact prefill={search} />
+        <FAQ showViewAll />
       </main>
     </PageShell>
   );

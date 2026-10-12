@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, CheckCircle2, MessageCircle } from "lucide-react";
+import { ArrowLeft, ArrowRight, CheckCircle2, ChevronDown, MessageCircle } from "lucide-react";
 import { contactProjectHref } from "@/lib/contact-project";
-import { COMPANY, SITE_URL, WHATSAPP, pageHead } from "@/lib/seo";
+import { COMPANY, SITE_URL, WHATSAPP, breadcrumbSchema, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
-import { SERVICE_DETAIL_PAGES } from "@/data/services";
+import { SERVICE_DETAIL_PAGES, SERVICE_EXTRAS } from "@/data/services";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/services/$slug")({
@@ -53,6 +54,32 @@ export const Route = createFileRoute("/services/$slug")({
             },
           }),
         },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Services", path: "/services" },
+              { name: service.eyebrow, path: `/services/${service.slug}` },
+            ]),
+          ),
+        },
+        ...(SERVICE_EXTRAS[service.slug]
+          ? [
+              {
+                type: "application/ld+json",
+                children: JSON.stringify({
+                  "@context": "https://schema.org",
+                  "@type": "FAQPage",
+                  mainEntity: SERVICE_EXTRAS[service.slug].faqs.map((f) => ({
+                    "@type": "Question",
+                    name: f.q,
+                    acceptedAnswer: { "@type": "Answer", text: f.a },
+                  })),
+                }),
+              },
+            ]
+          : []),
       ],
     };
   },
@@ -123,6 +150,7 @@ function ServiceDetailPage() {
       "Other notes:",
     ].join("\n"),
   });
+  const extras = SERVICE_EXTRAS[service.slug];
   const whatsappText = `Hello ${COMPANY}, I would like to discuss ${service.title}.`;
 
   return (
@@ -130,12 +158,9 @@ function ServiceDetailPage() {
       <section className="relative overflow-hidden bg-hero-gradient py-20 sm:py-28">
         <div className="absolute inset-0 grid-bg opacity-50 pointer-events-none" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <a
-            href="/services"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="size-4" /> Services
-          </a>
+          <Breadcrumbs
+            items={[{ label: "Services", to: "/services" }, { label: service.eyebrow }]}
+          />
           <div className="mt-8 grid gap-10 lg:grid-cols-[1.25fr_0.75fr] lg:items-start">
             <div>
               <div className="text-xs uppercase tracking-[0.2em] text-accent font-semibold">
@@ -242,6 +267,59 @@ function ServiceDetailPage() {
           </div>
         </div>
       </section>
+
+      {extras && (
+        <section className="py-16 sm:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+            <div>
+              <div className="text-xs uppercase tracking-[0.2em] text-accent font-semibold mb-3">
+                Technology
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+                What we build it with
+              </h2>
+              <ul className="mt-6 flex flex-wrap gap-2">
+                {extras.stack.map((t) => (
+                  <li
+                    key={t}
+                    className="text-xs px-2.5 py-1 rounded-md bg-secondary border border-border text-secondary-foreground"
+                  >
+                    {t}
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="/tech-stack"
+                className="mt-6 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all"
+              >
+                See the full tech stack <ArrowRight className="size-4" />
+              </a>
+            </div>
+            <div>
+              <div className="text-xs uppercase tracking-[0.2em] text-accent font-semibold mb-3">
+                FAQ
+              </div>
+              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
+                Questions about this service
+              </h2>
+              <div className="mt-6 space-y-3">
+                {extras.faqs.map((f) => (
+                  <details key={f.q} className="glass rounded-xl group">
+                    <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-sm sm:text-base font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-xl">
+                      {f.q}
+                      <ChevronDown
+                        className="size-4 shrink-0 text-muted-foreground transition-transform group-open:rotate-180"
+                        aria-hidden="true"
+                      />
+                    </summary>
+                    <p className="px-5 pb-5 text-sm text-muted-foreground leading-relaxed">{f.a}</p>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       <CTA />
     </>

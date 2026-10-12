@@ -733,4 +733,209 @@ export const INSIGHTS: InsightItem[] = [
       "Keep daily admin workflows fast enough for busy transport teams.",
     ],
   },
+  {
+    slug: "pos-system-cost-in-kenya-what-shop-owners-should-budget-for",
+    tag: "POS",
+    category: "Business Automation",
+    date: "Oct 2026",
+    publishedAt: "2026-10-13",
+    readTime: "8 min read",
+    title: "POS System Cost in Kenya: What Shop Owners Should Budget For",
+    excerpt:
+      "A practical guide to what drives the cost of a point of sale system for a Kenyan shop: branches, hardware, stock, M-Pesa, offline needs, staff roles, data import and support.",
+    details:
+      "There is no single price for a POS system because a one-till kiosk and a multi-branch pharmacy need very different software. Understanding the cost drivers helps you ask for a quote that is complete and comparable.",
+    article: [
+      {
+        heading: "Software And Hardware Are Separate Costs",
+        paragraphs: [
+          "When people ask what a POS costs, they often mix two things: the software that records sales and stock, and the hardware that sits on the counter. Barcode scanners, receipt printers, cash drawers and a tablet or computer are bought separately from the software, and prices vary by brand and quality. A clear quote should list both, or state plainly which one it covers.",
+          "The software side is where the real scoping happens. A POS for a single till that records sales and prints receipts is a smaller job than a system that tracks stock across branches, manages suppliers and produces owner reports.",
+        ],
+      },
+      {
+        heading: "What Moves The Software Price",
+        paragraphs: [
+          "The main drivers are the number of branches and tills, how detailed stock tracking needs to be, staff roles and permissions, reports for the owner, M-Pesa payment records, and whether the shop needs to keep selling when the internet drops. Each of these adds design, build and testing work, which is why we scope POS projects after a short discovery conversation instead of quoting from a headline price.",
+          "Moving your existing product and stock list from Excel or notebooks is another cost that is easy to forget. Importing and checking that data before launch protects you from wrong stock numbers on day one, and it should be in the scope.",
+        ],
+      },
+      {
+        heading: "Ask About Support And Ownership",
+        paragraphs: [
+          "A POS is used every hour the shop is open, so support matters as much as features. Ask who fixes problems, how quickly, and whether support is included for a period after launch or billed monthly. Also ask whether you will own the delivered source code, assets and deployment access once payment terms are completed, so you are not locked in.",
+          "A good first release usually covers products, stock, sales, receipts, expenses, staff roles and daily reports. Anything beyond that, such as multi-branch reporting or supplier ordering, can be added once the shop is trading smoothly on the core system.",
+        ],
+      },
+    ],
+    takeaways: [
+      "Budget for POS hardware and POS software separately.",
+      "Branches, stock detail, roles, M-Pesa, offline needs and data import drive the software price.",
+      "Ask about support, training and ownership of the code before you sign.",
+    ],
+  },
+  {
+    slug: "mobile-app-development-cost-in-kenya-android-and-ios",
+    tag: "Mobile",
+    category: "Software Development",
+    date: "Oct 2026",
+    publishedAt: "2026-10-13",
+    readTime: "8 min read",
+    title: "Mobile App Development Cost in Kenya: Android and iOS",
+    excerpt:
+      "What shapes the budget for a mobile app in Kenya: one codebase or two, the backend and admin panel behind it, payments, maps, chat, store accounts, testing and ongoing updates.",
+    details:
+      "A mobile app is rarely just a mobile app. Most of the cost sits in the backend, the admin dashboard and the testing that make the screens useful in real conditions.",
+    article: [
+      {
+        heading: "One Codebase Or Two",
+        paragraphs: [
+          "Building separate native apps for Android and iOS roughly doubles the effort. A cross-platform approach such as React Native lets one codebase serve both, which usually reduces cost and keeps the two apps consistent. Native work still makes sense for a few cases, such as heavy graphics or deep hardware features, but most business apps do not need it.",
+          "Whichever route you choose, the app also needs a backend to store data, handle logins and send notifications, and an admin dashboard so your team can manage users and content. These parts are often missing from early quotes, so ask whether they are included.",
+        ],
+      },
+      {
+        heading: "Features That Add Cost",
+        paragraphs: [
+          "User accounts, M-Pesa payments, maps and location, in-app chat or calls, push notifications, ratings and offline support each add design, build and testing time. Payments and location deserve extra care because mistakes affect money and trust.",
+          "Design is another driver. A clean template-based interface costs less than a fully custom design, and research-led user experience work costs more again. Decide how much polish version one really needs.",
+        ],
+      },
+      {
+        heading: "Store Accounts, Testing And After Launch",
+        paragraphs: [
+          "Publishing needs a Google Play developer account and an Apple Developer account, which have their own fees paid directly to Apple and Google. We recommend creating them in your name so you control the app. Testing on real devices and different Android versions also takes time and should be part of the plan.",
+          "After launch, phones update, libraries change and users report issues, so budget for ongoing maintenance. A small monthly plan is usually cheaper than urgent fixes when an operating system update breaks something.",
+        ],
+      },
+    ],
+    takeaways: [
+      "One cross-platform codebase usually costs less than two native apps.",
+      "Backend, admin dashboard, payments and design level drive most of the budget.",
+      "Plan for store accounts, device testing and maintenance after launch.",
+    ],
+  },
+  {
+    slug: "custom-web-application-cost-in-kenya-what-affects-the-budget",
+    tag: "Web Apps",
+    category: "Software Development",
+    date: "Oct 2026",
+    publishedAt: "2026-10-13",
+    readTime: "8 min read",
+    title: "Custom Web Application Cost in Kenya: What Affects the Budget",
+    excerpt:
+      "Why custom web apps and dashboards are priced differently from websites, and how roles, workflows, reports, integrations and data migration shape the budget.",
+    details:
+      "A custom web application is software that models how your business works. Its cost follows the amount of logic it carries, not the number of pages it shows.",
+    article: [
+      {
+        heading: "Why Web Apps Cost More Than Websites",
+        paragraphs: [
+          "A business website mostly presents information. A web application stores records, applies rules and lets different people do different things. It needs a database, secure logins, permissions, validation and testing, so it sits in a higher budget bracket. In Kenya, custom web apps commonly start around KES 150,000 and can pass KES 1,000,000 for larger platforms.",
+          "That wide range exists because two systems with the same number of screens can differ enormously in how many roles, approvals and reports sit behind them.",
+        ],
+      },
+      {
+        heading: "The Main Cost Drivers",
+        paragraphs: [
+          "Roles and permissions, the number of workflows, reports and exports, integrations with M-Pesa or other services, and data migration from spreadsheets or an old system are the usual drivers. Hosting, backups and security also matter, because a system that holds business records needs to be reliable and protected.",
+          "Timeline plays a part too. Rushing a build usually means a smaller scope or more people, so planning ahead is the cheapest way to get a good result.",
+        ],
+      },
+      {
+        heading: "Start With A First Release",
+        paragraphs: [
+          "The safest way to control cost is to define the first release carefully: the few workflows that create the most value, and the records they need. Everything else goes on a later list. This protects you from paying for features nobody uses and lets real feedback shape the next phase.",
+          "Ask for a written scope and a clear explanation of what is included, what is optional and how changes are handled. A quote that explains its assumptions is far easier to compare than one that gives only a total.",
+        ],
+      },
+    ],
+    takeaways: [
+      "Web apps cost more than websites because they carry business logic, data and permissions.",
+      "Roles, workflows, reports, integrations and data migration drive the budget.",
+      "Define a focused first release and keep extras for a later phase.",
+    ],
+  },
+  {
+    slug: "website-and-system-maintenance-cost-in-kenya-retainers-explained",
+    tag: "Maintenance",
+    category: "Websites & SEO",
+    date: "Oct 2026",
+    publishedAt: "2026-10-13",
+    readTime: "7 min read",
+    title: "Website and System Maintenance Cost in Kenya: Retainers Explained",
+    excerpt:
+      "What a maintenance plan should cover, how retainers differ from hourly fixes, and which running costs such as hosting, domains and SSL are separate from development.",
+    details:
+      "Launching a website or system is not the end of the cost. Maintenance keeps it secure, fast and accurate, and a clear plan avoids expensive emergencies.",
+    article: [
+      {
+        heading: "What Maintenance Usually Covers",
+        paragraphs: [
+          "A good plan covers content and SEO updates, bug fixes, small features, security and uptime checks, backups and performance improvements. For a business system it can also include user support and help with new staff roles.",
+          "The price depends on the size of the site or system, how often it changes and how quickly you need responses. A small brochure site needs far less attention than a system that handles orders or payments.",
+        ],
+      },
+      {
+        heading: "Retainer Or Pay As You Go",
+        paragraphs: [
+          "A monthly retainer gives you predictable cost and priority attention, which suits live sites that bring in leads or orders. Pay-as-you-go fixes suit rarely changing sites, but they can cost more per hour and take longer when something breaks.",
+          "Whichever you choose, ask what is included each month, what counts as extra work, and how fast issues are handled.",
+        ],
+      },
+      {
+        heading: "Running Costs To Plan For",
+        paragraphs: [
+          "Hosting, domain renewals, SSL certificates, email accounts and paid third-party services are running costs paid to the providers, separate from development and maintenance fees. Ask who pays them and who holds the accounts, and keep the domain and hosting in your own name.",
+          "Plan for these from the start so a renewal never takes the site offline. A short checklist of renewal dates is one of the simplest and cheapest forms of protection.",
+        ],
+      },
+    ],
+    takeaways: [
+      "Maintenance keeps a live site secure, fast and accurate after launch.",
+      "Retainers give predictable cost and priority; pay-as-you-go suits rarely changing sites.",
+      "Hosting, domains and SSL are running costs separate from development fees.",
+    ],
+  },
+  {
+    slug: "mpesa-daraja-integration-cost-in-kenya-what-to-expect",
+    tag: "M-Pesa",
+    category: "Payments",
+    date: "Oct 2026",
+    publishedAt: "2026-10-13",
+    readTime: "8 min read",
+    title: "M-Pesa Daraja Integration Cost in Kenya: What to Expect",
+    excerpt:
+      "What shapes the cost of integrating M-Pesa into a website, app or POS: payment flows, callbacks, reconciliation, Safaricom approvals, testing and the fees that are not development costs.",
+    details:
+      "Accepting an M-Pesa payment is only the visible part. The cost sits in making payments reliable: handling callbacks, matching money to orders and giving your team a way to check what happened.",
+    article: [
+      {
+        heading: "Which Payment Flows You Need",
+        paragraphs: [
+          "The scope starts with the flow. STK Push prompts a customer to pay from their phone, C2B handles payments to a paybill or till, and B2C sends money out to customers or staff. Each flow has its own setup, testing and edge cases, so a project with several flows costs more than one with a single STK Push.",
+          "Connecting the payment to an order, invoice or account is part of the work, because a payment that cannot be matched to a purchase creates support problems later.",
+        ],
+      },
+      {
+        heading: "Reliability Is The Real Work",
+        paragraphs: [
+          "Safaricom confirms payments through callbacks, and callbacks can arrive late, fail or arrive twice. A careful integration validates each callback, protects against duplicate records and stores clear payment states. It also gives admins a reconciliation view so finance can verify transactions without guessing.",
+          "Testing in the sandbox and then with live credentials is essential. Going live also needs a paybill or till number and Safaricom's approval, so allow time for that step in your plan.",
+        ],
+      },
+      {
+        heading: "Costs That Are Not Development",
+        paragraphs: [
+          "Transaction charges on your paybill or till are set by Safaricom and are separate from the cost of building the integration. Ask whoever quotes you to separate development fees, one-off setup, and any running costs so you can compare quotes fairly.",
+          "Finally, confirm who holds the credentials and the accounts. They should be in your business name, with the keys stored securely and not shared in emails or chats.",
+        ],
+      },
+    ],
+    takeaways: [
+      "The number of payment flows (STK Push, C2B, B2C) shapes the scope.",
+      "Callback handling, duplicate protection and reconciliation make payments reliable.",
+      "Safaricom transaction charges and go-live approval are separate from development cost.",
+    ],
+  },
 ];

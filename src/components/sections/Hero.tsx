@@ -8,6 +8,7 @@ import {
   Database,
   Server,
 } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { contactProjectHref } from "@/lib/contact-project";
 import { HERO_HIGHLIGHTS } from "@/data/services";
 
@@ -22,9 +23,18 @@ export function Hero() {
         <div className="grid lg:grid-cols-12 gap-12 lg:items-center">
           {/* Left Column: Asymmetric 7-cols */}
           <div className="lg:col-span-7 space-y-6">
-            <div className="inline-flex items-center gap-2 glass rounded-full px-3.5 py-1.5 text-xs text-muted-foreground tracking-wide uppercase font-semibold">
-              <span className="size-2 rounded-full bg-accent animate-pulse" />
-              Software Development Company · Nairobi, Kenya
+            <div className="flex flex-wrap items-center gap-3">
+              <div className="inline-flex items-center gap-2 glass rounded-full px-3.5 py-1.5 text-xs text-muted-foreground tracking-wide uppercase font-semibold">
+                <span className="size-2 rounded-full bg-accent animate-pulse" />
+                Software Development Company · Nairobi, Kenya
+              </div>
+              <Link
+                to="/quote"
+                className="inline-flex items-center gap-1.5 rounded-full border border-accent/40 bg-accent/10 px-3.5 py-1.5 text-xs font-medium text-foreground hover:bg-accent/20 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <span className="font-semibold text-accent">New</span> Get a rough budget in a few
+                clicks <ArrowRight className="size-3" aria-hidden="true" />
+              </Link>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.08]">
               Build Reliable Software

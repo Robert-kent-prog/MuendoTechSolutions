@@ -1,7 +1,8 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
 import { contactProjectHref } from "@/lib/contact-project";
-import { COMPANY, SITE_URL, pageHead } from "@/lib/seo";
+import { COMPANY, SITE_URL, breadcrumbSchema, pageHead } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageShell } from "@/components/layout/PageShell";
 import { PROJECT_CASE_STUDIES } from "@/data/projects";
 import { CTA } from "@/components/sections/CTASection";
@@ -39,6 +40,16 @@ export const Route = createFileRoute("/projects/$slug")({
             creator: { "@type": "Organization", name: COMPANY, url: SITE_URL },
             about: project.tag,
           }),
+        },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Projects", path: "/projects" },
+              { name: project.title, path: `/projects/${project.slug}` },
+            ]),
+          ),
         },
       ],
     };
@@ -116,12 +127,9 @@ function ProjectCaseStudyPage() {
         <section className="relative overflow-hidden bg-hero-gradient py-20 sm:py-28">
           <div className="absolute inset-0 grid-bg opacity-50 pointer-events-none" />
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <a
-              href="/projects"
-              className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-            >
-              <ArrowLeft className="size-4" /> Projects
-            </a>
+            <Breadcrumbs
+              items={[{ label: "Projects", to: "/projects" }, { label: project.title }]}
+            />
             <div className="mt-8 grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-start">
               <div>
                 <div className="text-xs uppercase tracking-[0.2em] text-accent font-semibold">

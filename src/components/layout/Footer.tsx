@@ -2,7 +2,8 @@ import { Github, Linkedin, MessageCircle } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import type { FileRouteTypes } from "@/routeTree.gen";
 import { COMPANY, EMAIL, GITHUB, LINKEDIN, SITE_URL, WHATSAPP } from "@/lib/seo";
-import { WHATSAPP_DISPLAY } from "@/data/nav";
+import { BUSINESS_HOURS, NAV_COMPANY, WHATSAPP_DISPLAY } from "@/data/nav";
+import { SERVICE_DETAIL_PAGES } from "@/data/services";
 import { Logo } from "@/components/ui/Logo";
 
 const ROUTES: readonly string[] = [
@@ -21,6 +22,17 @@ const ROUTES: readonly string[] = [
   "/tech-stack",
   "/privacy",
   "/terms",
+];
+
+const FOOTER_SERVICE_SLUGS = [
+  "web-applications",
+  "mobile-apps",
+  "ai-integration",
+  "pos-systems",
+  "mpesa-integrations",
+  "business-websites",
+  "ecommerce-websites",
+  "website-maintenance",
 ];
 
 function isRoute(href: string): href is FileRouteTypes["to"] {
@@ -62,7 +74,7 @@ export function Footer() {
   return (
     <footer className="border-t border-border bg-background/50 pt-16 pb-12">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-8 mb-12">
           <div className="col-span-2 space-y-4">
             <Link to="/" className="flex items-center gap-2" aria-label={COMPANY}>
               <Logo />
@@ -103,42 +115,54 @@ export function Footer() {
             </div>
           </div>
           <FooterCol
-            title="Navigation"
+            title="Company"
             links={[
               { label: "Home", href: "/" },
-              { label: "About", href: "/about" },
-              { label: "Services", href: "/services" },
+              ...NAV_COMPANY.map((l) => ({ label: l.label, href: l.href as string })),
               { label: "Projects", href: "/projects" },
-              { label: "Process", href: "/process" },
-              { label: "Pricing", href: "/pricing" },
-              { label: "Industries", href: "/industries" },
-              { label: "Tech Stack", href: "/tech-stack" },
-              { label: "Blog & Insights", href: "/blog" },
-              { label: "FAQ", href: "/faq" },
               { label: "Contact", href: "/contact" },
             ]}
           />
           <FooterCol
             title="Services"
             links={[
-              { label: "Web Application Dev", href: "/services/web-applications" },
-              { label: "Mobile App Dev", href: "/services/mobile-apps" },
-              { label: "Backend API Dev", href: "/services#backend-apis" },
-              { label: "Business Systems", href: "/services#business-systems" },
-              { label: "POS & Retail Systems", href: "/services#pos-systems" },
-              { label: "AI Integrations", href: "/services/ai-integration" },
-              { label: "PHP & Laravel Work", href: "/services#php-laravel" },
-              { label: "Deployment & Support", href: "/services#deployment" },
+              ...FOOTER_SERVICE_SLUGS.flatMap((slug) => {
+                const s = SERVICE_DETAIL_PAGES.find((p) => p.slug === slug);
+                return s ? [{ label: s.eyebrow, href: `/services/${s.slug}` }] : [];
+              }),
+              { label: "All services", href: "/services" },
             ]}
           />
           <FooterCol
-            title="Contact"
+            title="Resources"
             links={[
-              { label: EMAIL, href: `mailto:${EMAIL}` },
-              { label: WHATSAPP_DISPLAY, href: `https://wa.me/${WHATSAPP.replace(/\D/g, "")}` },
-              { label: "Nairobi, Kenya", href: "/contact" },
+              { label: "Pricing", href: "/pricing" },
+              { label: "Quote guide", href: "/quote" },
+              { label: "Blog & Insights", href: "/blog" },
+              { label: "FAQ", href: "/faq" },
+              { label: "Sitemap", href: "/sitemap" },
             ]}
           />
+          <div>
+            <FooterCol
+              title="Contact"
+              links={[
+                { label: EMAIL, href: `mailto:${EMAIL}` },
+                { label: WHATSAPP_DISPLAY, href: `https://wa.me/${WHATSAPP.replace(/\D/g, "")}` },
+                { label: "Nairobi, Kenya", href: "/contact" },
+              ]}
+            />
+            {BUSINESS_HOURS && (
+              <dl className="mt-5 space-y-1 text-xs text-muted-foreground">
+                {BUSINESS_HOURS.map((h) => (
+                  <div key={h.days} className="flex justify-between gap-3">
+                    <dt>{h.days}</dt>
+                    <dd className="text-foreground">{h.hours}</dd>
+                  </div>
+                ))}
+              </dl>
+            )}
+          </div>
         </div>
         <div className="pt-8 border-t border-border flex flex-col sm:flex-row items-center justify-between text-xs text-muted-foreground gap-4">
           <div>

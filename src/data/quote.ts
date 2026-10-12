@@ -82,7 +82,6 @@ export const QUOTE_ADDONS: QuoteAddon[] = [
     label: "Data migration",
     hint: "Moving records from spreadsheets or an old system.",
   },
-  { id: "maintenance", label: "Ongoing support", hint: "Monthly updates, fixes and monitoring." },
 ];
 
 export const TIMELINES = [
@@ -92,13 +91,90 @@ export const TIMELINES = [
   "Flexible",
 ] as const;
 
-/** Every three add-ons move the guide up one band. */
-export const ADDONS_PER_BAND = 3;
+export interface QuoteOption {
+  id: string;
+  label: string;
+  hint: string;
+  /** Points added to the guide. Every POINTS_PER_BAND points move the band up one step. */
+  points: number;
+}
 
-export function estimateBand(serviceId: string, addonCount: number): string | null {
-  const service = QUOTE_SERVICES.find((s) => s.id === serviceId);
+export const QUOTE_SIZES: QuoteOption[] = [
+  {
+    id: "small",
+    label: "Small",
+    hint: "A focused first version or a single main flow.",
+    points: 0,
+  },
+  { id: "medium", label: "Medium", hint: "Several features working together.", points: 1 },
+  {
+    id: "large",
+    label: "Large",
+    hint: "Many roles, modules or a high-traffic platform.",
+    points: 3,
+  },
+];
+
+export const QUOTE_DESIGNS: QuoteOption[] = [
+  {
+    id: "template",
+    label: "Template-based",
+    hint: "Clean, polished, from a proven layout.",
+    points: 0,
+  },
+  { id: "custom", label: "Custom design", hint: "A bespoke look for your brand.", points: 1 },
+  { id: "premium", label: "Premium UX", hint: "User research, prototypes and testing.", points: 3 },
+];
+
+export const QUOTE_SUPPORT: QuoteOption[] = [
+  {
+    id: "launch",
+    label: "Launch support only",
+    hint: "Help at go-live, then you take over.",
+    points: 0,
+  },
+  {
+    id: "care3",
+    label: "Care plan, 3 months",
+    hint: "Monitoring, fixes and small updates.",
+    points: 1,
+  },
+  {
+    id: "care12",
+    label: "Care plan, 12 months",
+    hint: "Managed support and maintenance for a year.",
+    points: 2,
+  },
+];
+
+export const DEFAULT_SIZE = "medium";
+export const DEFAULT_DESIGN = "template";
+export const DEFAULT_SUPPORT = "launch";
+
+/** Every three points move the guide up one band. */
+export const POINTS_PER_BAND = 3;
+
+export interface QuoteSelection {
+  serviceId: string;
+  addonCount: number;
+  sizeId: string;
+  designId: string;
+  supportId: string;
+}
+
+function pointsFor(options: QuoteOption[], id: string) {
+  return options.find((o) => o.id === id)?.points ?? 0;
+}
+
+export function estimateBand(sel: QuoteSelection): string | null {
+  const service = QUOTE_SERVICES.find((s) => s.id === sel.serviceId);
   if (!service) return null;
+  const points =
+    sel.addonCount +
+    pointsFor(QUOTE_SIZES, sel.sizeId) +
+    pointsFor(QUOTE_DESIGNS, sel.designId) +
+    pointsFor(QUOTE_SUPPORT, sel.supportId);
   const lastRealBand = BUDGET_OPTIONS.length - 2; // exclude "Not sure yet"
-  const index = Math.min(service.band + Math.floor(addonCount / ADDONS_PER_BAND), lastRealBand);
+  const index = Math.min(service.band + Math.floor(points / POINTS_PER_BAND), lastRealBand);
   return BUDGET_OPTIONS[index];
 }

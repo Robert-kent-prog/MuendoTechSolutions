@@ -1,8 +1,21 @@
-import { ArrowRight } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, Star } from "lucide-react";
 import { Section } from "@/components/ui/SectionHeading";
-import { PROJECTS, PROJECT_CASE_STUDIES } from "@/data/projects";
+import {
+  PROJECTS,
+  PROJECT_CASE_STUDIES,
+  PROJECT_CATEGORIES,
+  type ProjectCategory,
+} from "@/data/projects";
 
-export function Projects({ showViewAll = false }: { showViewAll?: boolean } = {}) {
+export function Projects({
+  showViewAll = false,
+  filterable = false,
+}: { showViewAll?: boolean; filterable?: boolean } = {}) {
+  const [filter, setFilter] = useState<ProjectCategory | "All">("All");
+  const visible =
+    filterable && filter !== "All" ? PROJECTS.filter((p) => p.category === filter) : PROJECTS;
+
   return (
     <Section
       id="projects"
@@ -10,20 +23,53 @@ export function Projects({ showViewAll = false }: { showViewAll?: boolean } = {}
       title="Experience Behind Our Solutions"
       subtitle="A look at production systems we've designed, engineered, and deployed for real operational use."
     >
+      {filterable && (
+        <div
+          className="mb-8 flex flex-wrap gap-2"
+          role="group"
+          aria-label="Filter projects by type"
+        >
+          {(["All", ...PROJECT_CATEGORIES] as const).map((c) => {
+            const count =
+              c === "All" ? PROJECTS.length : PROJECTS.filter((p) => p.category === c).length;
+            const active = filter === c;
+            return (
+              <button
+                key={c}
+                type="button"
+                onClick={() => setFilter(c)}
+                aria-pressed={active}
+                className={`cursor-pointer rounded-full border px-4 py-1.5 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                  active
+                    ? "border-primary bg-primary text-primary-foreground"
+                    : "border-border text-muted-foreground hover:text-foreground hover:bg-secondary/50"
+                }`}
+              >
+                {c} <span className="opacity-70">({count})</span>
+              </button>
+            );
+          })}
+        </div>
+      )}
       <div className="grid md:grid-cols-2 gap-5">
-        {PROJECTS.map((p, idx) => {
+        {visible.map((p, idx) => {
           const caseStudy = PROJECT_CASE_STUDIES.find((study) => study.title === p.title);
           return (
             <article
               key={p.title}
               className={`glass rounded-2xl p-7 card-hover ${
                 showViewAll && idx >= 6 ? "hidden" : "block"
-              }`}
+              } ${filterable && filter === "All" && p.featured ? "md:col-span-2 border-primary/40" : ""}`}
             >
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-xs font-semibold uppercase tracking-wider text-accent">
                   {p.tag}
                 </span>
+                {filterable && filter === "All" && p.featured && (
+                  <span className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
+                    <Star className="size-3" aria-hidden="true" /> Featured
+                  </span>
+                )}
               </div>
               <h3 className="text-xl font-semibold mb-3">{p.title}</h3>
               <p className="text-muted-foreground text-sm leading-relaxed mb-5">{p.desc}</p>

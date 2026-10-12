@@ -3,6 +3,7 @@ import { SkipLink } from "@/components/layout/SkipLink";
 import { Navbar } from "@/components/layout/Navbar";
 import { Footer } from "@/components/layout/Footer";
 import { WhatsAppFloat } from "@/components/ui/WhatsAppFloat";
+import { BackToTop } from "@/components/ui/BackToTop";
 
 export function PageShell({ children }: { children: ReactNode }) {
   return (
@@ -14,6 +15,7 @@ export function PageShell({ children }: { children: ReactNode }) {
       </div>
       <Footer />
       <WhatsAppFloat />
+      <BackToTop />
     </div>
   );
 }

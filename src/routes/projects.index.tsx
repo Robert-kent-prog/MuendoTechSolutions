@@ -20,7 +20,7 @@ function ProjectsIndexPage() {
   return (
     <PageShell>
       <main className="pt-16">
-        <Projects />
+        <Projects filterable />
         <Testimonials />
         <CTA />
       </main>

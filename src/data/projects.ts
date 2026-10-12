@@ -1,5 +1,11 @@
+export type ProjectCategory = "Web" | "Mobile" | "AI" | "Business systems";
+
+export const PROJECT_CATEGORIES: ProjectCategory[] = ["Web", "Mobile", "AI", "Business systems"];
+
 export interface ProjectItem {
   tag: string;
+  category: ProjectCategory;
+  featured?: boolean;
   title: string;
   desc: string;
   stack: string[];
@@ -22,6 +28,8 @@ export interface ProjectCaseStudy {
 export const PROJECTS: ProjectItem[] = [
   {
     tag: "Mobile / Marketplace",
+    category: "Mobile",
+    featured: true,
     title: "Linkfy | Service Marketplace App",
     desc: "A mobile application that connects service seekers with verified service providers across Kenya: plumbing, electrical, laundry, cleaning, repairs and more. Includes in-app chat, calls, location maps, ratings, and M-Pesa Daraja payments.",
     stack: [
@@ -38,12 +46,14 @@ export const PROJECTS: ProjectItem[] = [
   },
   {
     tag: "Logistics / Fleet",
+    category: "Business systems",
     title: "Fleet Management System",
     desc: "Vehicle and fleet management platform for tracking vehicles, drivers, fuel, maintenance schedules, trip logs, and expense reporting, built for Kenyan transport and logistics operators.",
     stack: ["React", "Vite", "Node.js", "Express", "MongoDB", "Maps", "JWT", "Reports"],
   },
   {
     tag: "DocTech / Compliance",
+    category: "Business systems",
     title: "Digital File & Document Management System",
     desc: "Custom digital filing system built for a Kenyan client to organise company documents: KRA filings, fire safety certificates, insurance policies, licences and permits, with expiry reminders, role-based access, and secure storage.",
     stack: [
@@ -59,30 +69,35 @@ export const PROJECTS: ProjectItem[] = [
   },
   {
     tag: "AI / Automation",
+    category: "AI",
     title: "AI Integrations & Custom AI Systems",
     desc: "Built and integrated AI features into business platforms, including AI chat assistants, document understanding, smart search, and workflow automation powered by LLMs (OpenAI, Gemini).",
     stack: ["OpenAI", "Gemini", "LangChain", "Node.js", "Python", "FastAPI", "RAG", "Vector DB"],
   },
   {
     tag: "International / Agency Web",
+    category: "Web",
     title: "Xelvora | Digital Agency Website",
     desc: "Built Xelvora's corporate website for a Pakistan-based digital agency offering websites, web apps, mobile products, AI systems, SEO, digital marketing, graphic design, and branding. The site includes About, Services, Products, Portfolio, Blogs, Contact, Book Call flows, launch metrics, and positioning for startups, SMEs, agencies, and enterprise teams.",
     stack: ["React", "Vite", "Tailwind", "Responsive UI", "SEO", "Branding", "Blog Pages"],
   },
   {
     tag: "Mobility / MERN",
+    category: "Web",
     title: "Carpool & Ride-Share Platform",
     desc: "Ride-share web platform that lets private car owners register as drivers and offset fuel costs by carrying passengers travelling in the same direction, with route matching, booking, ratings, and secure auth.",
     stack: ["MongoDB", "Express", "React", "Node.js", "JWT", "Route Matching", "Ratings"],
   },
   {
     tag: "Political / Web",
+    category: "Web",
     title: "Chama Cha Uzalendo (CCU) | Party Website",
     desc: "Designed and built the official-style web presence for Chama Cha Uzalendo (CCU), a registered Kenyan political party founded in 2004, featuring party history, leadership, news updates, and member engagement sections.",
     stack: ["React", "Vite", "Tailwind", "Responsive UI", "SEO", "Content Sections"],
   },
   {
     tag: "HealthTech / Tracking",
+    category: "Business systems",
     title: "Vaccination Tracker System",
     desc: "Health-record tracking system for managing vaccination schedules, patient records, appointment follow-ups, vaccine stock visibility, dose history, and admin reporting for clinic-style workflows.",
     stack: [
@@ -98,24 +113,28 @@ export const PROJECTS: ProjectItem[] = [
   },
   {
     tag: "EdTech / Security",
+    category: "Business systems",
     title: "Exam Administration Verification System",
     desc: "Secure university exam-card and attendance verification platform with eligibility checks, barcode verification, JWT role access, offline-first attendance capture, audit logging, PDF reports, Redis caching, and MongoDB optimization.",
     stack: ["MongoDB", "Node.js", "Express", "JWT", "Redis", "PDF", "Barcode", "Audit Logs"],
   },
   {
     tag: "FinTech / Retail",
+    category: "Business systems",
     title: "Retail Bookkeeping Platform",
     desc: "Full-stack bookkeeping system for a Machakos retail business with admin, accountant, and sales workflows, with KES-based reporting, daily sales, expenses, and profit tracking.",
     stack: ["React", "Vite", "Express", "MongoDB", "Zod", "Role Access", "KES Reports"],
   },
   {
     tag: "Education",
+    category: "Web",
     title: "Institutional Website",
     desc: "College site with course information, student access, admin updates, authentication flows, responsive UI, and CRUD features.",
     stack: ["React", "Node.js", "Express", "MySQL", "Auth", "CRUD", "Responsive UI"],
   },
   {
     tag: "E-Commerce",
+    category: "Web",
     title: "E-Commerce Platform",
     desc: "Boutique commerce platform with product uploads, category management, shopping cart, customer details, and KES-priced catalog browsing.",
     stack: ["React", "Express", "MongoDB", "Cart", "Product Admin", "KES Pricing", "Checkout"],

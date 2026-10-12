@@ -87,7 +87,7 @@ function SitemapPage() {
           {
             title: "Quote Guide",
             href: "/quote",
-            description: "Get a rough budget band in three steps",
+            description: "Get a rough budget band in a few clicks",
           },
           {
             title: "Technology Stack",

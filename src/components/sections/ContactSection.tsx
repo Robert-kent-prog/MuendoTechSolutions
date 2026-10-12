@@ -10,10 +10,11 @@ import {
   Check,
   MessageCircle,
   AlertCircle,
+  Clock,
 } from "lucide-react";
 import { Section } from "@/components/ui/SectionHeading";
 import { COMPANY, EMAIL, GITHUB, LINKEDIN, WHATSAPP } from "@/lib/seo";
-import { WHATSAPP_DISPLAY, EMPTY_CONTACT_PREFILL } from "@/data/nav";
+import { BUSINESS_HOURS, RESPONSE_PROMISE, WHATSAPP_DISPLAY } from "@/data/nav";
 import { BUDGET_OPTIONS } from "@/data/budget";
 import { QUOTE_ADDONS, TIMELINES } from "@/data/quote";
 import { contactBriefSchema, type ContactBriefInput } from "@/lib/validation/contact-schema";
@@ -282,6 +283,30 @@ export function Contact({ prefill = {} }: { prefill?: ContactPrefill }) {
               <div className="font-medium">{LINKEDIN}</div>
             </div>
           </a>
+
+          {(BUSINESS_HOURS || RESPONSE_PROMISE) && (
+            <div className="glass rounded-xl p-5 flex items-start gap-4">
+              <div className="size-10 rounded-lg bg-secondary text-foreground grid place-items-center shrink-0">
+                <Clock className="size-5" aria-hidden="true" />
+              </div>
+              <div className="min-w-0 flex-1">
+                <div className="text-xs text-muted-foreground">Business hours</div>
+                {BUSINESS_HOURS && (
+                  <dl className="mt-1 space-y-0.5 text-sm">
+                    {BUSINESS_HOURS.map((h) => (
+                      <div key={h.days} className="flex justify-between gap-3">
+                        <dt className="text-muted-foreground">{h.days}</dt>
+                        <dd className="font-medium">{h.hours}</dd>
+                      </div>
+                    ))}
+                  </dl>
+                )}
+                {RESPONSE_PROMISE && (
+                  <p className="mt-2 text-xs text-muted-foreground">{RESPONSE_PROMISE}</p>
+                )}
+              </div>
+            </div>
+          )}
 
           <div className="glass rounded-xl p-5 flex items-start gap-4">
             <div className="size-10 rounded-lg bg-secondary text-foreground grid place-items-center shrink-0">

@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { SERVICES, SERVICE_PACKAGES, SERVICE_DETAIL_PAGES } from "./services";
+import { SERVICES, SERVICE_PACKAGES, SERVICE_DETAIL_PAGES, SERVICE_EXTRAS } from "./services";
 import { PROJECTS, PROJECT_CASE_STUDIES } from "./projects";
 import { INSIGHTS } from "./insights";
 import { FAQS } from "./faqs";
@@ -50,5 +50,26 @@ describe("Domain Data Contracts Integrity", () => {
     });
 
     expect(STATS.length).toBe(4);
+  });
+
+  it("ensures every service page has a stack and FAQs", () => {
+    SERVICE_DETAIL_PAGES.forEach((page) => {
+      const extras = SERVICE_EXTRAS[page.slug];
+      expect(extras, page.slug).toBeTruthy();
+      expect(extras.stack.length).toBeGreaterThan(0);
+      expect(extras.faqs.length).toBeGreaterThan(0);
+    });
+  });
+
+  it("keeps blog and service slugs unique", () => {
+    const blog = INSIGHTS.map((p) => p.slug);
+    expect(new Set(blog).size).toBe(blog.length);
+    const services = SERVICE_DETAIL_PAGES.map((p) => p.slug);
+    expect(new Set(services).size).toBe(services.length);
+  });
+
+  it("keeps site copy free of em dashes", () => {
+    const text = JSON.stringify([INSIGHTS, SERVICE_DETAIL_PAGES, SERVICE_EXTRAS, FAQS]);
+    expect(text.includes("\u2014")).toBe(false);
   });
 });

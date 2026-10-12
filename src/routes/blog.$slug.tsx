@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ArrowLeft, Calendar } from "lucide-react";
-import { COMPANY, SITE_URL, pageHead } from "@/lib/seo";
+import { COMPANY, SITE_URL, breadcrumbSchema, pageHead } from "@/lib/seo";
+import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageShell } from "@/components/layout/PageShell";
 import { INSIGHTS } from "@/data/insights";
 import { CTA } from "@/components/sections/CTASection";
@@ -49,6 +50,16 @@ export const Route = createFileRoute("/blog/$slug")({
             publisher: { "@type": "Organization", name: COMPANY, url: SITE_URL },
           }),
         },
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Blog", path: "/blog" },
+              { name: post.title, path: `/blog/${post.slug}` },
+            ]),
+          ),
+        },
       ],
     };
   },
@@ -89,12 +100,7 @@ function BlogArticlePage() {
     <>
       <article className="py-20 sm:py-28">
         <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-          <a
-            href="/blog"
-            className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-          >
-            <ArrowLeft className="size-4" /> Back to blog
-          </a>
+          <Breadcrumbs items={[{ label: "Blog", to: "/blog" }, { label: post.title }]} />
           <div className="mt-8 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
             <span className="text-accent font-semibold uppercase tracking-wider">
               {post.category}
