@@ -22,6 +22,7 @@ export interface IndustrySolutionItem {
   title: string;
   desc: string;
   outcomes: string[];
+  href?: string;
 }
 
 export const INDUSTRIES: IndustryItem[] = [
@@ -48,18 +49,21 @@ export const INDUSTRY_SOLUTIONS: IndustrySolutionItem[] = [
     title: "Schools and Colleges",
     desc: "Student records, fees, attendance, exams, portals, document workflows, and parent or staff communication.",
     outcomes: ["Student records", "Exam workflows", "Admin visibility"],
+    href: "/services/school-management-systems",
   },
   {
     icon: Truck,
     title: "Logistics and Fleet",
     desc: "Vehicles, drivers, fuel, trips, maintenance, expenses, documents, and operational reporting for transport teams.",
     outcomes: ["Trip logs", "Maintenance tracking", "Cost control"],
+    href: "/services/fleet-management-systems",
   },
   {
     icon: Building2,
     title: "Clinics and Health Teams",
     desc: "Patient records, vaccination schedules, stock visibility, appointments, follow-ups, and reporting dashboards.",
     outcomes: ["Follow-up tracking", "Dose history", "Stock reports"],
+    href: "/services/health-and-clinic-systems",
   },
   {
     icon: Users,

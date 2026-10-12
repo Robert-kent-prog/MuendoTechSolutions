@@ -1,3 +1,4 @@
+import { ArrowRight } from "lucide-react";
 import { Section } from "@/components/ui/SectionHeading";
 import { INDUSTRIES, INDUSTRY_SOLUTIONS } from "@/data/industries";
 
@@ -57,6 +58,14 @@ export function IndustrySolutions() {
                   </span>
                 ))}
               </div>
+              {solution.href && (
+                <a
+                  href={solution.href}
+                  className="mt-5 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+                >
+                  View service page <ArrowRight className="size-4" aria-hidden="true" />
+                </a>
+              )}
             </article>
           );
         })}

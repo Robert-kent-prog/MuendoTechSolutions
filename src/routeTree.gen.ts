@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TermsRouteImport } from './routes/terms'
+import { Route as TechStackRouteImport } from './routes/tech-stack'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as SitemapRouteImport } from './routes/sitemap'
 import { Route as ServicesRouteImport } from './routes/services'
@@ -35,6 +36,11 @@ import { Route as BlogSlugRouteImport } from './routes/blog.$slug'
 const TermsRoute = TermsRouteImport.update({
   id: '/terms',
   path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TechStackRoute = TechStackRouteImport.update({
+  id: '/tech-stack',
+  path: '/tech-stack',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRouteWithChildren
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/tech-stack': typeof TechStackRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -180,6 +187,7 @@ export interface FileRoutesByTo {
   '/quote': typeof QuoteRoute
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/tech-stack': typeof TechStackRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -205,6 +213,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRouteWithChildren
   '/sitemap': typeof SitemapRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/tech-stack': typeof TechStackRoute
   '/terms': typeof TermsRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
@@ -231,6 +240,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap'
     | '/sitemap.xml'
+    | '/tech-stack'
     | '/terms'
     | '/blog/$slug'
     | '/projects/$slug'
@@ -252,6 +262,7 @@ export interface FileRouteTypes {
     | '/quote'
     | '/sitemap'
     | '/sitemap.xml'
+    | '/tech-stack'
     | '/terms'
     | '/blog/$slug'
     | '/projects/$slug'
@@ -276,6 +287,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/sitemap'
     | '/sitemap.xml'
+    | '/tech-stack'
     | '/terms'
     | '/blog/$slug'
     | '/projects/$slug'
@@ -301,6 +313,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRouteWithChildren
   SitemapRoute: typeof SitemapRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  TechStackRoute: typeof TechStackRoute
   TermsRoute: typeof TermsRoute
 }
 
@@ -311,6 +324,13 @@ declare module '@tanstack/react-router' {
       path: '/terms'
       fullPath: '/terms'
       preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/tech-stack': {
+      id: '/tech-stack'
+      path: '/tech-stack'
+      fullPath: '/tech-stack'
+      preLoaderRoute: typeof TechStackRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/sitemap.xml': {
@@ -519,6 +539,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRouteWithChildren,
   SitemapRoute: SitemapRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  TechStackRoute: TechStackRoute,
   TermsRoute: TermsRoute,
 }
 export const routeTree = rootRouteImport

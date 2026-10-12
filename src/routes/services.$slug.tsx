@@ -99,6 +99,9 @@ function ServiceDetailPage() {
       "web-applications": "Web Application",
       "mobile-apps": "Mobile App",
       "ai-integration": "AI Integration / AI System",
+      "school-management-systems": "Business System",
+      "health-and-clinic-systems": "Business System",
+      "fleet-management-systems": "Fleet Management System",
     }[service.slug] || "Business System";
   const contactHref = contactProjectHref({
     title: service.title,

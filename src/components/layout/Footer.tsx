@@ -18,6 +18,7 @@ const ROUTES: readonly string[] = [
   "/pricing",
   "/quote",
   "/industries",
+  "/tech-stack",
   "/privacy",
   "/terms",
 ];
@@ -111,6 +112,7 @@ export function Footer() {
               { label: "Process", href: "/process" },
               { label: "Pricing", href: "/pricing" },
               { label: "Industries", href: "/industries" },
+              { label: "Tech Stack", href: "/tech-stack" },
               { label: "Blog & Insights", href: "/blog" },
               { label: "FAQ", href: "/faq" },
               { label: "Contact", href: "/contact" },

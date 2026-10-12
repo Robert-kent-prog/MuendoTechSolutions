@@ -18,6 +18,7 @@ const staticPages: SitemapEntry[] = [
   { path: "/process", changefreq: "monthly", priority: "0.7", lastmod: LAST_MODIFIED },
   { path: "/pricing", changefreq: "monthly", priority: "0.8", lastmod: "2026-10-12" },
   { path: "/quote", changefreq: "monthly", priority: "0.7", lastmod: "2026-10-12" },
+  { path: "/tech-stack", changefreq: "monthly", priority: "0.6", lastmod: "2026-10-12" },
   { path: "/industries", changefreq: "monthly", priority: "0.7", lastmod: "2026-10-12" },
   { path: "/privacy", changefreq: "yearly", priority: "0.3", lastmod: "2026-10-12" },
   { path: "/terms", changefreq: "yearly", priority: "0.3", lastmod: "2026-10-12" },

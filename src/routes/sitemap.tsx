@@ -90,6 +90,11 @@ function SitemapPage() {
             description: "Get a rough budget band in three steps",
           },
           {
+            title: "Technology Stack",
+            href: "/tech-stack",
+            description: "Languages, frameworks and tools we build with",
+          },
+          {
             title: "Industries",
             href: "/industries",
             description: "Software for retail, schools, clinics, fleets and NGOs",

@@ -620,6 +620,101 @@ export const SERVICE_DETAIL_PAGES: ServiceDetailPage[] = [
     proof:
       "We have built AI chat assistants, document understanding and workflow automation into business platforms, always starting with one narrow task.",
   },
+  {
+    slug: "school-management-systems",
+    title: "School Management System Development in Kenya",
+    eyebrow: "School Systems",
+    summary:
+      "Student records, fees, attendance, exams and reports for Kenyan schools and colleges, built in stages so staff can adopt the system without disrupting the term.",
+    bestFor:
+      "Primary and secondary schools, colleges and training institutions that run on registers, spreadsheets and paper files.",
+    price: "Scoped after discovery",
+    outcomes: [
+      "One reliable record for every student, class and stream",
+      "Fee balances and payment records the bursar can trust",
+      "Attendance and exam marks captured once and reported on easily",
+      "Role-based access for teachers, finance staff, admins and leadership",
+    ],
+    features: [
+      "Student records and class streams",
+      "Fee tracking and balances",
+      "Attendance capture",
+      "Exam marks and report outputs",
+      "Roles and permissions per department",
+      "Optional parent portal and SMS reminders in a later phase",
+    ],
+    process: [
+      "Agree the first release: records, fees, attendance, exams and reports",
+      "Import existing student and fee data from spreadsheets",
+      "Train staff on the screens they use every day",
+      "Add parent communication and online applications once the core is stable",
+    ],
+    proof:
+      "We have built a university exam administration system with eligibility checks, barcode verification, role access and audit logging, and we advise starting a school system small. See our field notes on what to build first.",
+  },
+  {
+    slug: "health-and-clinic-systems",
+    title: "Clinic and Health Records Software in Kenya",
+    eyebrow: "Health and Clinic Systems",
+    summary:
+      "Patient records, vaccination schedules, appointment follow-ups and stock visibility for clinics and health teams that want to move away from fragile paper processes.",
+    bestFor: "Clinics, community health teams, vaccination programmes and small health facilities.",
+    price: "Scoped after discovery",
+    outcomes: [
+      "Clear dose history and follow-up dates for every patient",
+      "Fewer missed appointments through visible schedules",
+      "Vaccine and supply stock the team can see at a glance",
+      "Reports for managers without manual counting",
+    ],
+    features: [
+      "Patient and dose records",
+      "Appointment and follow-up tracking",
+      "Vaccine stock visibility",
+      "Admin roles and access control",
+      "Reports and dashboards",
+      "Secure hosting and backups",
+    ],
+    process: [
+      "Map how patients, doses and appointments are handled today",
+      "Design the records, schedules and roles around that workflow",
+      "Build, test with real examples and train the team",
+      "Deploy with backups and support during the first rollout",
+    ],
+    proof:
+      "Our Vaccination Tracker System covers patient records, dose schedules, follow-ups, stock visibility and admin reporting. Health data needs careful access control, so roles are designed in from the start.",
+  },
+  {
+    slug: "fleet-management-systems",
+    title: "Fleet Management Software for Kenyan Logistics Teams",
+    eyebrow: "Fleet Management",
+    summary:
+      "Vehicle and driver records, fuel, trips, maintenance schedules and expense reports in one platform, so managers see costs and risks before they become problems.",
+    bestFor:
+      "Transport and logistics operators, delivery businesses and companies running their own vehicles.",
+    price: "Scoped after discovery",
+    outcomes: [
+      "One view of every vehicle, driver and trip",
+      "Maintenance reminders so service is not missed",
+      "Fuel and expense records that show real operating costs",
+      "Documents and compliance dates visible in one place",
+    ],
+    features: [
+      "Vehicle and driver records",
+      "Fuel and maintenance tracking",
+      "Trip logs and expense reports",
+      "Document and expiry visibility",
+      "Map-ready workflow planning",
+      "Admin dashboard and reports",
+    ],
+    process: [
+      "List the vehicles, drivers and records that matter most today",
+      "Design trips, fuel, maintenance and expense workflows",
+      "Build the dashboard and reports managers will actually open",
+      "Deploy, train the team and plan optional tracking integrations",
+    ],
+    proof:
+      "Our Fleet Management System replaced scattered manual logs and documents with vehicle, driver, fuel, trip, maintenance and expense records for a Kenyan logistics operator.",
+  },
 ];
 
 export const SOLUTIONS = [
