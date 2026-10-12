@@ -1,4 +1,5 @@
 import { useState, type FormEvent } from "react";
+import { Link } from "@tanstack/react-router";
 import {
   Mail,
   Phone,
@@ -14,6 +15,7 @@ import { Section } from "@/components/ui/SectionHeading";
 import { COMPANY, EMAIL, GITHUB, LINKEDIN, WHATSAPP } from "@/lib/seo";
 import { WHATSAPP_DISPLAY, EMPTY_CONTACT_PREFILL } from "@/data/nav";
 import { BUDGET_OPTIONS } from "@/data/budget";
+import { QUOTE_ADDONS, TIMELINES } from "@/data/quote";
 import { contactBriefSchema, type ContactBriefInput } from "@/lib/validation/contact-schema";
 
 const SERVICE_OPTIONS = [
@@ -43,6 +45,8 @@ export type ContactPrefill = {
   project?: string;
   source?: string;
   message?: string;
+  timeline?: string;
+  features?: string;
 };
 
 function buildInitialForm(prefill: ContactPrefill): ContactBriefInput {
@@ -52,7 +56,10 @@ function buildInitialForm(prefill: ContactPrefill): ContactBriefInput {
     project = "",
     source = "",
     message: customMessage = "",
+    timeline = "",
+    features: featureIds = "",
   } = prefill;
+  const features = featureIds.split(",").filter((id) => QUOTE_ADDONS.some((a) => a.id === id));
   const message =
     customMessage ||
     (service || project || source
@@ -63,19 +70,23 @@ function buildInitialForm(prefill: ContactPrefill): ContactBriefInput {
           "",
           "Business goal:",
           "",
-          "Important features:",
-          "",
-          "Timeline:",
-          "",
-          "Budget range:",
-          "",
           "Other notes:",
         ]
           .filter((line, index, lines) => line || lines[index - 1])
           .join("\n")
       : "");
 
-  return { name: "", email: "", phone: "", company: "", service, budget, message };
+  return {
+    name: "",
+    email: "",
+    phone: "",
+    company: "",
+    service,
+    budget,
+    timeline: TIMELINES.some((t) => t === timeline) ? timeline : "",
+    features,
+    message,
+  };
 }
 
 export function Contact({ prefill = {} }: { prefill?: ContactPrefill }) {
@@ -96,6 +107,14 @@ export function Contact({ prefill = {} }: { prefill?: ContactPrefill }) {
       `Company: ${data.company?.trim() || "Not provided"}`,
       `Service: ${data.service.trim() || "Not selected"}`,
       `Budget: ${data.budget?.trim() || "Not selected"}`,
+      `Timeline: ${data.timeline?.trim() || "Not selected"}`,
+      `Key features: ${
+        data.features?.length
+          ? QUOTE_ADDONS.filter((a) => data.features?.includes(a.id))
+              .map((a) => a.label)
+              .join(", ")
+          : "None selected"
+      }`,
       "",
       "Project message:",
       `${data.message.trim()}`,
@@ -135,6 +154,16 @@ export function Contact({ prefill = {} }: { prefill?: ContactPrefill }) {
       if (message) next[name] = message;
       else delete next[name];
       return next;
+    });
+  }
+
+  function toggleFeature(id: string) {
+    setFormData((prev) => {
+      const current = prev.features ?? [];
+      return {
+        ...prev,
+        features: current.includes(id) ? current.filter((f) => f !== id) : [...current, id],
+      };
     });
   }
 
@@ -452,8 +481,81 @@ export function Contact({ prefill = {} }: { prefill?: ContactPrefill }) {
                   </option>
                 ))}
               </select>
+              <p className="mt-1.5 text-xs text-muted-foreground">
+                Not sure?{" "}
+                <Link to="/quote" className="text-accent font-medium hover:underline">
+                  Get a rough budget guide
+                </Link>
+              </p>
             </div>
           </div>
+
+          {/* Timeline */}
+          <div className="sm:max-w-[calc(50%-0.5rem)]">
+            <label
+              htmlFor="contact-timeline"
+              className="block text-xs font-medium text-muted-foreground mb-1.5"
+            >
+              Timeline
+            </label>
+            <select
+              id="contact-timeline"
+              name="timeline"
+              value={formData.timeline}
+              onChange={handleChange}
+              className="w-full rounded-lg bg-background/50 border border-border px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
+            >
+              <option value="">When do you need it?</option>
+              {TIMELINES.map((t) => (
+                <option key={t} value={t}>
+                  {t}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Key features */}
+          <fieldset>
+            <legend className="block text-xs font-medium text-muted-foreground mb-1.5">
+              Key features (optional)
+            </legend>
+            <div className="grid sm:grid-cols-2 gap-2">
+              {QUOTE_ADDONS.map((a) => {
+                const checked = formData.features?.includes(a.id) ?? false;
+                return (
+                  <label
+                    key={a.id}
+                    className={`cursor-pointer flex items-start gap-2.5 rounded-lg border px-3 py-2.5 text-sm transition-colors focus-within:ring-2 focus-within:ring-ring ${
+                      checked
+                        ? "border-primary bg-primary/10"
+                        : "border-border hover:bg-secondary/50"
+                    }`}
+                  >
+                    <input
+                      type="checkbox"
+                      checked={checked}
+                      onChange={() => toggleFeature(a.id)}
+                      className="sr-only"
+                    />
+                    <span
+                      aria-hidden="true"
+                      className={`mt-0.5 size-4 shrink-0 rounded border grid place-items-center ${
+                        checked
+                          ? "border-primary bg-primary text-primary-foreground"
+                          : "border-border"
+                      }`}
+                    >
+                      {checked && <Check className="size-3" />}
+                    </span>
+                    <span>
+                      <span className="block font-medium leading-tight">{a.label}</span>
+                      <span className="block text-xs text-muted-foreground">{a.hint}</span>
+                    </span>
+                  </label>
+                );
+              })}
+            </div>
+          </fieldset>
 
           {/* Message */}
           <div>

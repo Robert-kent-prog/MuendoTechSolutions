@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, MessageCircle } from "lucide-react";
 import { contactProjectHref } from "@/lib/contact-project";
 import { WHATSAPP } from "@/lib/seo";
@@ -29,18 +30,12 @@ export function CTA() {
               >
                 Discuss Your Project <ArrowRight className="size-4" />
               </a>
-              <a
-                href={contactProjectHref({
-                  title: "Project quote request",
-                  service: "Other",
-                  source: "Section quote CTA",
-                  message:
-                    "I would like to request a project quote.\n\nWhat I need built:\n\nCurrent status:\n\nImportant features:\n\nTimeline:\n\nBudget range:",
-                })}
+              <Link
+                to="/quote"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl border border-border glass text-foreground font-medium hover:bg-secondary/60 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 Request a Quote
-              </a>
+              </Link>
             </div>
 
             <div className="mt-6 pt-6 border-t border-border/50 flex items-center gap-2 text-xs sm:text-sm text-muted-foreground">

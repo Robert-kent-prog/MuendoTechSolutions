@@ -85,6 +85,13 @@ export const QUOTE_ADDONS: QuoteAddon[] = [
   { id: "maintenance", label: "Ongoing support", hint: "Monthly updates, fixes and monitoring." },
 ];
 
+export const TIMELINES = [
+  "As soon as possible",
+  "Within 1 to 2 months",
+  "Within 3 months",
+  "Flexible",
+] as const;
+
 /** Every three add-ons move the guide up one band. */
 export const ADDONS_PER_BAND = 3;
 

@@ -15,6 +15,8 @@ const contactSearchSchema = z.object({
   project: optionalText,
   source: optionalText,
   message: optionalText,
+  timeline: optionalText,
+  features: optionalText,
 });
 
 export const Route = createFileRoute("/contact")({

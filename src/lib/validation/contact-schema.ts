@@ -7,6 +7,8 @@ export const contactBriefSchema = z.object({
   company: z.string().trim().optional(),
   service: z.string().trim().min(1, "Please select a service"),
   budget: z.string().trim().optional(),
+  timeline: z.string().trim().optional(),
+  features: z.array(z.string()).optional(),
   message: z
     .string()
     .trim()

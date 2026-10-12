@@ -1,9 +1,7 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Check } from "lucide-react";
-import { QUOTE_ADDONS, QUOTE_SERVICES, estimateBand } from "@/data/quote";
-
-const TIMELINES = ["As soon as possible", "Within 1 to 2 months", "Within 3 months", "Flexible"];
+import { QUOTE_ADDONS, QUOTE_SERVICES, TIMELINES, estimateBand } from "@/data/quote";
 
 export function QuoteCalculator() {
   const [serviceId, setServiceId] = useState<string>("");
@@ -17,18 +15,12 @@ export function QuoteCalculator() {
     setAddons((prev) => (prev.includes(id) ? prev.filter((a) => a !== id) : [...prev, id]));
   }
 
-  const selectedAddonLabels = QUOTE_ADDONS.filter((a) => addons.includes(a.id)).map((a) => a.label);
-
   const message = service
     ? [
         `Project type: ${service.label}`,
-        `Extras: ${selectedAddonLabels.length ? selectedAddonLabels.join(", ") : "None selected"}`,
-        `Timeline: ${timeline}`,
         `Rough guide from the quote page: ${band}`,
         "",
         "Business goal:",
-        "",
-        "Important features:",
         "",
         "Other notes:",
       ].join("\n")
@@ -163,6 +155,8 @@ export function QuoteCalculator() {
                   service: service.contactService,
                   budget: band,
                   source: "Quote guide",
+                  timeline,
+                  features: addons.join(","),
                   message,
                 }}
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-lg bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
