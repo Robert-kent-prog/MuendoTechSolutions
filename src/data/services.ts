@@ -524,6 +524,102 @@ export const SERVICE_DETAIL_PAGES: ServiceDetailPage[] = [
     proof:
       "The goal is not only accepting payment; it is giving the business a reliable way to verify, reconcile, and support payment events.",
   },
+  {
+    slug: "web-applications",
+    title: "Custom Web Application Development in Kenya",
+    eyebrow: "Web Applications",
+    summary:
+      "Dashboards, portals and internal systems for Kenyan businesses that have outgrown spreadsheets: logins, roles, records, reports and workflows built around how your team actually works.",
+    bestFor:
+      "Operations teams, schools, clinics, logistics firms, NGOs and growing SMEs that need one reliable system instead of scattered files.",
+    price: "Typical range KES 150,000+",
+    outcomes: [
+      "One source of truth for records that used to live in spreadsheets",
+      "Role-based access so staff only see what they should",
+      "Reports and exports the owner or manager can trust",
+      "A system that can grow with new modules after launch",
+    ],
+    features: [
+      "Authentication, roles and permissions",
+      "Database design and data validation",
+      "Admin dashboards and approval workflows",
+      "Reports, exports and audit trails",
+      "Optional M-Pesa and third-party integrations",
+      "Deployment, backups and handover",
+    ],
+    process: [
+      "Map the current workflow, users and the records that matter",
+      "Design the data model, screens and permissions",
+      "Build in short cycles with reviews you can click through",
+      "Test, deploy, train your team and plan support",
+    ],
+    proof:
+      "Our fleet management, bookkeeping and document systems follow this approach: start from the real workflow, then build only what the team will use.",
+  },
+  {
+    slug: "mobile-apps",
+    title: "Mobile App Development in Kenya (Android and iOS)",
+    eyebrow: "Mobile Apps",
+    summary:
+      "Cross-platform Android and iOS apps with a secure backend, built for the way Kenyan users actually pay, chat and find services.",
+    bestFor:
+      "Startups, service marketplaces, field teams and businesses that need customers or staff to work from their phones.",
+    price: "Scoped after discovery",
+    outcomes: [
+      "One codebase that ships to both Android and iOS",
+      "A backend and admin panel to manage users and content",
+      "Payment, location and notification flows that work on real networks",
+      "A release plan for the Play Store and App Store",
+    ],
+    features: [
+      "React Native app with TypeScript",
+      "Secure API, authentication and data storage",
+      "Push notifications, chat and location features",
+      "M-Pesa Daraja payment flows",
+      "Admin dashboard for managing the app",
+      "Store submission and post-launch support",
+    ],
+    process: [
+      "Define the core user journey and what version one must include",
+      "Prototype the key screens and confirm them with real users",
+      "Build the app and backend together, testing on real devices",
+      "Release to the stores and support early feedback",
+    ],
+    proof:
+      "Linkfy, a service marketplace app, combines chat, calls, maps, ratings and M-Pesa payments on one backend.",
+  },
+  {
+    slug: "ai-integration",
+    title: "AI Integration for Business Software in Kenya",
+    eyebrow: "AI Integration",
+    summary:
+      "Practical AI features added to systems you already run: document understanding, customer support assistants, smart search and workflow automation, with clear limits and human review where it matters.",
+    bestFor:
+      "Businesses with documents, support requests or repetitive admin work that a well-scoped AI feature could reduce.",
+    price: "Scoped after discovery",
+    outcomes: [
+      "Less manual reading, sorting and data entry",
+      "Faster first responses to common customer questions",
+      "Search that finds the right record or document",
+      "Predictable usage costs and clear fallback behaviour",
+    ],
+    features: [
+      "AI chat assistants connected to your own data",
+      "Document understanding and data extraction",
+      "Smart search across records and files",
+      "Workflow automation with approval steps",
+      "Provider integration (OpenAI, Gemini)",
+      "Usage limits, logging and cost monitoring",
+    ],
+    process: [
+      "Pick one high-value task and define what a good result looks like",
+      "Prototype with real examples and measure accuracy",
+      "Integrate into your system with review steps and fallbacks",
+      "Monitor cost and quality, then expand carefully",
+    ],
+    proof:
+      "We have built AI chat assistants, document understanding and workflow automation into business platforms, always starting with one narrow task.",
+  },
 ];
 
 export const SOLUTIONS = [

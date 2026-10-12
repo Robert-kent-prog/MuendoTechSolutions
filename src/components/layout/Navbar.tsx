@@ -45,7 +45,7 @@ export function Navbar() {
                 key={n.href}
                 to={n.href}
                 aria-current={isActive ? "page" : undefined}
-                className={`relative text-sm px-3 py-2 rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
+                className={`relative text-sm px-2.5 py-2 rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ${
                   isActive
                     ? "text-foreground font-medium"
                     : "text-muted-foreground hover:text-foreground"
@@ -53,7 +53,7 @@ export function Navbar() {
               >
                 {n.label}
                 <span
-                  className={`absolute left-3 right-3 -bottom-0.5 h-0.5 rounded-full bg-gradient-to-r from-primary to-accent transition-all duration-300 ${
+                  className={`absolute left-2.5 right-2.5 -bottom-0.5 h-0.5 rounded-full bg-gradient-to-r from-primary to-accent transition-all duration-300 ${
                     isActive ? "opacity-100 scale-x-100" : "opacity-0 scale-x-0"
                   }`}
                 />
@@ -66,7 +66,7 @@ export function Navbar() {
           <Link
             to="/contact"
             search={NAVBAR_CTA_SEARCH}
-            className="inline-flex items-center gap-2 text-sm font-medium px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            className="inline-flex items-center gap-2 whitespace-nowrap text-sm font-medium px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           >
             Start a Project <ArrowRight className="size-4" />
           </Link>

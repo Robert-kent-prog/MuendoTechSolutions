@@ -96,6 +96,9 @@ function ServiceDetailPage() {
       "pos-systems": "Point of Sale / Retail System",
       "website-maintenance": "Website Maintenance",
       "mpesa-integrations": "M-Pesa Integration",
+      "web-applications": "Web Application",
+      "mobile-apps": "Mobile App",
+      "ai-integration": "AI Integration / AI System",
     }[service.slug] || "Business System";
   const contactHref = contactProjectHref({
     title: service.title,

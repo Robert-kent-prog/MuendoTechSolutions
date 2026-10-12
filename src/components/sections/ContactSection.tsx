@@ -13,6 +13,7 @@ import {
 import { Section } from "@/components/ui/SectionHeading";
 import { COMPANY, EMAIL, GITHUB, LINKEDIN, WHATSAPP } from "@/lib/seo";
 import { WHATSAPP_DISPLAY, EMPTY_CONTACT_PREFILL } from "@/data/nav";
+import { BUDGET_OPTIONS } from "@/data/budget";
 import { contactBriefSchema, type ContactBriefInput } from "@/lib/validation/contact-schema";
 
 const SERVICE_OPTIONS = [
@@ -34,16 +35,6 @@ const SERVICE_OPTIONS = [
   "UI/UX & Frontend",
   "Deployment & Maintenance",
   "Other",
-];
-
-const BUDGET_OPTIONS = [
-  "Under KES 25,000",
-  "KES 25,000 – 100,000",
-  "KES 100,000 – 150,000",
-  "KES 150,000 – 400,000",
-  "KES 400,000 – 1,000,000",
-  "KES 1,000,000+",
-  "Not sure yet",
 ];
 
 export type ContactPrefill = {

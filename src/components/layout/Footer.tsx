@@ -15,6 +15,11 @@ const ROUTES: readonly string[] = [
   "/faq",
   "/contact",
   "/sitemap",
+  "/pricing",
+  "/quote",
+  "/industries",
+  "/privacy",
+  "/terms",
 ];
 
 function isRoute(href: string): href is FileRouteTypes["to"] {
@@ -28,7 +33,15 @@ function FooterCol({ title, links }: { title: string; links: { label: string; hr
       <ul className="space-y-2.5 text-sm text-muted-foreground">
         {links.map((l) => (
           <li key={l.label}>
-            {isRoute(l.href) ? (
+            {l.href.startsWith("/services/") ? (
+              <Link
+                to="/services/$slug"
+                params={{ slug: l.href.replace("/services/", "") }}
+                className="hover:text-foreground transition"
+              >
+                {l.label}
+              </Link>
+            ) : isRoute(l.href) ? (
               <Link to={l.href} className="hover:text-foreground transition">
                 {l.label}
               </Link>
@@ -96,6 +109,8 @@ export function Footer() {
               { label: "Services", href: "/services" },
               { label: "Projects", href: "/projects" },
               { label: "Process", href: "/process" },
+              { label: "Pricing", href: "/pricing" },
+              { label: "Industries", href: "/industries" },
               { label: "Blog & Insights", href: "/blog" },
               { label: "FAQ", href: "/faq" },
               { label: "Contact", href: "/contact" },
@@ -104,12 +119,12 @@ export function Footer() {
           <FooterCol
             title="Services"
             links={[
-              { label: "Web Application Dev", href: "/services#web-apps" },
-              { label: "Mobile App Dev", href: "/services#mobile-apps" },
+              { label: "Web Application Dev", href: "/services/web-applications" },
+              { label: "Mobile App Dev", href: "/services/mobile-apps" },
               { label: "Backend API Dev", href: "/services#backend-apis" },
               { label: "Business Systems", href: "/services#business-systems" },
               { label: "POS & Retail Systems", href: "/services#pos-systems" },
-              { label: "AI Integrations", href: "/services#ai-integrations" },
+              { label: "AI Integrations", href: "/services/ai-integration" },
               { label: "PHP & Laravel Work", href: "/services#php-laravel" },
               { label: "Deployment & Support", href: "/services#deployment" },
             ]}
@@ -128,6 +143,12 @@ export function Footer() {
             © {new Date().getFullYear()} {COMPANY}. All rights reserved.
           </div>
           <div className="flex gap-4">
+            <Link to="/privacy" className="hover:text-foreground transition">
+              Privacy
+            </Link>
+            <Link to="/terms" className="hover:text-foreground transition">
+              Terms
+            </Link>
             <Link to="/sitemap" className="hover:text-foreground transition">
               Sitemap
             </Link>

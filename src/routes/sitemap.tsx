@@ -80,9 +80,34 @@ function SitemapPage() {
             description: "Answers on pricing, retainers, and tech stack",
           },
           {
+            title: "Pricing",
+            href: "/pricing",
+            description: "Starting points in KES and what affects a quote",
+          },
+          {
+            title: "Quote Guide",
+            href: "/quote",
+            description: "Get a rough budget band in three steps",
+          },
+          {
+            title: "Industries",
+            href: "/industries",
+            description: "Software for retail, schools, clinics, fleets and NGOs",
+          },
+          {
             title: "Contact Us",
             href: "/contact",
             description: "Request a project quote or send a WhatsApp brief",
+          },
+          {
+            title: "Privacy Policy",
+            href: "/privacy",
+            description: "How we handle personal information",
+          },
+          {
+            title: "Terms of Service",
+            href: "/terms",
+            description: "General terms for quotes and projects",
           },
         ],
       },
