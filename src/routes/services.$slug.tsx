@@ -227,7 +227,7 @@ function ServiceDetailPage() {
           <div className="mt-10 grid md:grid-cols-2 lg:grid-cols-4 gap-5">
             {service.process.map((step, index) => (
               <div key={step} className="glass rounded-2xl p-6 card-hover">
-                <div className="text-3xl font-bold text-gradient mb-3">
+                <div className="text-3xl font-bold text-primary mb-3">
                   {String(index + 1).padStart(2, "0")}
                 </div>
                 <p className="text-sm text-muted-foreground leading-relaxed">{step}</p>

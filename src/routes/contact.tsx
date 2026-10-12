@@ -1,9 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { z } from "zod";
 import { COMPANY, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { Contact } from "@/components/sections/ContactSection";
 
+const optionalText = z.preprocess(
+  (v) => (typeof v === "string" || typeof v === "number" ? String(v) : undefined),
+  z.string().max(2000).optional(),
+);
+
+const contactSearchSchema = z.object({
+  service: optionalText,
+  budget: optionalText,
+  project: optionalText,
+  source: optionalText,
+  message: optionalText,
+});
+
 export const Route = createFileRoute("/contact")({
+  validateSearch: (search) => contactSearchSchema.parse(search),
   component: ContactPage,
   head: () =>
     pageHead({
@@ -15,10 +30,11 @@ export const Route = createFileRoute("/contact")({
 });
 
 function ContactPage() {
+  const search = Route.useSearch();
   return (
     <PageShell>
       <main className="pt-16">
-        <Contact />
+        <Contact prefill={search} />
       </main>
     </PageShell>
   );

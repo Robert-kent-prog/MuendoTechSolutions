@@ -121,7 +121,7 @@ export function Solutions() {
       id="solutions"
       eyebrow="Solutions"
       title="Solutions We Can Build"
-      subtitle="Production-ready building blocks we've delivered — and can shape to fit your workflow."
+      subtitle="Production-ready building blocks we've delivered, and can shape to fit your workflow."
     >
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {SOLUTIONS.map((s, i) => (

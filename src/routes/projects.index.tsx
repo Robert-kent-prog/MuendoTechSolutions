@@ -3,6 +3,7 @@ import { COMPANY, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { Projects } from "@/components/sections/ProjectsSection";
 import { Testimonials } from "@/components/sections/TestimonialsSection";
+import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/projects/")({
   component: ProjectsIndexPage,
@@ -21,6 +22,7 @@ function ProjectsIndexPage() {
       <main className="pt-16">
         <Projects />
         <Testimonials />
+        <CTA />
       </main>
     </PageShell>
   );

@@ -1,4 +1,13 @@
-import { Sparkles, ArrowRight, CheckCircle2, Terminal, Code2, ShieldCheck, Database, Server } from "lucide-react";
+import {
+  Sparkles,
+  ArrowRight,
+  CheckCircle2,
+  Terminal,
+  Code2,
+  ShieldCheck,
+  Database,
+  Server,
+} from "lucide-react";
 import { contactProjectHref } from "@/lib/contact-project";
 import { HERO_HIGHLIGHTS } from "@/data/services";
 
@@ -6,7 +15,7 @@ export function Hero() {
   return (
     <section
       id="home"
-      className="relative scroll-mt-16 pt-28 pb-20 sm:pt-36 sm:pb-28 bg-hero-gradient overflow-hidden"
+      className="relative scroll-mt-20 pt-28 pb-20 sm:pt-36 sm:pb-28 bg-hero-gradient overflow-hidden"
     >
       <div className="absolute inset-0 grid-bg opacity-30 pointer-events-none" />
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -18,12 +27,13 @@ export function Hero() {
               Software Development Company · Nairobi, Kenya
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.08]">
-              Build <span className="text-gradient">Reliable Software</span>
+              Build Reliable Software
               <br className="hidden sm:block" /> for Your Business
             </h1>
             <p className="text-lg text-muted-foreground leading-relaxed max-w-2xl">
               We design and build custom software that replaces manual workflows, connects your
-              operations, and gives your business reliable digital systems to operate and scale with confidence.
+              operations, and gives your business reliable digital systems to operate and scale with
+              confidence.
             </p>
             <div className="flex flex-wrap gap-3 pt-2">
               <a
@@ -61,7 +71,7 @@ export function Hero() {
 
           {/* Right Column: Asymmetric 5-cols Live Architecture Spotlight */}
           <div className="lg:col-span-5">
-            <div className="glass rounded-2xl p-6 border border-border shadow-2xl space-y-5">
+            <div className="glass rounded-2xl p-6 border border-border space-y-5">
               <div className="flex items-center justify-between border-b border-border pb-4">
                 <div className="flex items-center gap-2">
                   <div className="size-3 rounded-full bg-destructive/60" />
@@ -89,7 +99,8 @@ export function Hero() {
                 </p>
 
                 <div className="flex items-center gap-2 text-foreground font-semibold pt-2">
-                  <ShieldCheck className="size-4 text-emerald-400 shrink-0" /> Security & Integrations
+                  <ShieldCheck className="size-4 text-emerald-400 shrink-0" /> Security &
+                  Integrations
                 </div>
                 <p className="text-muted-foreground pl-6">
                   M-Pesa Daraja · JWT Auth & RBAC · Zod Validation · Audit Logging · Linux / Vercel

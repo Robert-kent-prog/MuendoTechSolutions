@@ -33,18 +33,20 @@ export function Team() {
                     {member.initials}
                   </div>
                   <div className="min-w-0 pr-16">
-                    <h3 className="text-xl font-bold tracking-tight text-foreground">{member.name}</h3>
+                    <h3 className="text-xl font-bold tracking-tight text-foreground">
+                      {member.name}
+                    </h3>
                     <p className="mt-1 text-xs text-accent font-semibold">{member.role}</p>
                     {member.experience && (
-                      <p className="mt-0.5 text-[11px] text-muted-foreground">{member.experience}</p>
+                      <p className="mt-0.5 text-[11px] text-muted-foreground">
+                        {member.experience}
+                      </p>
                     )}
                   </div>
                 </div>
 
                 {/* Member Bio */}
-                <p className="mt-5 text-sm text-muted-foreground leading-relaxed">
-                  {member.bio}
-                </p>
+                <p className="mt-5 text-sm text-muted-foreground leading-relaxed">{member.bio}</p>
 
                 {/* Featured Engineering Quote */}
                 {member.featuredQuote && (
@@ -81,9 +83,12 @@ export function Team() {
           <div className="flex items-center gap-2 text-sm font-semibold text-accent">
             <UserCheck className="size-4" /> Direct Engineering Accountability
           </div>
-          <h3 className="font-bold text-lg text-foreground">Built for reliability, transparency, and production launch.</h3>
+          <h3 className="font-bold text-lg text-foreground">
+            Built for reliability, transparency, and production launch.
+          </h3>
           <p className="text-sm text-muted-foreground leading-relaxed">
-            The same software engineers who scope your business requirements stay hands-on through architecture, implementation, testing, deployment, and ongoing retainers.
+            The same software engineers who scope your business requirements stay hands-on through
+            architecture, implementation, testing, deployment, and ongoing retainers.
           </p>
         </div>
       </div>

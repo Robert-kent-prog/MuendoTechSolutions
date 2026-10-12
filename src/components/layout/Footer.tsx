@@ -1,7 +1,25 @@
-import { Mail, Phone, MapPin, Github, Linkedin, MessageCircle } from "lucide-react";
+import { Github, Linkedin, MessageCircle } from "lucide-react";
+import { Link } from "@tanstack/react-router";
+import type { FileRouteTypes } from "@/routeTree.gen";
 import { COMPANY, EMAIL, GITHUB, LINKEDIN, SITE_URL, WHATSAPP } from "@/lib/seo";
 import { WHATSAPP_DISPLAY } from "@/data/nav";
 import { Logo } from "@/components/ui/Logo";
+
+const ROUTES: readonly string[] = [
+  "/",
+  "/about",
+  "/services",
+  "/projects",
+  "/process",
+  "/blog",
+  "/faq",
+  "/contact",
+  "/sitemap",
+];
+
+function isRoute(href: string): href is FileRouteTypes["to"] {
+  return ROUTES.includes(href);
+}
 
 function FooterCol({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
@@ -10,9 +28,15 @@ function FooterCol({ title, links }: { title: string; links: { label: string; hr
       <ul className="space-y-2.5 text-sm text-muted-foreground">
         {links.map((l) => (
           <li key={l.label}>
-            <a href={l.href} className="hover:text-foreground transition">
-              {l.label}
-            </a>
+            {isRoute(l.href) ? (
+              <Link to={l.href} className="hover:text-foreground transition">
+                {l.label}
+              </Link>
+            ) : (
+              <a href={l.href} className="hover:text-foreground transition">
+                {l.label}
+              </a>
+            )}
           </li>
         ))}
       </ul>
@@ -26,12 +50,13 @@ export function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
           <div className="col-span-2 space-y-4">
-            <a href="/" className="flex items-center gap-2" aria-label={COMPANY}>
+            <Link to="/" className="flex items-center gap-2" aria-label={COMPANY}>
               <Logo />
-            </a>
+            </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
-              Software development company based in Nairobi, Kenya. Building web apps, mobile products,
-              backend APIs, POS systems, business platforms, AI integrations, and payment-ready systems.
+              Software development company based in Nairobi, Kenya. Building web apps, mobile
+              products, backend APIs, POS systems, business platforms, AI integrations, and
+              payment-ready systems.
             </p>
             <div className="flex items-center gap-3 text-muted-foreground pt-2">
               <a
@@ -103,15 +128,15 @@ export function Footer() {
             © {new Date().getFullYear()} {COMPANY}. All rights reserved.
           </div>
           <div className="flex gap-4">
-            <a href="/sitemap" className="hover:text-foreground transition">
+            <Link to="/sitemap" className="hover:text-foreground transition">
               Sitemap
-            </a>
-            <a href="/faq" className="hover:text-foreground transition">
+            </Link>
+            <Link to="/faq" className="hover:text-foreground transition">
               FAQ
-            </a>
-            <a href="/contact" className="hover:text-foreground transition">
+            </Link>
+            <Link to="/contact" className="hover:text-foreground transition">
               Contact
-            </a>
+            </Link>
           </div>
         </div>
       </div>

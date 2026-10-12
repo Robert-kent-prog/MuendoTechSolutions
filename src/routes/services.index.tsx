@@ -2,7 +2,11 @@ import { createFileRoute } from "@tanstack/react-router";
 import { COMPANY, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { Services } from "@/components/sections/ServicesSection";
-import { ServicePackages, ServicePagePreview, Solutions } from "@/components/sections/ServicePackagesSection";
+import {
+  ServicePackages,
+  ServicePagePreview,
+  Solutions,
+} from "@/components/sections/ServicePackagesSection";
 import { Technologies } from "@/components/sections/TechStackSection";
 import { Industries, IndustrySolutions } from "@/components/sections/IndustriesSection";
 import { CTA } from "@/components/sections/CTASection";

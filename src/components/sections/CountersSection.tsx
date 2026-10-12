@@ -36,7 +36,7 @@ function StatItem({ value, suffix, label }: StatItemData) {
   const { val, ref } = useCountUp(value);
   return (
     <div className="glass rounded-2xl p-6 text-center card-hover">
-      <div className="text-4xl sm:text-5xl font-bold text-gradient">
+      <div className="text-4xl sm:text-5xl font-bold text-primary">
         <span ref={ref}>{val}</span>
         {suffix}
       </div>

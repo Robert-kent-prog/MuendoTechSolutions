@@ -9,12 +9,12 @@ export function CTA() {
         <div className="relative rounded-2xl p-8 sm:p-12 overflow-hidden glass border border-border shadow-xl">
           <div className="relative">
             <h2 className="text-3xl sm:text-4xl font-bold tracking-tight max-w-3xl leading-tight">
-              Let's Build Something Your Business{" "}
-              <span className="text-gradient">Can Rely On.</span>
+              Let's Build Something Your Business Can Rely On.
             </h2>
             <p className="mt-4 text-muted-foreground max-w-2xl text-base sm:text-lg leading-relaxed">
               Tell us what you're trying to improve, automate, or build. We'll help turn your idea
-              into a reliable digital system — from architecture and development to deployment and support.
+              into a reliable digital system, from architecture and development to deployment and
+              support.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
               <a
@@ -52,7 +52,8 @@ export function CTA() {
                 aria-label="Contact Muendo Software Labs on WhatsApp"
                 className="inline-flex items-center gap-1.5 font-medium text-emerald-400 hover:underline"
               >
-                <MessageCircle className="size-4 shrink-0" /> Chat with us on WhatsApp →
+                <MessageCircle className="size-4 shrink-0" /> Chat with us on WhatsApp{" "}
+                <ArrowRight className="size-3.5 shrink-0" />
               </a>
             </div>
           </div>

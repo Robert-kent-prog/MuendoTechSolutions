@@ -33,37 +33,49 @@ export function Logo({ variant = "vector", className = "" }: LogoProps) {
         >
           <defs>
             {/* Gradient Facet 1 - Electric Blue to Cyan */}
-            <linearGradient id="msl-blade-left" x1="6" y1="32" x2="20" y2="8" gradientUnits="userSpaceOnUse">
+            <linearGradient
+              id="msl-blade-left"
+              x1="6"
+              y1="32"
+              x2="20"
+              y2="8"
+              gradientUnits="userSpaceOnUse"
+            >
               <stop stopColor="#2563EB" />
               <stop offset="1" stopColor="#38BDF8" />
             </linearGradient>
             {/* Gradient Facet 2 - Deep Indigo to Cobalt */}
-            <linearGradient id="msl-blade-mid" x1="14" y1="12" x2="26" y2="34" gradientUnits="userSpaceOnUse">
+            <linearGradient
+              id="msl-blade-mid"
+              x1="14"
+              y1="12"
+              x2="26"
+              y2="34"
+              gradientUnits="userSpaceOnUse"
+            >
               <stop stopColor="#4F46E5" />
               <stop offset="1" stopColor="#2563EB" />
             </linearGradient>
             {/* Gradient Facet 3 - Cyan to Emerald */}
-            <linearGradient id="msl-blade-right" x1="20" y1="8" x2="34" y2="32" gradientUnits="userSpaceOnUse">
+            <linearGradient
+              id="msl-blade-right"
+              x1="20"
+              y1="8"
+              x2="34"
+              y2="32"
+              gradientUnits="userSpaceOnUse"
+            >
               <stop stopColor="#0EA5E9" />
               <stop offset="1" stopColor="#10B981" />
             </linearGradient>
           </defs>
 
           {/* Left Wing Facet */}
-          <path
-            d="M6 31V11.5L15 22L18.5 18L10 8H6V31Z"
-            fill="url(#msl-blade-left)"
-          />
+          <path d="M6 31V11.5L15 22L18.5 18L10 8H6V31Z" fill="url(#msl-blade-left)" />
           {/* Main Chevron "M" Core */}
-          <path
-            d="M6 10L18.5 24.5L31 10V14.5L18.5 29L6 14.5V10Z"
-            fill="url(#msl-blade-mid)"
-          />
+          <path d="M6 10L18.5 24.5L31 10V14.5L18.5 29L6 14.5V10Z" fill="url(#msl-blade-mid)" />
           {/* Right Ascending Blade */}
-          <path
-            d="M34 31V11.5L22 25.5L18.5 21L27 9.5H34V31Z"
-            fill="url(#msl-blade-right)"
-          />
+          <path d="M34 31V11.5L22 25.5L18.5 21L27 9.5H34V31Z" fill="url(#msl-blade-right)" />
 
           {/* Precision Nodes */}
           <circle cx="6" cy="10" r="1.8" fill="#38BDF8" />

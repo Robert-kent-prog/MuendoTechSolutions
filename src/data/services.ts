@@ -556,7 +556,7 @@ export const WHY: WhyItem[] = [
   },
   {
     title: "Full-stack capability",
-    desc: "Frontend, mobile, backend, APIs, databases, and deployment — handled end-to-end.",
+    desc: "Frontend, mobile, backend, APIs, databases, and deployment, handled end-to-end.",
   },
   {
     title: "Maintainable architecture",

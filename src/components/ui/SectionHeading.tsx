@@ -18,7 +18,7 @@ export function Section({
   className = "",
 }: SectionHeadingProps) {
   return (
-    <section id={id} className={`scroll-mt-16 py-20 sm:py-28 ${className}`}>
+    <section id={id} className={`scroll-mt-20 py-20 sm:py-28 ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mb-12">
           {eyebrow && (

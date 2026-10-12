@@ -39,7 +39,7 @@ export const INSIGHTS: InsightItem[] = [
     readTime: "8 min read",
     title: "Choosing Between MERN and Spring Boot for Kenyan SMEs",
     excerpt:
-      "A practical breakdown of when MongoDB + Express + React + Node beats a Java/Spring Boot stack for African SMEs — cost, hiring, hosting, and scaling considerations.",
+      "A practical breakdown of when MongoDB + Express + React + Node beats a Java/Spring Boot stack for African SMEs: cost, hiring, hosting, and scaling considerations.",
     details:
       "MERN works well when the business needs fast iteration, dashboards, APIs, and a JavaScript-first team. Spring Boot is a better fit when the project needs stricter enterprise patterns, complex transactions, and long-term Java maintainability.",
     article: [
@@ -121,7 +121,7 @@ export const INSIGHTS: InsightItem[] = [
     readTime: "8 min read",
     title: "Adding AI to Business Software Without Burning Budget",
     excerpt:
-      "How to wire OpenAI/Gemini into existing systems for document understanding, customer support, and workflow automation — and where to draw the line.",
+      "How to wire OpenAI/Gemini into existing systems for document understanding, customer support, and workflow automation, and where to draw the line.",
     details:
       "The best AI features start with a narrow workflow: document extraction, customer support drafts, search, or report summaries. Keeping prompts, limits, and fallbacks explicit protects budget and makes the feature easier to support.",
     article: [

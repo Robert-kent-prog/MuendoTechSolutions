@@ -1,3 +1,5 @@
+import type { FileRouteTypes } from "@/routeTree.gen";
+
 export const WHATSAPP_DISPLAY = "+254 793 587 026";
 export const LOGO_SRC = "/logo.png";
 
@@ -8,7 +10,7 @@ export const EMPTY_CONTACT_PREFILL = {
   project: "",
 };
 
-export const NAV = [
+export const NAV: { label: string; href: FileRouteTypes["to"] }[] = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },

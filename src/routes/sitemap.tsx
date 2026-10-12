@@ -1,6 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
-import { Search, FileCode2, ArrowRight, Layers, Briefcase, BookOpen, Compass, ExternalLink } from "lucide-react";
+import {
+  Search,
+  FileCode2,
+  ArrowRight,
+  Layers,
+  Briefcase,
+  BookOpen,
+  Compass,
+  ExternalLink,
+} from "lucide-react";
 import { COMPANY, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { SERVICE_DETAIL_PAGES } from "@/data/services";
@@ -35,14 +44,46 @@ function SitemapPage() {
         title: "Main Navigation",
         icon: Compass,
         items: [
-          { title: "Home Page", href: "/", description: "Nairobi software development company overview" },
-          { title: "About Us", href: "/about", description: "Meet our software development team and mission" },
-          { title: "Software Services", href: "/services", description: "Overview of web, mobile, API & POS services" },
-          { title: "Project Case Studies", href: "/projects", description: "Portfolio of delivered software applications" },
-          { title: "Development Process", href: "/process", description: "Step-by-step software engineering lifecycle" },
-          { title: "Field Notes & Blog", href: "/blog", description: "Technical write-ups on M-Pesa, security & tech stack" },
-          { title: "Frequently Asked Questions", href: "/faq", description: "Answers on pricing, retainers, and tech stack" },
-          { title: "Contact Us", href: "/contact", description: "Request a project quote or send a WhatsApp brief" },
+          {
+            title: "Home Page",
+            href: "/",
+            description: "Nairobi software development company overview",
+          },
+          {
+            title: "About Us",
+            href: "/about",
+            description: "Meet our software development team and mission",
+          },
+          {
+            title: "Software Services",
+            href: "/services",
+            description: "Overview of web, mobile, API & POS services",
+          },
+          {
+            title: "Project Case Studies",
+            href: "/projects",
+            description: "Portfolio of delivered software applications",
+          },
+          {
+            title: "Development Process",
+            href: "/process",
+            description: "Step-by-step software engineering lifecycle",
+          },
+          {
+            title: "Field Notes & Blog",
+            href: "/blog",
+            description: "Technical write-ups on M-Pesa, security & tech stack",
+          },
+          {
+            title: "Frequently Asked Questions",
+            href: "/faq",
+            description: "Answers on pricing, retainers, and tech stack",
+          },
+          {
+            title: "Contact Us",
+            href: "/contact",
+            description: "Request a project quote or send a WhatsApp brief",
+          },
         ],
       },
       {
@@ -131,7 +172,8 @@ function SitemapPage() {
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-border bg-secondary/40 text-xs font-medium text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <FileCode2 className="size-4 text-accent" />
-                View XML Sitemap (For Crawlers) <ExternalLink className="size-3 text-muted-foreground" />
+                View XML Sitemap (For Crawlers){" "}
+                <ExternalLink className="size-3 text-muted-foreground" />
               </a>
             </div>
           </div>

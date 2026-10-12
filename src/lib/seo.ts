@@ -54,7 +54,12 @@ export const organizationSchema = {
   "@id": `${SITE_URL}/#organization`,
   name: COMPANY,
   legalName: COMPANY,
-  alternateName: ["Muendo Labs", "Muendo Tech Solutions", "Muendo Software", "Muendo Software Labs Kenya"],
+  alternateName: [
+    "Muendo Labs",
+    "Muendo Tech Solutions",
+    "Muendo Software",
+    "Muendo Software Labs Kenya",
+  ],
   url: SITE_URL,
   logo: {
     "@type": "ImageObject",
@@ -64,7 +69,7 @@ export const organizationSchema = {
   image: {
     "@type": "ImageObject",
     url: SITE_IMAGE,
-    caption: `${COMPANY} — Software Development Company in Nairobi, Kenya`,
+    caption: `${COMPANY} | Software Development Company in Nairobi, Kenya`,
   },
   description: defaultDescription,
   email: EMAIL,
@@ -122,7 +127,8 @@ export const organizationSchema = {
         itemOffered: {
           "@type": "Service",
           name: "Custom Web Application Development",
-          description: "Production-ready web applications built with React, TanStack, Laravel, and Spring Boot.",
+          description:
+            "Production-ready web applications built with React, TanStack, Laravel, and Spring Boot.",
         },
       },
       {
@@ -130,7 +136,8 @@ export const organizationSchema = {
         itemOffered: {
           "@type": "Service",
           name: "Mobile App Development",
-          description: "Cross-platform Android and iOS mobile applications with secure backend integration.",
+          description:
+            "Cross-platform Android and iOS mobile applications with secure backend integration.",
         },
       },
       {
@@ -138,7 +145,8 @@ export const organizationSchema = {
         itemOffered: {
           "@type": "Service",
           name: "M-Pesa Daraja & Payment Systems",
-          description: "STK push, C2B, B2C payment integration and automated transaction reconciliation.",
+          description:
+            "STK push, C2B, B2C payment integration and automated transaction reconciliation.",
         },
       },
       {
@@ -146,7 +154,8 @@ export const organizationSchema = {
         itemOffered: {
           "@type": "Service",
           name: "Point of Sale (POS) & ERP Systems",
-          description: "Inventory, stock, sales, and retail management software for Kenyan businesses.",
+          description:
+            "Inventory, stock, sales, and retail management software for Kenyan businesses.",
         },
       },
     ],

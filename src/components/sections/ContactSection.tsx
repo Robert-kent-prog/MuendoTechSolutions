@@ -1,5 +1,15 @@
-import { useState, useEffect, type FormEvent } from "react";
-import { Mail, Phone, MapPin, Github, Linkedin, ArrowRight, Copy, Check, MessageCircle } from "lucide-react";
+import { useState, type FormEvent } from "react";
+import {
+  Mail,
+  Phone,
+  MapPin,
+  Github,
+  Linkedin,
+  Copy,
+  Check,
+  MessageCircle,
+  AlertCircle,
+} from "lucide-react";
 import { Section } from "@/components/ui/SectionHeading";
 import { COMPANY, EMAIL, GITHUB, LINKEDIN, WHATSAPP } from "@/lib/seo";
 import { WHATSAPP_DISPLAY, EMPTY_CONTACT_PREFILL } from "@/data/nav";
@@ -36,64 +46,54 @@ const BUDGET_OPTIONS = [
   "Not sure yet",
 ];
 
-export function Contact() {
-  const [formData, setFormData] = useState<ContactBriefInput>({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    service: "",
-    budget: "",
-    message: "",
-  });
+export type ContactPrefill = {
+  service?: string;
+  budget?: string;
+  project?: string;
+  source?: string;
+  message?: string;
+};
 
+function buildInitialForm(prefill: ContactPrefill): ContactBriefInput {
+  const {
+    service = "",
+    budget = "",
+    project = "",
+    source = "",
+    message: customMessage = "",
+  } = prefill;
+  const message =
+    customMessage ||
+    (service || project || source
+      ? [
+          project ? `Project / package: ${project}` : "",
+          service ? `Service needed: ${service}` : "",
+          source ? `Source page: ${source}` : "",
+          "",
+          "Business goal:",
+          "",
+          "Important features:",
+          "",
+          "Timeline:",
+          "",
+          "Budget range:",
+          "",
+          "Other notes:",
+        ]
+          .filter((line, index, lines) => line || lines[index - 1])
+          .join("\n")
+      : "");
+
+  return { name: "", email: "", phone: "", company: "", service, budget, message };
+}
+
+export function Contact({ prefill = {} }: { prefill?: ContactPrefill }) {
+  const [formData, setFormData] = useState<ContactBriefInput>(() => buildInitialForm(prefill));
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [status, setStatus] = useState<"idle" | "whatsapp_sent" | "copied">("idle");
-  const [prefillNote, setPrefillNote] = useState<string | null>(null);
-
-  useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const service = params.get("service") || "";
-    const budget = params.get("budget") || "";
-    const project = params.get("project") || "";
-    const source = params.get("source") || "";
-    const customMessage = params.get("message") || "";
-
-    if (!service && !budget && !project && !source && !customMessage) {
-      return;
-    }
-
-    const message =
-      customMessage ||
-      [
-        project ? `Project / package: ${project}` : "",
-        service ? `Service needed: ${service}` : "",
-        source ? `Source page: ${source}` : "",
-        "",
-        "Business goal:",
-        "",
-        "Important features:",
-        "",
-        "Timeline:",
-        "",
-        "Budget range:",
-        "",
-        "Other notes:",
-      ]
-        .filter((line, index, lines) => line || lines[index - 1])
-        .join("\n");
-
-    setFormData((prev) => ({
-      ...prev,
-      service: service || prev.service,
-      budget: budget || prev.budget,
-      message: message || prev.message,
-    }));
-
-    if (project) {
-      setPrefillNote(project);
-    }
-  }, []);
+  const [status, setStatus] = useState<
+    "idle" | "whatsapp_sent" | "whatsapp_blocked" | "copied" | "copy_failed"
+  >("idle");
+  const prefillNote = prefill.project ?? null;
 
   function formatBriefMessage(data: ContactBriefInput) {
     return [
@@ -111,20 +111,40 @@ export function Contact() {
     ].join("\n");
   }
 
-  function validate(): boolean {
+  function collectErrors(): Record<string, string> {
     const result = contactBriefSchema.safeParse(formData);
+    const next: Record<string, string> = {};
     if (!result.success) {
-      const newErrors: Record<string, string> = {};
       result.error.issues.forEach((issue) => {
-        if (issue.path[0]) {
-          newErrors[issue.path[0].toString()] = issue.message;
-        }
+        const key = issue.path[0]?.toString();
+        if (key && !next[key]) next[key] = issue.message;
       });
-      setErrors(newErrors);
+    }
+    return next;
+  }
+
+  function validate(): boolean {
+    const next = collectErrors();
+    setErrors(next);
+    const firstInvalid = Object.keys(next)[0];
+    if (firstInvalid) {
+      document.getElementById(`contact-${firstInvalid}`)?.focus();
       return false;
     }
-    setErrors({});
     return true;
+  }
+
+  function handleBlur(
+    e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
+  ) {
+    const { name } = e.target;
+    const message = collectErrors()[name];
+    setErrors((prev) => {
+      const next = { ...prev };
+      if (message) next[name] = message;
+      else delete next[name];
+      return next;
+    });
   }
 
   function handleWhatsAppSubmit(e: FormEvent) {
@@ -132,20 +152,24 @@ export function Contact() {
     if (!validate()) return;
 
     const formattedMessage = formatBriefMessage(formData);
-    window.open(
+    const win = window.open(
       `https://wa.me/${WHATSAPP.replace(/\D/g, "")}?text=${encodeURIComponent(formattedMessage)}`,
       "_blank",
       "noopener,noreferrer",
     );
-    setStatus("whatsapp_sent");
+    setStatus(win ? "whatsapp_sent" : "whatsapp_blocked");
   }
 
-  function handleCopyAndEmail() {
+  async function handleCopyAndEmail() {
     if (!validate()) return;
 
     const formattedMessage = formatBriefMessage(formData);
-    navigator.clipboard.writeText(formattedMessage);
-    setStatus("copied");
+    try {
+      await navigator.clipboard.writeText(formattedMessage);
+      setStatus("copied");
+    } catch {
+      setStatus("copy_failed");
+    }
 
     const mailtoSubject = encodeURIComponent(
       `Project Brief: ${formData.service || "New Project"} - ${formData.name}`,
@@ -258,15 +282,18 @@ export function Contact() {
         >
           {prefillNote && (
             <div className="rounded-lg border border-accent/30 bg-accent/10 px-4 py-3 text-sm text-foreground/85">
-              We prefilled this brief from <span className="font-medium">{prefillNote}</span>.
-              You can edit anything before dispatching.
+              We prefilled this brief from <span className="font-medium">{prefillNote}</span>. You
+              can edit anything before dispatching.
             </div>
           )}
 
           <div className="grid sm:grid-cols-2 gap-4">
             {/* Name */}
             <div>
-              <label htmlFor="contact-name" className="block text-xs font-medium text-muted-foreground mb-1.5">
+              <label
+                htmlFor="contact-name"
+                className="block text-xs font-medium text-muted-foreground mb-1.5"
+              >
                 Full Name <span className="text-destructive">*</span>
               </label>
               <input
@@ -275,6 +302,7 @@ export function Contact() {
                 type="text"
                 value={formData.name}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 maxLength={200}
                 aria-invalid={!!errors.name}
                 aria-describedby={errors.name ? "name-error" : undefined}
@@ -284,7 +312,11 @@ export function Contact() {
                 placeholder="e.g. Robert Kent"
               />
               {errors.name && (
-                <p id="name-error" className="mt-1 text-xs text-destructive font-medium">
+                <p
+                  id="name-error"
+                  className="mt-1 text-xs text-destructive font-medium"
+                  role="alert"
+                >
                   {errors.name}
                 </p>
               )}
@@ -292,7 +324,10 @@ export function Contact() {
 
             {/* Email */}
             <div>
-              <label htmlFor="contact-email" className="block text-xs font-medium text-muted-foreground mb-1.5">
+              <label
+                htmlFor="contact-email"
+                className="block text-xs font-medium text-muted-foreground mb-1.5"
+              >
                 Email Address <span className="text-destructive">*</span>
               </label>
               <input
@@ -302,6 +337,7 @@ export function Contact() {
                 inputMode="email"
                 value={formData.email}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 maxLength={200}
                 aria-invalid={!!errors.email}
                 aria-describedby={errors.email ? "email-error" : undefined}
@@ -311,7 +347,11 @@ export function Contact() {
                 placeholder="name@company.co.ke"
               />
               {errors.email && (
-                <p id="email-error" className="mt-1 text-xs text-destructive font-medium">
+                <p
+                  id="email-error"
+                  className="mt-1 text-xs text-destructive font-medium"
+                  role="alert"
+                >
                   {errors.email}
                 </p>
               )}
@@ -319,7 +359,10 @@ export function Contact() {
 
             {/* Phone */}
             <div>
-              <label htmlFor="contact-phone" className="block text-xs font-medium text-muted-foreground mb-1.5">
+              <label
+                htmlFor="contact-phone"
+                className="block text-xs font-medium text-muted-foreground mb-1.5"
+              >
                 Phone Number
               </label>
               <input
@@ -329,6 +372,7 @@ export function Contact() {
                 inputMode="tel"
                 value={formData.phone}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 maxLength={50}
                 className="w-full rounded-lg bg-background/50 border border-border px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 placeholder="+254 700 000 000"
@@ -337,7 +381,10 @@ export function Contact() {
 
             {/* Company */}
             <div>
-              <label htmlFor="contact-company" className="block text-xs font-medium text-muted-foreground mb-1.5">
+              <label
+                htmlFor="contact-company"
+                className="block text-xs font-medium text-muted-foreground mb-1.5"
+              >
                 Company / Organization
               </label>
               <input
@@ -346,6 +393,7 @@ export function Contact() {
                 type="text"
                 value={formData.company}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 maxLength={200}
                 className="w-full rounded-lg bg-background/50 border border-border px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
                 placeholder="Company Name"
@@ -354,7 +402,10 @@ export function Contact() {
 
             {/* Service */}
             <div>
-              <label htmlFor="contact-service" className="block text-xs font-medium text-muted-foreground mb-1.5">
+              <label
+                htmlFor="contact-service"
+                className="block text-xs font-medium text-muted-foreground mb-1.5"
+              >
                 Service Needed <span className="text-destructive">*</span>
               </label>
               <select
@@ -362,6 +413,7 @@ export function Contact() {
                 name="service"
                 value={formData.service}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 aria-invalid={!!errors.service}
                 aria-describedby={errors.service ? "service-error" : undefined}
                 className={`w-full rounded-lg bg-background/50 border px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors ${
@@ -376,7 +428,11 @@ export function Contact() {
                 ))}
               </select>
               {errors.service && (
-                <p id="service-error" className="mt-1 text-xs text-destructive font-medium">
+                <p
+                  id="service-error"
+                  className="mt-1 text-xs text-destructive font-medium"
+                  role="alert"
+                >
                   {errors.service}
                 </p>
               )}
@@ -384,7 +440,10 @@ export function Contact() {
 
             {/* Budget */}
             <div>
-              <label htmlFor="contact-budget" className="block text-xs font-medium text-muted-foreground mb-1.5">
+              <label
+                htmlFor="contact-budget"
+                className="block text-xs font-medium text-muted-foreground mb-1.5"
+              >
                 Project Budget (KES)
               </label>
               <select
@@ -392,6 +451,7 @@ export function Contact() {
                 name="budget"
                 value={formData.budget}
                 onChange={handleChange}
+                onBlur={handleBlur}
                 className="w-full rounded-lg bg-background/50 border border-border px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50"
               >
                 <option value="">Select budget range…</option>
@@ -406,7 +466,10 @@ export function Contact() {
 
           {/* Message */}
           <div>
-            <label htmlFor="contact-message" className="block text-xs font-medium text-muted-foreground mb-1.5">
+            <label
+              htmlFor="contact-message"
+              className="block text-xs font-medium text-muted-foreground mb-1.5"
+            >
               Project Description <span className="text-destructive">*</span>
             </label>
             <textarea
@@ -416,6 +479,7 @@ export function Contact() {
               maxLength={2000}
               value={formData.message}
               onChange={handleChange}
+              onBlur={handleBlur}
               aria-invalid={!!errors.message}
               aria-describedby={errors.message ? "message-error" : undefined}
               className={`w-full rounded-lg bg-background/50 border px-3.5 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 transition-colors ${
@@ -424,7 +488,11 @@ export function Contact() {
               placeholder="Describe your project, goals, key requirements, and expected timeline..."
             />
             {errors.message && (
-              <p id="message-error" className="mt-1 text-xs text-destructive font-medium">
+              <p
+                id="message-error"
+                className="mt-1 text-xs text-destructive font-medium"
+                role="alert"
+              >
                 {errors.message}
               </p>
             )}
@@ -443,23 +511,64 @@ export function Contact() {
               onClick={handleCopyAndEmail}
               className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-lg border border-border bg-secondary/50 text-foreground font-medium hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              {status === "copied" ? <Check className="size-4 text-accent" /> : <Copy className="size-4" />}
-              {status === "copied" ? "Copied to Clipboard!" : "Copy Brief & Email"}
+              {status === "copied" ? (
+                <Check className="size-4 text-accent" />
+              ) : (
+                <Copy className="size-4" />
+              )}
+              {status === "copied" ? "Copied to clipboard" : "Copy Brief & Email"}
             </button>
           </div>
 
           {/* Feedback Status Banners */}
-          {status === "whatsapp_sent" && (
-            <div className="rounded-lg border border-accent/30 bg-accent/10 p-3.5 text-xs text-foreground/90 leading-relaxed">
-              🎉 Opening WhatsApp with your formatted brief… If WhatsApp doesn't open automatically, message us directly at <span className="font-semibold">{WHATSAPP_DISPLAY}</span>.
-            </div>
-          )}
+          <div aria-live="polite">
+            {status === "whatsapp_sent" && (
+              <div className="rounded-lg border border-accent/30 bg-accent/10 p-3.5 text-xs text-foreground/90 leading-relaxed flex gap-2.5">
+                <Check className="size-4 shrink-0 text-accent mt-0.5" aria-hidden="true" />
+                <p>
+                  Opening WhatsApp with your formatted brief. If it doesn't open, message us
+                  directly at <span className="font-semibold">{WHATSAPP_DISPLAY}</span>.
+                </p>
+              </div>
+            )}
 
-          {status === "copied" && (
-            <div className="rounded-lg border border-primary/30 bg-primary/10 p-3.5 text-xs text-foreground/90 leading-relaxed">
-              📋 Your brief has been copied to your clipboard and your email application is opening to send to <span className="font-semibold">{EMAIL}</span>.
-            </div>
-          )}
+            {status === "whatsapp_blocked" && (
+              <div className="rounded-lg border border-destructive/40 bg-destructive/10 p-3.5 text-xs text-foreground/90 leading-relaxed flex gap-2.5">
+                <AlertCircle
+                  className="size-4 shrink-0 text-destructive mt-0.5"
+                  aria-hidden="true"
+                />
+                <p>
+                  Your browser blocked the WhatsApp window. Allow pop-ups for this site and try
+                  again, or message us directly at{" "}
+                  <span className="font-semibold">{WHATSAPP_DISPLAY}</span>.
+                </p>
+              </div>
+            )}
+
+            {status === "copied" && (
+              <div className="rounded-lg border border-primary/30 bg-primary/10 p-3.5 text-xs text-foreground/90 leading-relaxed flex gap-2.5">
+                <Copy className="size-4 shrink-0 text-primary mt-0.5" aria-hidden="true" />
+                <p>
+                  Your brief is copied and your email app is opening to send to{" "}
+                  <span className="font-semibold">{EMAIL}</span>.
+                </p>
+              </div>
+            )}
+
+            {status === "copy_failed" && (
+              <div className="rounded-lg border border-destructive/40 bg-destructive/10 p-3.5 text-xs text-foreground/90 leading-relaxed flex gap-2.5">
+                <AlertCircle
+                  className="size-4 shrink-0 text-destructive mt-0.5"
+                  aria-hidden="true"
+                />
+                <p>
+                  We couldn't copy the brief automatically. Your email app is opening with the brief
+                  in the message body, addressed to <span className="font-semibold">{EMAIL}</span>.
+                </p>
+              </div>
+            )}
+          </div>
         </form>
       </div>
     </Section>

@@ -13,7 +13,7 @@ import { FAQ } from "@/components/sections/FAQSection";
 import { CTA } from "@/components/sections/CTASection";
 
 const HOME_HEAD = pageHead({
-  title: `${COMPANY} — Software Development Company in Nairobi, Kenya`,
+  title: `${COMPANY} | Software Development Company in Nairobi, Kenya`,
   description:
     "Nairobi-based software development company building reliable web apps, mobile apps, backend APIs, AI integrations, POS systems, and business software for startups, SMEs, schools, and enterprises across Kenya.",
   path: "/",

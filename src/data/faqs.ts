@@ -26,7 +26,7 @@ export const FAQS: FAQItem[] = [
   },
   {
     q: "Do you work with clients outside Kenya?",
-    a: "Yes. We've built systems for clients in the region and beyond — including Xelvora in Pakistan — over async communication (email, WhatsApp, calls).",
+    a: "Yes. We've built systems for clients in the region and beyond, including Xelvora in Pakistan, over async communication (email, WhatsApp, calls).",
   },
   {
     q: "Can you deploy the project for me?",

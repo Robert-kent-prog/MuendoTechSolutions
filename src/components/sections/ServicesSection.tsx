@@ -9,7 +9,7 @@ export function Services({ showViewAll = false }: { showViewAll?: boolean } = {}
       id="services"
       eyebrow="Services"
       title="Complete Software & Web Capabilities"
-      subtitle="From core business software and mobile tools to web presence, SEO, and hosting support — we cover every layer needed to ship and operate modern software."
+      subtitle="From core business software and mobile tools to web presence, SEO, and hosting support. We cover every layer needed to ship and operate modern software."
     >
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {SERVICES.map((s, idx) => {
