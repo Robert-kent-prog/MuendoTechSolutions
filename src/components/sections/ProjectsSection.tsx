@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Section } from "@/components/ui/SectionHeading";
 import {
   PROJECTS,
@@ -7,6 +7,9 @@ import {
   PROJECT_CATEGORIES,
   type ProjectCategory,
 } from "@/data/projects";
+
+const normalizeTitle = (t: string) => t.toLowerCase().replace(/[^a-z0-9]/g, "");
+const sameTitle = (a: string, b: string) => normalizeTitle(a) === normalizeTitle(b);
 
 export function Projects({
   showViewAll = false,
@@ -51,54 +54,56 @@ export function Projects({
           })}
         </div>
       )}
-      <div className="grid md:grid-cols-2 gap-5">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
         {visible.map((p, idx) => {
-          const caseStudy = PROJECT_CASE_STUDIES.find((study) => study.title === p.title);
+          const caseStudy = PROJECT_CASE_STUDIES.find((study) => sameTitle(study.title, p.title));
+          const shownStack = p.stack.slice(0, 6);
+          const hiddenCount = p.stack.length - shownStack.length;
           return (
             <article
               key={p.title}
-              className={`glass rounded-2xl p-7 card-hover ${
-                showViewAll && idx >= 6 ? "hidden" : "block"
-              } ${filterable && filter === "All" && p.featured ? "md:col-span-2 border-primary/40" : ""}`}
+              className={`glass rounded-xl p-5 card-hover flex-col ${
+                showViewAll && idx >= 6 ? "hidden" : "flex"
+              }`}
             >
-              <div className="flex items-center gap-2 mb-3">
-                <span className="text-xs font-semibold uppercase tracking-wider text-accent">
-                  {p.tag}
-                </span>
-                {filterable && filter === "All" && p.featured && (
-                  <span className="inline-flex items-center gap-1 rounded-full border border-primary/30 bg-primary/10 px-2 py-0.5 text-[11px] font-medium text-primary">
-                    <Star className="size-3" aria-hidden="true" /> Featured
-                  </span>
-                )}
-              </div>
-              <h3 className="text-xl font-semibold mb-3">{p.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed mb-5">{p.desc}</p>
+              <span className="text-[11px] font-semibold uppercase tracking-wider text-accent">
+                {p.tag}
+              </span>
+              <h3 className="mt-2 text-base font-semibold leading-snug">{p.title}</h3>
+              <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-4">
+                {p.desc}
+              </p>
               {caseStudy && (
-                <div className="mb-5 grid sm:grid-cols-3 gap-2">
+                <div className="mt-4 flex flex-wrap gap-1.5">
                   {caseStudy.metrics.map((metric) => (
-                    <div
+                    <span
                       key={metric}
-                      className="rounded-lg border border-border bg-secondary/35 px-3 py-2 text-xs font-medium text-foreground"
+                      className="rounded-md border border-border bg-secondary/35 px-2 py-1 text-[11px] font-medium text-foreground"
                     >
                       {metric}
-                    </div>
+                    </span>
                   ))}
                 </div>
               )}
-              <div className="flex flex-wrap gap-2">
-                {p.stack.map((t) => (
+              <div className="mt-4 flex flex-wrap gap-1.5">
+                {shownStack.map((t) => (
                   <span
                     key={t}
-                    className="text-xs px-2.5 py-1 rounded-md bg-secondary border border-border text-secondary-foreground"
+                    className="text-[11px] px-2 py-0.5 rounded-md bg-secondary border border-border text-secondary-foreground"
                   >
                     {t}
                   </span>
                 ))}
+                {hiddenCount > 0 && (
+                  <span className="text-[11px] px-2 py-0.5 text-muted-foreground">
+                    +{hiddenCount} more
+                  </span>
+                )}
               </div>
               {caseStudy && (
                 <a
                   href={`/projects/${caseStudy.slug}`}
-                  className="mt-5 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all"
+                  className="mt-auto pt-4 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all"
                 >
                   View case study <ArrowRight className="size-4" />
                 </a>

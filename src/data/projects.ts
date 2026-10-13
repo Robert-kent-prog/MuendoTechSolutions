@@ -5,7 +5,6 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = ["Web", "Mobile", "AI", "Bu
 export interface ProjectItem {
   tag: string;
   category: ProjectCategory;
-  featured?: boolean;
   title: string;
   desc: string;
   stack: string[];
@@ -29,7 +28,6 @@ export const PROJECTS: ProjectItem[] = [
   {
     tag: "Mobile / Marketplace",
     category: "Mobile",
-    featured: true,
     title: "Linkfy | Service Marketplace App",
     desc: "A mobile application that connects service seekers with verified service providers across Kenya: plumbing, electrical, laundry, cleaning, repairs and more. Includes in-app chat, calls, location maps, ratings, and M-Pesa Daraja payments.",
     stack: [
