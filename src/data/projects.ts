@@ -2,17 +2,8 @@ export type ProjectCategory = "Web" | "Mobile" | "AI" | "Business systems";
 
 export const PROJECT_CATEGORIES: ProjectCategory[] = ["Web", "Mobile", "AI", "Business systems"];
 
-export interface ProjectImage {
-  src: string;
-  alt: string;
-  /** "screenshot" is a capture of the real product; "illustration" is a conceptual picture and is labelled as one. */
-  kind: "screenshot" | "illustration";
-}
-
 export interface ProjectItem {
   tag: string;
-  image?: ProjectImage;
-  liveUrl?: string;
   category: ProjectCategory;
   featured?: boolean;
   title: string;
@@ -86,12 +77,6 @@ export const PROJECTS: ProjectItem[] = [
   {
     tag: "International / Agency Web",
     category: "Web",
-    image: {
-      src: "/projects/xelvora-agency-website.webp",
-      alt: "Home page of the Xelvora digital agency website with a calendar, performance gauge and chart illustration",
-      kind: "screenshot",
-    },
-    liveUrl: "https://xelvora.org",
     title: "Xelvora | Digital Agency Website",
     desc: "Built Xelvora's corporate website for a Pakistan-based digital agency offering websites, web apps, mobile products, AI systems, SEO, digital marketing, graphic design, and branding. The site includes About, Services, Products, Portfolio, Blogs, Contact, Book Call flows, launch metrics, and positioning for startups, SMEs, agencies, and enterprise teams.",
     stack: ["React", "Vite", "Tailwind", "Responsive UI", "SEO", "Branding", "Blog Pages"],
@@ -106,12 +91,6 @@ export const PROJECTS: ProjectItem[] = [
   {
     tag: "Political / Web",
     category: "Web",
-    image: {
-      src: "/projects/ccu-party-website.webp",
-      alt: "Home page of the Chama Cha Uzalendo party website with a green hero, membership buttons and party statistics",
-      kind: "screenshot",
-    },
-    liveUrl: "https://ccuparty.co.ke",
     title: "Chama Cha Uzalendo (CCU) | Party Website",
     desc: "Designed and built the official-style web presence for Chama Cha Uzalendo (CCU), a registered Kenyan political party founded in 2004, featuring party history, leadership, news updates, and member engagement sections.",
     stack: ["React", "Vite", "Tailwind", "Responsive UI", "SEO", "Content Sections"],
