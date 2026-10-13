@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { ArrowRight, Star } from "lucide-react";
+import { ArrowRight, ExternalLink, Globe, Layers, Smartphone, Sparkles, Star } from "lucide-react";
 import { Section } from "@/components/ui/SectionHeading";
 import {
   PROJECTS,
@@ -7,6 +7,13 @@ import {
   PROJECT_CATEGORIES,
   type ProjectCategory,
 } from "@/data/projects";
+
+const CATEGORY_ICON = {
+  Web: Globe,
+  Mobile: Smartphone,
+  AI: Sparkles,
+  "Business systems": Layers,
+} as const;
 
 export function Projects({
   showViewAll = false,
@@ -61,6 +68,7 @@ export function Projects({
                 showViewAll && idx >= 6 ? "hidden" : "block"
               } ${filterable && filter === "All" && p.featured ? "md:col-span-2 border-primary/40" : ""}`}
             >
+              <ProjectMedia project={p} />
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-xs font-semibold uppercase tracking-wider text-accent">
                   {p.tag}
@@ -95,6 +103,17 @@ export function Projects({
                   </span>
                 ))}
               </div>
+              {p.liveUrl && (
+                <a
+                  href={p.liveUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="mt-5 mr-5 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
+                >
+                  Visit live site <ExternalLink className="size-4" aria-hidden="true" />
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              )}
               {caseStudy && (
                 <a
                   href={`/projects/${caseStudy.slug}`}
@@ -119,5 +138,37 @@ export function Projects({
         </div>
       )}
     </Section>
+  );
+}
+
+function ProjectMedia({ project }: { project: (typeof PROJECTS)[number] }) {
+  const Icon = CATEGORY_ICON[project.category];
+  if (project.image) {
+    return (
+      <figure className="relative -mx-2 -mt-2 mb-5 overflow-hidden rounded-xl border border-border bg-secondary/40">
+        <img
+          src={project.image.src}
+          alt={project.image.alt}
+          width={1200}
+          height={750}
+          loading="lazy"
+          decoding="async"
+          className="aspect-[16/10] w-full object-cover object-top"
+        />
+        {project.image.kind === "illustration" && (
+          <figcaption className="absolute bottom-2 left-2 rounded-md bg-background/85 px-2 py-0.5 text-[11px] font-medium text-muted-foreground">
+            Illustration
+          </figcaption>
+        )}
+      </figure>
+    );
+  }
+  return (
+    <div
+      aria-hidden="true"
+      className="-mx-2 -mt-2 mb-5 grid aspect-[16/10] place-items-center overflow-hidden rounded-xl border border-border bg-secondary/40"
+    >
+      <Icon className="size-12 text-accent/60" />
+    </div>
   );
 }

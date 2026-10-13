@@ -4,7 +4,7 @@ import { contactProjectHref } from "@/lib/contact-project";
 import { COMPANY, SITE_URL, breadcrumbSchema, pageHead } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { PageShell } from "@/components/layout/PageShell";
-import { PROJECT_CASE_STUDIES } from "@/data/projects";
+import { PROJECTS, PROJECT_CASE_STUDIES } from "@/data/projects";
 import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/projects/$slug")({
@@ -87,6 +87,7 @@ function ProjectCaseStudyPage() {
     );
   }
 
+  const projectImage = PROJECTS.find((p) => p.title === project.title)?.image;
   const contactService =
     project.tag.includes("Retail") || project.title.includes("Bookkeeping")
       ? "Point of Sale / Retail System"
@@ -168,6 +169,28 @@ function ProjectCaseStudyPage() {
             </div>
           </div>
         </section>
+
+        {projectImage && (
+          <section className="pt-12 sm:pt-16">
+            <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+              <figure className="relative overflow-hidden rounded-2xl border border-border bg-secondary/40">
+                <img
+                  src={projectImage.src}
+                  alt={projectImage.alt}
+                  width={1200}
+                  height={750}
+                  decoding="async"
+                  className="w-full object-cover"
+                />
+                {projectImage.kind === "illustration" && (
+                  <figcaption className="absolute bottom-3 left-3 rounded-md bg-background/85 px-2.5 py-1 text-xs font-medium text-muted-foreground">
+                    Illustration
+                  </figcaption>
+                )}
+              </figure>
+            </div>
+          </section>
+        )}
 
         <section className="py-16 sm:py-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
