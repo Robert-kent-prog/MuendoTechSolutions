@@ -5,7 +5,6 @@ import { About } from "@/components/sections/AboutSection";
 import { Team } from "@/components/sections/TeamSection";
 import { Why } from "@/components/sections/ServicePackagesSection";
 import { CTA } from "@/components/sections/CTASection";
-import { PhotoBand } from "@/components/ui/PhotoBand";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
@@ -23,12 +22,6 @@ function AboutPage() {
     <PageShell>
       <main className="pt-16">
         <About />
-        <PhotoBand
-          id="nairobi-skyline"
-          caption="Nairobi, Kenya, where we are based."
-          aspect="aspect-[21/9]"
-          position="object-[50%_60%]"
-        />
         <Team />
         <Why />
         <CTA />
