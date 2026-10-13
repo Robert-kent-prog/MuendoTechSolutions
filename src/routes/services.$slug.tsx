@@ -5,6 +5,8 @@ import { COMPANY, SITE_URL, WHATSAPP, breadcrumbSchema, pageHead } from "@/lib/s
 import { PageShell } from "@/components/layout/PageShell";
 import { SERVICE_DETAIL_PAGES, SERVICE_EXTRAS } from "@/data/services";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
+import { PhotoBand } from "@/components/ui/PhotoBand";
+import { SERVICE_PHOTOS } from "@/data/credits";
 import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/services/$slug")({
@@ -205,6 +207,8 @@ function ServiceDetailPage() {
           </div>
         </div>
       </section>
+
+      {SERVICE_PHOTOS[service.slug] && <PhotoBand id={SERVICE_PHOTOS[service.slug]} />}
 
       <section className="py-16 sm:py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

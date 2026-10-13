@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import { describe, it, expect } from "vitest";
 import { SERVICES, SERVICE_PACKAGES, SERVICE_DETAIL_PAGES, SERVICE_EXTRAS } from "./services";
 import { PROJECTS, PROJECT_CASE_STUDIES } from "./projects";
@@ -5,6 +6,7 @@ import { INSIGHTS } from "./insights";
 import { FAQS } from "./faqs";
 import { TEAM } from "./team";
 import { STATS } from "./stats";
+import { PHOTOS, SERVICE_PHOTOS } from "./credits";
 
 describe("Domain Data Contracts Integrity", () => {
   it("ensures all core services have non-empty items and valid titles", () => {
@@ -71,5 +73,28 @@ describe("Domain Data Contracts Integrity", () => {
   it("keeps site copy free of em dashes", () => {
     const text = JSON.stringify([INSIGHTS, SERVICE_DETAIL_PAGES, SERVICE_EXTRAS, FAQS]);
     expect(text.includes("\u2014")).toBe(false);
+  });
+
+  it("ships every credited photo with full attribution", () => {
+    Object.values(PHOTOS).forEach((photo) => {
+      expect(existsSync(`public${photo.src}`), photo.src).toBe(true);
+      expect(photo.author).toBeTruthy();
+      expect(photo.license).toBeTruthy();
+      expect(photo.sourceUrl.startsWith("https://commons.wikimedia.org/")).toBe(true);
+      expect(photo.usedOn.length).toBeGreaterThan(0);
+    });
+    Object.entries(SERVICE_PHOTOS).forEach(([slug, id]) => {
+      expect(
+        SERVICE_DETAIL_PAGES.some((p) => p.slug === slug),
+        slug,
+      ).toBe(true);
+      expect(PHOTOS[id]).toBeTruthy();
+    });
+  });
+
+  it("ships every project image that cards reference", () => {
+    PROJECTS.forEach((p) => {
+      if (p.image) expect(existsSync(`public${p.image.src}`), p.image.src).toBe(true);
+    });
   });
 });

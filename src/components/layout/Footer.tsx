@@ -22,6 +22,7 @@ const ROUTES: readonly string[] = [
   "/tech-stack",
   "/privacy",
   "/terms",
+  "/credits",
 ];
 
 const FOOTER_SERVICE_SLUGS = [
@@ -174,6 +175,9 @@ export function Footer() {
             </Link>
             <Link to="/terms" className="hover:text-foreground transition">
               Terms
+            </Link>
+            <Link to="/credits" className="hover:text-foreground transition">
+              Credits
             </Link>
             <Link to="/sitemap" className="hover:text-foreground transition">
               Sitemap

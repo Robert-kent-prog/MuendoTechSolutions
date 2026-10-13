@@ -110,6 +110,11 @@ function SitemapPage() {
             description: "How we handle personal information",
           },
           {
+            title: "Photo Credits",
+            href: "/credits",
+            description: "Licences and credits for the photographs on this site",
+          },
+          {
             title: "Terms of Service",
             href: "/terms",
             description: "General terms for quotes and projects",

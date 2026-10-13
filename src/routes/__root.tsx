@@ -1,4 +1,5 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Analytics } from "@vercel/analytics/react";
 import {
   Outlet,
   Link,
@@ -113,12 +114,24 @@ function RootShell({ children }: { children: React.ReactNode }) {
   );
 }
 
+/** Drop query strings so prefilled enquiry details in contact links are never sent to analytics. */
+function stripQueryString<T extends { url: string }>(event: T): T {
+  try {
+    const url = new URL(event.url);
+    url.search = "";
+    return { ...event, url: url.toString() };
+  } catch {
+    return event;
+  }
+}
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
   return (
     <QueryClientProvider client={queryClient}>
       <Outlet />
+      <Analytics beforeSend={stripQueryString} />
     </QueryClientProvider>
   );
 }

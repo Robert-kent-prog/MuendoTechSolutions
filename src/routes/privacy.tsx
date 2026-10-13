@@ -64,13 +64,23 @@ const SECTIONS: LegalSection[] = [
     ),
   },
   {
-    heading: "Cookies and local storage",
+    heading: "Cookies, local storage and analytics",
     body: (
-      <p>
-        This site stores one preference in your browser, your light or dark theme choice, so the
-        page looks the way you left it. It is not used to track you. If we add analytics in future,
-        we will update this policy and say what is collected.
-      </p>
+      <>
+        <p>
+          This site stores one preference in your browser, your light or dark theme choice, so the
+          page looks the way you left it. It is not used to track you.
+        </p>
+        <p>
+          We use Vercel Web Analytics to count visits and see which pages are read. It does not use
+          cookies and does not follow you across other websites. It records anonymous details such
+          as the page address, the page you came from, your country, and your device and browser
+          type, and it identifies a visit with a hash that is discarded after 24 hours. We remove
+          anything after a question mark in the page address before it is sent, so details prefilled
+          in a contact link are not included. We use this only to understand which pages help
+          visitors.
+        </p>
+      </>
     ),
   },
   {
