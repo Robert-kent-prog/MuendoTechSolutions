@@ -1,8 +1,15 @@
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { Link, useLocation } from "@tanstack/react-router";
-import { ArrowRight, ChevronDown, Menu, X } from "lucide-react";
+import { ArrowRight, ChevronDown, LayoutGrid, Menu, X, type LucideIcon } from "lucide-react";
 import { COMPANY } from "@/lib/seo";
-import { NAV_COMPANY, NAV_RESOURCES, NAV_TOP, type NavLink } from "@/data/nav";
+import {
+  NAV_COMPANY,
+  NAV_RESOURCES,
+  NAV_TOP,
+  SERVICE_NAV,
+  SERVICE_NAV_ORDER,
+  type NavLink,
+} from "@/data/nav";
 import { SERVICE_DETAIL_PAGES } from "@/data/services";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Logo } from "@/components/ui/Logo";
@@ -20,6 +27,41 @@ type MenuId = "services" | "company" | "resources";
 const linkBase =
   "relative text-sm px-2.5 py-2 rounded-md transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
+const tileClass =
+  "group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+
+const SERVICES_IN_ORDER = SERVICE_NAV_ORDER.flatMap((slug) => {
+  const page = SERVICE_DETAIL_PAGES.find((p) => p.slug === slug);
+  return page ? [{ slug, label: page.eyebrow, ...SERVICE_NAV[slug] }] : [];
+});
+
+const PROMOS: Record<
+  MenuId,
+  { label: string; title: string; text: string; cta: string; to: "/quote" | "/contact" | "/blog" }
+> = {
+  services: {
+    label: "Quote guide",
+    title: "Not sure what you need?",
+    text: "Answer a few quick questions and get a rough KES budget band for your project.",
+    cta: "Get a rough budget",
+    to: "/quote",
+  },
+  company: {
+    label: "Let's talk",
+    title: "Have a project in mind?",
+    text: "Send us a short brief by WhatsApp or email and we will help you scope it.",
+    cta: "Contact us",
+    to: "/contact",
+  },
+  resources: {
+    label: "Latest guides",
+    title: "What does it really cost?",
+    text: "Plain-language cost guides for POS systems, mobile apps, web apps and M-Pesa.",
+    cta: "Read the blog",
+    to: "/blog",
+  },
+};
+
 function Underline({ active }: { active: boolean }) {
   return (
     <span
@@ -30,33 +72,143 @@ function Underline({ active }: { active: boolean }) {
   );
 }
 
-function DropdownButton({
-  id,
-  label,
-  active,
-  openMenu,
-  onToggle,
+function MenuTile({
+  icon: Icon,
+  title,
+  desc,
   children,
-  panelClass,
 }: {
-  id: MenuId;
-  label: string;
-  active: boolean;
-  openMenu: MenuId | null;
-  onToggle: (id: MenuId) => void;
-  children: ReactNode;
-  panelClass: string;
+  icon: LucideIcon;
+  title: string;
+  desc: string;
+  children?: ReactNode;
 }) {
-  const isOpen = openMenu === id;
   return (
-    <div className="relative">
+    <>
+      <span className="size-10 shrink-0 rounded-lg bg-secondary text-accent grid place-items-center transition-colors group-hover:bg-background">
+        <Icon className="size-5" aria-hidden="true" />
+      </span>
+      <span className="min-w-0">
+        <span className="block text-sm font-semibold text-foreground">{title}</span>
+        <span className="mt-0.5 block text-xs text-muted-foreground leading-snug">{desc}</span>
+        {children}
+      </span>
+    </>
+  );
+}
+
+function PromoCard({ id, onNavigate }: { id: MenuId; onNavigate: () => void }) {
+  const p = PROMOS[id];
+  return (
+    <div className="relative overflow-hidden rounded-2xl bg-slate-900 p-6 text-white">
+      <div className="absolute inset-0 grid-bg opacity-40 pointer-events-none" />
+      <div className="relative flex h-full flex-col">
+        <span className="text-[11px] font-semibold uppercase tracking-[0.2em] text-cyan-300">
+          {p.label}
+        </span>
+        <h3 className="mt-3 text-xl font-bold leading-tight">{p.title}</h3>
+        <p className="mt-2 text-sm text-slate-300 leading-relaxed">{p.text}</p>
+        <Link
+          to={p.to}
+          onClick={onNavigate}
+          className="mt-5 inline-flex w-fit items-center gap-2 rounded-lg bg-white px-4 py-2 text-sm font-medium text-slate-900 transition hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300"
+        >
+          {p.cta} <ArrowRight className="size-4" aria-hidden="true" />
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+export function Navbar() {
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [openMenu, setOpenMenu] = useState<MenuId | null>(null);
+  const location = useLocation();
+  const path = location.pathname;
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const openedByHover = useRef<MenuId | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+
+  const cancelClose = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = null;
+  }, []);
+  const closeAll = useCallback(() => {
+    cancelClose();
+    openedByHover.current = null;
+    setMobileOpen(false);
+    setOpenMenu(null);
+  }, [cancelClose]);
+  const scheduleClose = () => {
+    cancelClose();
+    closeTimer.current = setTimeout(() => {
+      openedByHover.current = null;
+      setOpenMenu(null);
+    }, 180);
+  };
+  const hoverOpen = (id: MenuId) => {
+    cancelClose();
+    openedByHover.current = id;
+    setOpenMenu(id);
+  };
+
+  useEffect(() => {
+    if (!mobileOpen && !openMenu) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key !== "Escape") return;
+      const id = openMenu;
+      closeAll();
+      if (id) document.querySelector<HTMLElement>(`[aria-controls="menu-${id}"]`)?.focus();
+    };
+    const onPointerDown = (e: MouseEvent) => {
+      if (openMenu && headerRef.current && !headerRef.current.contains(e.target as Node)) {
+        closeAll();
+      }
+    };
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("mousedown", onPointerDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("mousedown", onPointerDown);
+    };
+  }, [mobileOpen, openMenu, closeAll]);
+
+  useEffect(() => {
+    closeAll();
+  }, [path, closeAll]);
+
+  useEffect(() => cancelClose, [cancelClose]);
+
+  const onButtonClick = (id: MenuId) => {
+    cancelClose();
+    if (openedByHover.current === id) {
+      // opened by hover a moment ago: a click keeps it open instead of closing it
+      openedByHover.current = null;
+      setOpenMenu(id);
+      return;
+    }
+    setOpenMenu((cur) => (cur === id ? null : id));
+  };
+
+  const isIn = (links: NavLink[]) =>
+    links.some((l) => path === l.href || path.startsWith(`${l.href}/`));
+  const active: Record<MenuId, boolean> = {
+    services: path === "/services" || path.startsWith("/services/"),
+    company: isIn(NAV_COMPANY),
+    resources: isIn(NAV_RESOURCES) || path.startsWith("/blog"),
+  };
+
+  const menuButton = (id: MenuId, label: string) => {
+    const isOpen = openMenu === id;
+    return (
       <button
         type="button"
-        onClick={() => onToggle(id)}
+        onClick={() => onButtonClick(id)}
+        onPointerEnter={(e) => e.pointerType === "mouse" && hoverOpen(id)}
         aria-expanded={isOpen}
         aria-controls={`menu-${id}`}
         className={`${linkBase} inline-flex items-center gap-1 cursor-pointer ${
-          active || isOpen
+          active[id] || isOpen
             ? "text-foreground font-medium"
             : "text-muted-foreground hover:text-foreground"
         }`}
@@ -66,178 +218,64 @@ function DropdownButton({
           className={`size-3.5 transition-transform ${isOpen ? "rotate-180" : ""}`}
           aria-hidden="true"
         />
-        <Underline active={active} />
+        <Underline active={active[id]} />
       </button>
-      {isOpen && (
-        <div
-          id={`menu-${id}`}
-          className={`absolute top-full mt-2 rounded-xl border border-border bg-background p-2 shadow-lg ${panelClass}`}
-        >
-          {children}
-        </div>
-      )}
-    </div>
-  );
-}
-
-function SimpleMenuLinks({ links, onNavigate }: { links: NavLink[]; onNavigate: () => void }) {
-  return (
-    <ul>
-      {links.map((l) => (
-        <li key={l.href}>
-          <Link
-            to={l.href}
-            onClick={onNavigate}
-            className="block rounded-lg px-3 py-2 text-sm text-muted-foreground hover:bg-secondary hover:text-foreground transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            {l.label}
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-export function Navbar() {
-  const [mobileOpen, setMobileOpen] = useState(false);
-  const [openMenu, setOpenMenu] = useState<MenuId | null>(null);
-  const location = useLocation();
-  const path = location.pathname;
-  const navRef = useRef<HTMLElement>(null);
-
-  const closeAll = () => {
-    setMobileOpen(false);
-    setOpenMenu(null);
+    );
   };
 
-  useEffect(() => {
-    if (!mobileOpen && !openMenu) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeAll();
-    };
-    const onPointerDown = (e: MouseEvent) => {
-      if (openMenu && navRef.current && !navRef.current.contains(e.target as Node)) {
-        setOpenMenu(null);
-      }
-    };
-    window.addEventListener("keydown", onKeyDown);
-    window.addEventListener("mousedown", onPointerDown);
-    return () => {
-      window.removeEventListener("keydown", onKeyDown);
-      window.removeEventListener("mousedown", onPointerDown);
-    };
-  }, [mobileOpen, openMenu]);
+  const simpleLink = (to: NavLink["href"], label: string, isActive: boolean, exact = false) => (
+    <Link
+      key={to}
+      to={to}
+      onPointerEnter={(e) => e.pointerType === "mouse" && scheduleClose()}
+      aria-current={exact ? "page" : undefined}
+      className={`${linkBase} ${
+        isActive ? "text-foreground font-medium" : "text-muted-foreground hover:text-foreground"
+      }`}
+    >
+      {label}
+      <Underline active={isActive} />
+    </Link>
+  );
 
-  useEffect(() => {
-    closeAll();
-  }, [path]);
-
-  const toggleMenu = (id: MenuId) => setOpenMenu((cur) => (cur === id ? null : id));
-  const isIn = (links: NavLink[]) =>
-    links.some((l) => path === l.href || path.startsWith(`${l.href}/`));
-  const servicesActive = path === "/services" || path.startsWith("/services/");
-  const companyActive = isIn(NAV_COMPANY);
-  const resourcesActive = isIn(NAV_RESOURCES) || path.startsWith("/blog");
+  const panel = (id: MenuId, children: ReactNode) =>
+    openMenu === id ? (
+      <div
+        id={`menu-${id}`}
+        className="hidden lg:block absolute inset-x-0 top-full border-b border-border bg-background shadow-xl"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid gap-8 lg:grid-cols-[1fr_20rem]">
+          {children}
+          <PromoCard id={id} onNavigate={closeAll} />
+        </div>
+      </div>
+    ) : null;
 
   return (
-    <header className="fixed top-0 inset-x-0 z-50 nav-glass">
+    <header
+      ref={headerRef}
+      onPointerEnter={cancelClose}
+      onPointerLeave={(e) => e.pointerType === "mouse" && scheduleClose()}
+      className="fixed top-0 inset-x-0 z-50 nav-glass"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <Link to="/" className="flex min-w-0 items-center gap-2 group" aria-label={COMPANY}>
           <Logo />
         </Link>
 
-        <nav
-          ref={navRef}
-          className="hidden lg:flex items-center gap-1"
-          aria-label="Main Navigation"
-        >
-          <DropdownButton
-            id="services"
-            label="Services"
-            active={servicesActive}
-            openMenu={openMenu}
-            onToggle={toggleMenu}
-            panelClass="left-0 w-[36rem]"
-          >
-            <ul className="grid grid-cols-2 gap-1">
-              {SERVICE_DETAIL_PAGES.map((s) => (
-                <li key={s.slug}>
-                  <Link
-                    to="/services/$slug"
-                    params={{ slug: s.slug }}
-                    onClick={closeAll}
-                    className="block rounded-lg px-3 py-2.5 hover:bg-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                  >
-                    <span className="block text-sm font-medium text-foreground">{s.eyebrow}</span>
-                    <span className="mt-0.5 block text-xs text-muted-foreground line-clamp-2">
-                      {s.bestFor}
-                    </span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            <Link
-              to="/services"
-              onClick={closeAll}
-              className="mt-1 flex items-center justify-between rounded-lg border-t border-border px-3 py-2.5 text-sm font-medium text-accent hover:bg-secondary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-            >
-              View all services <ArrowRight className="size-4" aria-hidden="true" />
-            </Link>
-          </DropdownButton>
-
-          {NAV_TOP.map((n) => {
-            const isActive = path === n.href || path.startsWith(`${n.href}/`);
-            return (
-              <Link
-                key={n.href}
-                to={n.href}
-                aria-current={path === n.href ? "page" : undefined}
-                className={`${linkBase} ${
-                  isActive
-                    ? "text-foreground font-medium"
-                    : "text-muted-foreground hover:text-foreground"
-                }`}
-              >
-                {n.label}
-                <Underline active={isActive} />
-              </Link>
-            );
-          })}
-
-          <DropdownButton
-            id="company"
-            label="Company"
-            active={companyActive}
-            openMenu={openMenu}
-            onToggle={toggleMenu}
-            panelClass="left-0 w-48"
-          >
-            <SimpleMenuLinks links={NAV_COMPANY} onNavigate={closeAll} />
-          </DropdownButton>
-
-          <DropdownButton
-            id="resources"
-            label="Resources"
-            active={resourcesActive}
-            openMenu={openMenu}
-            onToggle={toggleMenu}
-            panelClass="left-0 w-48"
-          >
-            <SimpleMenuLinks links={NAV_RESOURCES} onNavigate={closeAll} />
-          </DropdownButton>
-
-          <Link
-            to="/contact"
-            aria-current={path === "/contact" ? "page" : undefined}
-            className={`${linkBase} ${
-              path === "/contact"
-                ? "text-foreground font-medium"
-                : "text-muted-foreground hover:text-foreground"
-            }`}
-          >
-            Contact
-            <Underline active={path === "/contact"} />
-          </Link>
+        <nav className="hidden lg:flex items-center gap-1" aria-label="Main Navigation">
+          {menuButton("services", "Services")}
+          {NAV_TOP.map((n) =>
+            simpleLink(
+              n.href,
+              n.label,
+              path === n.href || path.startsWith(`${n.href}/`),
+              path === n.href,
+            ),
+          )}
+          {menuButton("company", "Company")}
+          {menuButton("resources", "Resources")}
+          {simpleLink("/contact", "Contact", path === "/contact", path === "/contact")}
         </nav>
 
         <div className="hidden lg:flex items-center gap-3">
@@ -265,6 +303,57 @@ export function Navbar() {
         </div>
       </div>
 
+      {panel(
+        "services",
+        <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1 content-start">
+          {SERVICES_IN_ORDER.map((s) => (
+            <li key={s.slug}>
+              <Link
+                to="/services/$slug"
+                params={{ slug: s.slug }}
+                onClick={closeAll}
+                className={tileClass}
+              >
+                <MenuTile icon={s.icon} title={s.label} desc={s.blurb} />
+              </Link>
+            </li>
+          ))}
+          <li>
+            <Link to="/services" onClick={closeAll} className={tileClass}>
+              <MenuTile
+                icon={LayoutGrid}
+                title="View all services"
+                desc="Everything we build, in one place"
+              />
+            </Link>
+          </li>
+        </ul>,
+      )}
+      {panel(
+        "company",
+        <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1 content-start">
+          {NAV_COMPANY.map((n) => (
+            <li key={n.href}>
+              <Link to={n.href} onClick={closeAll} className={tileClass}>
+                <MenuTile icon={n.icon} title={n.label} desc={n.desc} />
+              </Link>
+            </li>
+          ))}
+        </ul>,
+      )}
+      {panel(
+        "resources",
+        <ul className="grid sm:grid-cols-2 gap-x-6 gap-y-1 content-start">
+          {NAV_RESOURCES.map((n) => (
+            <li key={n.href}>
+              <Link to={n.href} onClick={closeAll} className={tileClass}>
+                <MenuTile icon={n.icon} title={n.label} desc={n.desc} />
+              </Link>
+            </li>
+          ))}
+        </ul>,
+      )}
+
       {mobileOpen && (
         <div
           id="mobile-menu"
@@ -272,7 +361,7 @@ export function Navbar() {
         >
           <div className="px-4 py-4 flex flex-col gap-4">
             <MobileGroup title="Services">
-              {SERVICE_DETAIL_PAGES.map((s) => (
+              {SERVICES_IN_ORDER.map((s) => (
                 <Link
                   key={s.slug}
                   to="/services/$slug"
@@ -280,7 +369,7 @@ export function Navbar() {
                   onClick={closeAll}
                   className="rounded-md px-3 py-2 text-sm text-muted-foreground hover:text-foreground"
                 >
-                  {s.eyebrow}
+                  {s.label}
                 </Link>
               ))}
               <Link
