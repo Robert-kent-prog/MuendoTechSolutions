@@ -17,6 +17,7 @@ export function Projects({
   const filtered =
     filterable && filter !== "All" ? PROJECTS.filter((p) => p.category === filter) : PROJECTS;
   const visible = showViewAll ? filtered.slice(0, 6) : filtered;
+  const CardHeading = headingAs === "h1" ? "h2" : "h3";
 
   return (
     <Section
@@ -66,7 +67,9 @@ export function Projects({
               <span className="text-[11px] font-semibold uppercase tracking-wider text-accent">
                 {p.tag}
               </span>
-              <h3 className="mt-2 text-base font-semibold leading-snug">{p.title}</h3>
+              <CardHeading className="mt-2 text-base font-semibold leading-snug">
+                {p.title}
+              </CardHeading>
               <p className="mt-2 text-sm text-muted-foreground leading-relaxed line-clamp-4">
                 {p.desc}
               </p>

@@ -31,7 +31,7 @@ export function ServicePackages() {
                   <Icon className="size-5 text-foreground" aria-hidden="true" />
                 </div>
                 {index === 1 && (
-                  <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
+                  <span className="rounded-full border border-accent/35 bg-accent/10 px-2.5 py-1 text-[11px] font-medium text-accent">
                     Most custom
                   </span>
                 )}
@@ -132,7 +132,7 @@ export function Solutions() {
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {SOLUTIONS.map((s, i) => (
           <div key={s} className="glass rounded-xl p-5 card-hover flex items-start gap-3">
-            <div className="size-8 rounded-lg bg-primary/15 text-primary grid place-items-center shrink-0 text-xs font-bold">
+            <div className="size-8 rounded-lg bg-accent/15 text-accent grid place-items-center shrink-0 text-xs font-bold">
               {String(i + 1).padStart(2, "0")}
             </div>
             <span className="text-sm font-medium pt-1">{s}</span>

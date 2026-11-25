@@ -7,7 +7,7 @@ import { BackToTop } from "@/components/ui/BackToTop";
 
 export function PageShell({ children }: { children: ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/20 selection:text-primary">
+    <div className="min-h-screen flex flex-col bg-background text-foreground selection:bg-primary/20 selection:text-primary print:min-h-0 print:block print:bg-white print:text-slate-900">
       <SkipLink />
       <Navbar />
       <div id="main-content" className="flex-1">

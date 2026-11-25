@@ -7,6 +7,7 @@ export function Process({
   showViewAll = false,
   headingAs = "h2",
 }: { showViewAll?: boolean; headingAs?: "h1" | "h2" } = {}) {
+  const CardHeading = headingAs === "h1" ? "h2" : "h3";
   return (
     <Section
       id="process"
@@ -31,7 +32,7 @@ export function Process({
                 </span>
               </div>
               <div>
-                <h3 className="font-semibold text-base mb-1.5">{p.title}</h3>
+                <CardHeading className="font-semibold text-base mb-1.5">{p.title}</CardHeading>
                 <p className="text-xs text-muted-foreground leading-relaxed">{p.desc}</p>
               </div>
             </div>

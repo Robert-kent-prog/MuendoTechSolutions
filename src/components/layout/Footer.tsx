@@ -44,7 +44,7 @@ function isRoute(href: string): href is FileRouteTypes["to"] {
 function FooterCol({ title, links }: { title: string; links: { label: string; href: string }[] }) {
   return (
     <div>
-      <h4 className="font-semibold mb-4 text-sm tracking-wide text-foreground">{title}</h4>
+      <h2 className="font-semibold mb-4 text-sm tracking-wide text-foreground">{title}</h2>
       <ul className="space-y-2.5 text-sm text-muted-foreground">
         {links.map((l) => (
           <li key={l.label}>

@@ -206,22 +206,11 @@ function ToolsIndexPage() {
               )}
 
               {upcomingTools.length > 0 && (
-                <div>
-                  <div className="flex items-center justify-between gap-4 mb-6 pt-4 border-t border-border">
-                    <div>
-                      <h2 className="text-xl font-bold tracking-tight">Planned next</h2>
-                      <p className="mt-1 text-sm text-muted-foreground">
-                        Additional Kenyan tax, M-Pesa, and SME utilities rolling out next.
-                      </p>
-                    </div>
-                    <span className="text-xs font-mono text-muted-foreground">
-                      {upcomingTools.length} planned
-                    </span>
-                  </div>
-
+                <div className={liveTools.length > 0 ? "pt-6 border-t border-border" : ""}>
                   <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {upcomingTools.map((tool) => {
                       const Icon = tool.icon;
+                      const CardHeading = liveTools.length > 0 ? "h3" : "h2";
                       return (
                         <article
                           key={tool.slug}
@@ -236,7 +225,9 @@ function ToolsIndexPage() {
                                 Coming soon
                               </span>
                             </div>
-                            <h3 className="text-base font-semibold leading-snug">{tool.title}</h3>
+                            <CardHeading className="text-base font-semibold leading-snug">
+                              {tool.title}
+                            </CardHeading>
                             <p className="mt-2 text-xs text-muted-foreground leading-relaxed">
                               {tool.summary}
                             </p>

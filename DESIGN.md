@@ -8,7 +8,7 @@
 ## 2. Palette Tokens (Defined in `src/styles.css`)
 - **Dark Surface (Default)**: `--background: oklch(0.15 0.025 260)`, `--card: oklch(0.19 0.028 260)`, `--secondary: oklch(0.23 0.03 260)`.
 - **Light Surface (`.light`)**: `--background: oklch(0.99 0.005 250)`, `--card: oklch(1 0 0)`, `--secondary: oklch(0.96 0.01 250)`.
-- **Brand Primary**: Technical Cobalt `--primary: oklch(0.58 0.22 255)` (dark) / `oklch(0.5 0.2 260)` (light).
+- **Brand Primary**: Technical Cobalt `--primary: oklch(0.53 0.22 255)` (dark, >=5.0:1 WCAG AA with white button text) / `oklch(0.5 0.2 260)` (light).
 - **Accent**: Cyan `--accent: oklch(0.7 0.18 220)` (dark) / `oklch(0.52 0.2 220)` (light).
 - **Print Document Surface**: Pure white (`#ffffff`) with deep slate ink (`#0f172a`) and muted gray secondary labels (`#475569`) regardless of dark/light app theme, so the live preview matches the printed A4 PDF or 80mm receipt verbatim.
 

@@ -21,7 +21,7 @@ export function Team() {
               }`}
             >
               {isFounder && (
-                <div className="absolute top-4 right-4 bg-primary/20 text-primary border border-primary/30 text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
+                <div className="absolute top-4 right-4 bg-accent/15 text-accent border border-accent/35 text-[11px] font-semibold uppercase tracking-wider px-2.5 py-0.5 rounded-full">
                   Founder
                 </div>
               )}

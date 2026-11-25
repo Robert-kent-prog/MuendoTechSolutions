@@ -7,6 +7,7 @@ export function About({
   showViewAll = false,
   headingAs = "h2",
 }: { showViewAll?: boolean; headingAs?: "h1" | "h2" } = {}) {
+  const CardHeading = headingAs === "h1" ? "h2" : "h3";
   return (
     <Section
       id="about"
@@ -24,7 +25,7 @@ export function About({
           <div className="size-10 rounded-lg bg-primary/15 text-primary grid place-items-center mb-4">
             <Rocket className="size-5" aria-hidden="true" />
           </div>
-          <h3 className="font-semibold text-xl mb-2">Mission</h3>
+          <CardHeading className="font-semibold text-xl mb-2">Mission</CardHeading>
           <p className="text-muted-foreground leading-relaxed">
             To help businesses and organizations move from manual, inefficient processes to reliable
             digital systems that improve speed, control, visibility, and growth.
@@ -34,7 +35,7 @@ export function About({
           <div className="size-10 rounded-lg bg-accent/15 text-accent grid place-items-center mb-4">
             <Sparkles className="size-5" aria-hidden="true" />
           </div>
-          <h3 className="font-semibold text-xl mb-2">Vision</h3>
+          <CardHeading className="font-semibold text-xl mb-2">Vision</CardHeading>
           <p className="text-muted-foreground leading-relaxed">
             To become a trusted software partner for businesses, institutions, and startups across
             Kenya and beyond.
@@ -42,7 +43,7 @@ export function About({
         </div>
       </div>
       <div className="glass rounded-2xl p-7">
-        <h3 className="font-semibold text-xl mb-4">Core Values</h3>
+        <CardHeading className="font-semibold text-xl mb-4">Core Values</CardHeading>
         <div className="flex flex-wrap gap-2">
           {VALUES.map((v) => (
             <span

@@ -12,6 +12,8 @@ export function Services({
   const visibleWebServices = showViewAll
     ? WEB_PRESENCE_SERVICES.slice(0, 4)
     : WEB_PRESENCE_SERVICES;
+  const CardHeading = headingAs === "h1" ? "h2" : "h3";
+  const SubCardHeading = headingAs === "h1" ? "h3" : "h4";
 
   return (
     <Section
@@ -29,7 +31,7 @@ export function Services({
               <div className="size-11 rounded-xl bg-primary/15 text-primary grid place-items-center mb-4">
                 <Icon className="size-5" aria-hidden="true" />
               </div>
-              <h3 className="font-semibold text-lg mb-2">{s.title}</h3>
+              <CardHeading className="font-semibold text-lg mb-2">{s.title}</CardHeading>
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{s.desc}</p>
               <ul className="space-y-1.5 mt-auto pt-4 border-t border-border/50 text-xs text-muted-foreground">
                 {s.items.map((item) => (
@@ -60,9 +62,9 @@ export function Services({
           <div className="text-xs uppercase tracking-[0.2em] text-accent font-semibold mb-2">
             Web & Growth
           </div>
-          <h3 className="text-2xl sm:text-3xl font-bold tracking-tight">
+          <CardHeading className="text-2xl sm:text-3xl font-bold tracking-tight">
             Web Presence, SEO & Maintenance
-          </h3>
+          </CardHeading>
           <p className="mt-2 text-muted-foreground text-sm leading-relaxed">
             For businesses that need a clean company website, landing pages, e-commerce, Google
             visibility, or maintenance support without building a full enterprise app first.
@@ -72,7 +74,9 @@ export function Services({
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
           {visibleWebServices.map((item) => (
             <div key={item.title} className="glass rounded-xl p-5 card-hover">
-              <h4 className="font-semibold text-sm text-foreground mb-1.5">{item.title}</h4>
+              <SubCardHeading className="font-semibold text-sm text-foreground mb-1.5">
+                {item.title}
+              </SubCardHeading>
               <p className="text-xs text-muted-foreground leading-relaxed mb-4">{item.desc}</p>
               <Link
                 to="/contact"

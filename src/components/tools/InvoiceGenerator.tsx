@@ -350,7 +350,7 @@ export function InvoiceGenerator() {
       </div>
 
       {/* Main 5/7 Split Workbench */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+      <div className="invoice-workbench-grid grid grid-cols-1 lg:grid-cols-12 gap-6 items-start print:block">
         {/* Left: Form Editor */}
         <div
           className={`no-print lg:col-span-5 space-y-5 ${
@@ -887,7 +887,7 @@ export function InvoiceGenerator() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-lg bg-[#25D366] px-3.5 py-2 text-xs font-semibold text-white hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                className="inline-flex items-center gap-2 rounded-lg bg-[#25D366] px-3.5 py-2 text-xs font-semibold text-slate-950 hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <MessageCircle className="size-3.5" aria-hidden="true" /> Share summary on WhatsApp
               </a>
@@ -913,7 +913,7 @@ export function InvoiceGenerator() {
 
         {/* Right: Live Print Preview */}
         <div
-          className={`lg:col-span-7 lg:sticky lg:top-20 ${
+          className={`print-preview-col lg:col-span-7 lg:sticky lg:top-20 print:block print:static ${
             mobileTab === "edit" ? "hidden lg:block" : "block"
           }`}
         >
