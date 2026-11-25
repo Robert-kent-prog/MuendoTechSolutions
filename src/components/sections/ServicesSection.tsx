@@ -1,35 +1,40 @@
 import { CheckCircle2, ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Section } from "@/components/ui/SectionHeading";
 import { SERVICES, WEB_PRESENCE_SERVICES } from "@/data/services";
-import { contactProjectHref } from "@/lib/contact-project";
+import { contactProjectSearch } from "@/lib/contact-project";
 
-export function Services({ showViewAll = false }: { showViewAll?: boolean } = {}) {
+export function Services({
+  showViewAll = false,
+  headingAs = "h2",
+}: { showViewAll?: boolean; headingAs?: "h1" | "h2" } = {}) {
+  const visibleServices = showViewAll ? SERVICES.slice(0, 6) : SERVICES;
+  const visibleWebServices = showViewAll
+    ? WEB_PRESENCE_SERVICES.slice(0, 4)
+    : WEB_PRESENCE_SERVICES;
+
   return (
     <Section
       id="services"
       eyebrow="Services"
       title="Complete Software & Web Capabilities"
+      headingAs={headingAs}
       subtitle="From core business software and mobile tools to web presence, SEO, and hosting support. We cover every layer needed to ship and operate modern software."
     >
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {SERVICES.map((s, idx) => {
+        {visibleServices.map((s) => {
           const Icon = s.icon;
           return (
-            <div
-              key={s.title}
-              className={`glass rounded-2xl p-6 card-hover flex-col ${
-                showViewAll && idx >= 6 ? "hidden" : "flex"
-              }`}
-            >
+            <div key={s.title} className="glass rounded-2xl p-6 card-hover flex flex-col">
               <div className="size-11 rounded-xl bg-primary/15 text-primary grid place-items-center mb-4">
-                <Icon className="size-5" />
+                <Icon className="size-5" aria-hidden="true" />
               </div>
               <h3 className="font-semibold text-lg mb-2">{s.title}</h3>
               <p className="text-sm text-muted-foreground mb-4 leading-relaxed">{s.desc}</p>
               <ul className="space-y-1.5 mt-auto pt-4 border-t border-border/50 text-xs text-muted-foreground">
                 {s.items.map((item) => (
                   <li key={item} className="flex items-center gap-1.5">
-                    <CheckCircle2 className="size-3 text-accent shrink-0" />
+                    <CheckCircle2 className="size-3 text-accent shrink-0" aria-hidden="true" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -41,12 +46,12 @@ export function Services({ showViewAll = false }: { showViewAll?: boolean } = {}
 
       {showViewAll && (
         <div className="mt-8 text-center sm:text-left">
-          <a
-            href="/services"
+          <Link
+            to="/services"
             className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
           >
-            View All Services <ArrowRight className="size-4" />
-          </a>
+            View All Services <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
         </div>
       )}
 
@@ -65,17 +70,13 @@ export function Services({ showViewAll = false }: { showViewAll?: boolean } = {}
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {WEB_PRESENCE_SERVICES.map((item, idx) => (
-            <div
-              key={item.title}
-              className={`glass rounded-xl p-5 card-hover ${
-                showViewAll && idx >= 4 ? "hidden" : "block"
-              }`}
-            >
+          {visibleWebServices.map((item) => (
+            <div key={item.title} className="glass rounded-xl p-5 card-hover">
               <h4 className="font-semibold text-sm text-foreground mb-1.5">{item.title}</h4>
               <p className="text-xs text-muted-foreground leading-relaxed mb-4">{item.desc}</p>
-              <a
-                href={contactProjectHref({
+              <Link
+                to="/contact"
+                search={contactProjectSearch({
                   title: `Enquiry about ${item.title}`,
                   service: item.title,
                   source: "Web & Growth Services",
@@ -83,20 +84,21 @@ export function Services({ showViewAll = false }: { showViewAll?: boolean } = {}
                 })}
                 className="inline-flex items-center gap-1 text-xs font-medium text-accent hover:underline"
               >
-                Discuss {item.title} <ArrowRight className="size-3" />
-              </a>
+                Discuss {item.title} <ArrowRight className="size-3" aria-hidden="true" />
+              </Link>
             </div>
           ))}
         </div>
 
         {showViewAll && (
           <div className="mt-10 text-center sm:text-left">
-            <a
-              href="/services"
+            <Link
+              to="/services"
               className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
             >
-              View All Web & Maintenance Services <ArrowRight className="size-4" />
-            </a>
+              View All Web & Maintenance Services{" "}
+              <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
           </div>
         )}
       </div>

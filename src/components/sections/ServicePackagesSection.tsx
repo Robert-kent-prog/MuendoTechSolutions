@@ -1,4 +1,5 @@
 import { CheckCircle2, ArrowRight, MessageCircle } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Section } from "@/components/ui/SectionHeading";
 import {
   SERVICE_PACKAGES,
@@ -7,7 +8,7 @@ import {
   SOLUTIONS,
   WHY,
 } from "@/data/services";
-import { contactProjectHref } from "@/lib/contact-project";
+import { contactProjectSearch } from "@/lib/contact-project";
 import { COMPANY, WHATSAPP } from "@/lib/seo";
 
 export function ServicePackages() {
@@ -27,7 +28,7 @@ export function ServicePackages() {
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="size-11 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 grid place-items-center">
-                  <Icon className="size-5 text-foreground" />
+                  <Icon className="size-5 text-foreground" aria-hidden="true" />
                 </div>
                 {index === 1 && (
                   <span className="rounded-full border border-primary/30 bg-primary/10 px-2.5 py-1 text-[11px] font-medium text-primary">
@@ -45,14 +46,18 @@ export function ServicePackages() {
               <ul className="mt-5 space-y-2 flex-1">
                 {pkg.items.map((item) => (
                   <li key={item} className="flex gap-2 text-xs text-muted-foreground">
-                    <CheckCircle2 className="mt-0.5 size-3.5 shrink-0 text-accent" />
+                    <CheckCircle2
+                      className="mt-0.5 size-3.5 shrink-0 text-accent"
+                      aria-hidden="true"
+                    />
                     <span>{item}</span>
                   </li>
                 ))}
               </ul>
               <div className="mt-6 flex flex-col gap-2">
-                <a
-                  href={contactProjectHref({
+                <Link
+                  to="/contact"
+                  search={contactProjectSearch({
                     title: pkg.title,
                     service: contactDetails?.service,
                     budget: contactDetails?.budget,
@@ -61,15 +66,15 @@ export function ServicePackages() {
                   })}
                   className="inline-flex items-center justify-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  {pkg.cta} <ArrowRight className="size-4" />
-                </a>
+                  {pkg.cta} <ArrowRight className="size-4" aria-hidden="true" />
+                </Link>
                 <a
                   href={`https://wa.me/${WHATSAPP.replace(/\D/g, "")}?text=${encodeURIComponent(`Hello ${COMPANY}, I would like to discuss the ${pkg.title} package.`)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center justify-center gap-2 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-foreground transition hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <MessageCircle className="size-4" /> Ask on WhatsApp
+                  <MessageCircle className="size-4" aria-hidden="true" /> Ask on WhatsApp
                 </a>
               </div>
             </article>
@@ -102,12 +107,13 @@ export function ServicePagePreview() {
               <span className="font-semibold text-foreground">Best for: </span>
               {service.bestFor}
             </div>
-            <a
-              href={`/services/${service.slug}`}
+            <Link
+              to="/services/$slug"
+              params={{ slug: service.slug }}
               className="mt-5 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all"
             >
-              View service page <ArrowRight className="size-4" />
-            </a>
+              View service page <ArrowRight className="size-4" aria-hidden="true" />
+            </Link>
           </article>
         ))}
       </div>
@@ -148,7 +154,7 @@ export function Why() {
         {WHY.map((w) => (
           <div key={w.title} className="glass rounded-2xl p-6 card-hover">
             <div className="size-9 rounded-lg bg-accent/15 text-accent grid place-items-center mb-4">
-              <CheckCircle2 className="size-5" />
+              <CheckCircle2 className="size-5" aria-hidden="true" />
             </div>
             <h3 className="font-semibold text-lg mb-2">{w.title}</h3>
             <p className="text-sm text-muted-foreground leading-relaxed">{w.desc}</p>

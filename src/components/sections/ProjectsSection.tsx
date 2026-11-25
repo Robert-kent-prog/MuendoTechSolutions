@@ -1,12 +1,9 @@
 import { useState } from "react";
 import { ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Section } from "@/components/ui/SectionHeading";
-import {
-  PROJECTS,
-  PROJECT_CASE_STUDIES,
-  PROJECT_CATEGORIES,
-  type ProjectCategory,
-} from "@/data/projects";
+import { PROJECTS, PROJECT_CATEGORIES, type ProjectCategory } from "@/data/projects";
+import { PROJECT_CASE_STUDY_META } from "@/data/projects-meta";
 
 const normalizeTitle = (t: string) => t.toLowerCase().replace(/[^a-z0-9]/g, "");
 const sameTitle = (a: string, b: string) => normalizeTitle(a) === normalizeTitle(b);
@@ -14,16 +11,19 @@ const sameTitle = (a: string, b: string) => normalizeTitle(a) === normalizeTitle
 export function Projects({
   showViewAll = false,
   filterable = false,
-}: { showViewAll?: boolean; filterable?: boolean } = {}) {
+  headingAs = "h2",
+}: { showViewAll?: boolean; filterable?: boolean; headingAs?: "h1" | "h2" } = {}) {
   const [filter, setFilter] = useState<ProjectCategory | "All">("All");
-  const visible =
+  const filtered =
     filterable && filter !== "All" ? PROJECTS.filter((p) => p.category === filter) : PROJECTS;
+  const visible = showViewAll ? filtered.slice(0, 6) : filtered;
 
   return (
     <Section
       id="projects"
       eyebrow="Case Studies"
       title="Experience Behind Our Solutions"
+      headingAs={headingAs}
       subtitle="A look at production systems we've designed, engineered, and deployed for real operational use."
     >
       {filterable && (
@@ -55,17 +55,14 @@ export function Projects({
         </div>
       )}
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {visible.map((p, idx) => {
-          const caseStudy = PROJECT_CASE_STUDIES.find((study) => sameTitle(study.title, p.title));
+        {visible.map((p) => {
+          const caseStudy = PROJECT_CASE_STUDY_META.find((study) =>
+            sameTitle(study.title, p.title),
+          );
           const shownStack = p.stack.slice(0, 6);
           const hiddenCount = p.stack.length - shownStack.length;
           return (
-            <article
-              key={p.title}
-              className={`glass rounded-xl p-5 card-hover flex-col ${
-                showViewAll && idx >= 6 ? "hidden" : "flex"
-              }`}
-            >
+            <article key={p.title} className="glass rounded-xl p-5 card-hover flex flex-col">
               <span className="text-[11px] font-semibold uppercase tracking-wider text-accent">
                 {p.tag}
               </span>
@@ -101,12 +98,13 @@ export function Projects({
                 )}
               </div>
               {caseStudy && (
-                <a
-                  href={`/projects/${caseStudy.slug}`}
+                <Link
+                  to="/projects/$slug"
+                  params={{ slug: caseStudy.slug }}
                   className="mt-auto pt-4 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all"
                 >
-                  View case study <ArrowRight className="size-4" />
-                </a>
+                  View case study <ArrowRight className="size-4" aria-hidden="true" />
+                </Link>
               )}
             </article>
           );
@@ -115,12 +113,12 @@ export function Projects({
 
       {showViewAll && (
         <div className="mt-8 text-center sm:text-left">
-          <a
-            href="/projects"
+          <Link
+            to="/projects"
             className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
           >
-            View All Projects <ArrowRight className="size-4" />
-          </a>
+            View All Projects <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
         </div>
       )}
     </Section>

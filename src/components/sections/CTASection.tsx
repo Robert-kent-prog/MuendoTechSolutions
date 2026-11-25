@@ -1,7 +1,15 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, MessageCircle } from "lucide-react";
-import { contactProjectHref } from "@/lib/contact-project";
+import { contactProjectSearch } from "@/lib/contact-project";
 import { WHATSAPP } from "@/lib/seo";
+
+const CTA_CONTACT_SEARCH = contactProjectSearch({
+  title: "Discuss a new software project",
+  service: "Business System",
+  source: "Section CTA",
+  message:
+    "I would like to discuss a software project for my business.\n\nBusiness goal:\n\nSystem type:\n\nFeatures needed:\n\nTimeline:\n\nBudget range:",
+});
 
 export function CTA() {
   return (
@@ -18,18 +26,13 @@ export function CTA() {
               support.
             </p>
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <a
-                href={contactProjectHref({
-                  title: "Discuss a new software project",
-                  service: "Business System",
-                  source: "Section CTA",
-                  message:
-                    "I would like to discuss a software project for my business.\n\nBusiness goal:\n\nSystem type:\n\nFeatures needed:\n\nTimeline:\n\nBudget range:",
-                })}
+              <Link
+                to="/contact"
+                search={CTA_CONTACT_SEARCH}
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-primary text-primary-foreground font-medium hover:opacity-90 transition shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                Discuss Your Project <ArrowRight className="size-4" />
-              </a>
+                Discuss Your Project <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
               <Link
                 to="/quote"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl border border-border glass text-foreground font-medium hover:bg-secondary/60 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
@@ -47,8 +50,8 @@ export function CTA() {
                 aria-label="Contact Muendo Software Labs on WhatsApp"
                 className="inline-flex items-center gap-1.5 font-medium text-emerald-400 hover:underline"
               >
-                <MessageCircle className="size-4 shrink-0" /> Chat with us on WhatsApp{" "}
-                <ArrowRight className="size-3.5 shrink-0" />
+                <MessageCircle className="size-4 shrink-0" aria-hidden="true" /> Chat with us on
+                WhatsApp <ArrowRight className="size-3.5 shrink-0" aria-hidden="true" />
               </a>
             </div>
           </div>

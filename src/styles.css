@@ -1,6 +1,5 @@
 @import "tailwindcss" source(none);
 @source "../src";
-@import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -144,9 +143,7 @@
       linear-gradient(180deg, oklch(0.13 0.025 260), oklch(0.15 0.025 260));
   }
   .glass {
-    background: oklch(0.19 0.028 260 / 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: oklch(0.19 0.028 260 / 0.94);
     border: 1px solid oklch(1 0 0 / 0.1);
   }
   .nav-glass {
@@ -157,7 +154,7 @@
     box-shadow: 0 4px 20px oklch(0 0 0 / 0.3);
   }
   .light .glass {
-    background: oklch(1 0 0 / 0.85);
+    background: oklch(1 0 0 / 0.96);
     border: 1px solid oklch(0.2 0.03 260 / 0.1);
     box-shadow: 0 1px 3px oklch(0.2 0.03 260 / 0.05);
   }

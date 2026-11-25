@@ -1,4 +1,5 @@
 import { ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Section } from "@/components/ui/SectionHeading";
 import { INDUSTRIES, INDUSTRY_SOLUTIONS } from "@/data/industries";
 
@@ -19,7 +20,7 @@ export function Industries() {
               className="glass rounded-xl p-5 card-hover text-center flex flex-col items-center gap-3"
             >
               <div className="size-11 rounded-xl bg-primary/15 text-primary grid place-items-center">
-                <Icon className="size-5" />
+                <Icon className="size-5" aria-hidden="true" />
               </div>
               <span className="text-sm font-medium">{i.label}</span>
             </div>
@@ -41,10 +42,13 @@ export function IndustrySolutions() {
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         {INDUSTRY_SOLUTIONS.map((solution) => {
           const Icon = solution.icon;
+          const serviceSlug = solution.href?.startsWith("/services/")
+            ? solution.href.replace("/services/", "")
+            : null;
           return (
             <article key={solution.title} className="glass rounded-2xl p-6 card-hover">
               <div className="size-11 rounded-xl bg-gradient-to-br from-primary/20 to-accent/20 grid place-items-center mb-4">
-                <Icon className="size-5 text-foreground" />
+                <Icon className="size-5 text-foreground" aria-hidden="true" />
               </div>
               <h3 className="text-xl font-semibold">{solution.title}</h3>
               <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{solution.desc}</p>
@@ -58,13 +62,14 @@ export function IndustrySolutions() {
                   </span>
                 ))}
               </div>
-              {solution.href && (
-                <a
-                  href={solution.href}
+              {serviceSlug && (
+                <Link
+                  to="/services/$slug"
+                  params={{ slug: serviceSlug }}
                   className="mt-5 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded-sm"
                 >
                   View service page <ArrowRight className="size-4" aria-hidden="true" />
-                </a>
+                </Link>
               )}
             </article>
           );

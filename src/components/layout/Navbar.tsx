@@ -10,7 +10,7 @@ import {
   SERVICE_NAV_ORDER,
   type NavLink,
 } from "@/data/nav";
-import { SERVICE_DETAIL_PAGES } from "@/data/services";
+import { SERVICE_META } from "@/data/services-meta";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 import { Logo } from "@/components/ui/Logo";
 
@@ -31,7 +31,7 @@ const tileClass =
   "group flex items-start gap-3 rounded-xl p-3 transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 const SERVICES_IN_ORDER = SERVICE_NAV_ORDER.flatMap((slug) => {
-  const page = SERVICE_DETAIL_PAGES.find((p) => p.slug === slug);
+  const page = SERVICE_META.find((p) => p.slug === slug);
   return page ? [{ slug, label: page.eyebrow, ...SERVICE_NAV[slug] }] : [];
 });
 

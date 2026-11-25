@@ -1,16 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2 } from "lucide-react";
-import { contactProjectHref } from "@/lib/contact-project";
+import { contactProjectSearch } from "@/lib/contact-project";
 import { COMPANY, SITE_URL, breadcrumbSchema, pageHead } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { PageShell } from "@/components/layout/PageShell";
+import { PROJECT_CASE_STUDY_META } from "@/data/projects-meta";
 import { PROJECT_CASE_STUDIES } from "@/data/projects";
 import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/projects/$slug")({
-  component: ProjectCaseStudyRoute,
+  component: ProjectCaseStudyPage,
   head: ({ params }) => {
-    const project = PROJECT_CASE_STUDIES.find((item) => item.slug === params.slug);
+    const project = PROJECT_CASE_STUDY_META.find((item) => item.slug === params.slug);
 
     if (!project) {
       return {
@@ -56,14 +56,6 @@ export const Route = createFileRoute("/projects/$slug")({
   },
 });
 
-function ProjectCaseStudyRoute() {
-  return (
-    <PageShell>
-      <ProjectCaseStudyPage />
-    </PageShell>
-  );
-}
-
 function ProjectCaseStudyPage() {
   const { slug } = Route.useParams();
   const project = PROJECT_CASE_STUDIES.find((item) => item.slug === slug);
@@ -76,12 +68,12 @@ function ProjectCaseStudyPage() {
           <p className="mt-3 text-muted-foreground">
             The project page you opened may have moved or been removed.
           </p>
-          <a
-            href="/projects"
+          <Link
+            to="/projects"
             className="mt-6 inline-flex items-center gap-2 text-sm text-accent font-medium"
           >
-            <ArrowLeft className="size-4" /> Back to projects
-          </a>
+            <ArrowLeft className="size-4" aria-hidden="true" /> Back to projects
+          </Link>
         </div>
       </section>
     );
@@ -99,7 +91,7 @@ function ProjectCaseStudyPage() {
             : project.tag.includes("Mobile")
               ? "Mobile App"
               : "Business System";
-  const contactHref = contactProjectHref({
+  const contactSearch = contactProjectSearch({
     title: project.title,
     service: contactService,
     source: `/projects/${project.slug}`,
@@ -141,12 +133,13 @@ function ProjectCaseStudyPage() {
                 <p className="mt-6 max-w-3xl text-lg text-muted-foreground leading-relaxed">
                   {project.summary}
                 </p>
-                <a
-                  href={contactHref}
+                <Link
+                  to="/contact"
+                  search={contactSearch}
                   className="mt-8 inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-medium text-primary-foreground shadow-lg shadow-primary/30 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  Build Something Similar <ArrowRight className="size-4" />
-                </a>
+                  Build Something Similar <ArrowRight className="size-4" aria-hidden="true" />
+                </Link>
               </div>
               <aside className="glass rounded-2xl p-6">
                 <div className="text-xs uppercase tracking-[0.2em] text-accent font-semibold">
@@ -201,7 +194,10 @@ function ProjectCaseStudyPage() {
                 <div className="mt-8 grid gap-3">
                   {project.features.map((feature) => (
                     <div key={feature} className="glass rounded-xl p-4 flex gap-3">
-                      <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-accent" />
+                      <CheckCircle2
+                        className="mt-0.5 size-5 shrink-0 text-accent"
+                        aria-hidden="true"
+                      />
                       <span className="text-sm text-foreground/90">{feature}</span>
                     </div>
                   ))}

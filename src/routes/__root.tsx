@@ -1,16 +1,18 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Analytics } from "@vercel/analytics/react";
 import {
   Outlet,
   Link,
-  createRootRouteWithContext,
+  createRootRoute,
   useRouter,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
 
 import appCss from "../styles.css?url";
-import { COMPANY, SITE_IMAGE, SITE_URL, defaultDescription } from "../lib/seo";
+import { COMPANY, SITE_IMAGE, defaultDescription } from "../lib/seo";
+
+const THEME_INIT_SCRIPT =
+  'try{if(localStorage.getItem("theme")==="light"){document.documentElement.classList.add("light")}}catch(_e){}';
 
 function NotFoundComponent() {
   return (
@@ -57,19 +59,19 @@ function ErrorComponent({ error, reset }: { error: unknown; reset: () => void })
           >
             Try again
           </button>
-          <a
-            href="/"
+          <Link
+            to="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
             Go home
-          </a>
+          </Link>
         </div>
       </div>
     </div>
   );
 }
 
-export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()({
+export const Route = createRootRoute({
   head: () => ({
     meta: [
       { charSet: "utf-8" },
@@ -82,6 +84,8 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: COMPANY },
       { property: "og:image", content: SITE_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: `${COMPANY} logo and brand card` },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:image", content: SITE_IMAGE },
@@ -104,7 +108,7 @@ function RootShell({ children }: { children: React.ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <HeadContent />
-        <script src="/theme-init.js" />
+        <script dangerouslySetInnerHTML={{ __html: THEME_INIT_SCRIPT }} />
       </head>
       <body>
         {children}
@@ -126,12 +130,10 @@ function stripQueryString<T extends { url: string }>(event: T): T {
 }
 
 function RootComponent() {
-  const { queryClient } = Route.useRouteContext();
-
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <Outlet />
       <Analytics beforeSend={stripQueryString} />
-    </QueryClientProvider>
+    </>
   );
 }

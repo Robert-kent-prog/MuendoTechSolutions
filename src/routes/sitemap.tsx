@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useMemo } from "react";
 import {
   Search,
@@ -10,21 +10,36 @@ import {
   Compass,
   ExternalLink,
 } from "lucide-react";
-import { COMPANY, pageHead } from "@/lib/seo";
+import { COMPANY, breadcrumbSchema, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
-import { SERVICE_DETAIL_PAGES } from "@/data/services";
-import { PROJECT_CASE_STUDIES } from "@/data/projects";
-import { INSIGHTS } from "@/data/insights";
+import { SERVICE_META } from "@/data/services-meta";
+import { PROJECT_CASE_STUDY_META } from "@/data/projects-meta";
+import { INSIGHTS_META } from "@/data/insights-meta";
 
 export const Route = createFileRoute("/sitemap")({
   component: SitemapPage,
-  head: () =>
-    pageHead({
+  head: () => {
+    const head = pageHead({
       title: `HTML Sitemap | ${COMPANY}`,
       description:
-        "Comprehensive page index of Muendo Software Labs: explore our core pages, software development services, project case studies, technical field notes, and contact options.",
+        "Complete page index of Muendo Software Labs: browse core pages, software services, project case studies, technical articles, and contact options.",
       path: "/sitemap",
-    }),
+    });
+    return {
+      ...head,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Sitemap", path: "/sitemap" },
+            ]),
+          ),
+        },
+      ],
+    };
+  },
 });
 
 interface SitemapGroup {
@@ -120,7 +135,7 @@ function SitemapPage() {
         id: "services",
         title: "Services & Solutions",
         icon: Layers,
-        items: SERVICE_DETAIL_PAGES.map((s) => ({
+        items: SERVICE_META.map((s) => ({
           title: s.title,
           href: `/services/${s.slug}`,
           description: s.summary,
@@ -130,7 +145,7 @@ function SitemapPage() {
         id: "projects",
         title: "Projects & Portfolio Case Studies",
         icon: Briefcase,
-        items: PROJECT_CASE_STUDIES.map((p) => ({
+        items: PROJECT_CASE_STUDY_META.map((p) => ({
           title: p.title,
           href: `/projects/${p.slug}`,
           description: p.summary,
@@ -140,7 +155,7 @@ function SitemapPage() {
         id: "blog",
         title: "Technical Field Notes & Articles",
         icon: BookOpen,
-        items: INSIGHTS.map((post) => ({
+        items: INSIGHTS_META.map((post) => ({
           title: post.title,
           href: `/blog/${post.slug}`,
           description: post.excerpt,
@@ -170,7 +185,6 @@ function SitemapPage() {
     <PageShell>
       <main className="pt-24 pb-20 sm:pt-32 sm:pb-28">
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Header */}
           <div className="max-w-3xl">
             <div className="text-xs uppercase tracking-[0.2em] text-accent font-semibold mb-3">
               Site Directory
@@ -182,12 +196,15 @@ function SitemapPage() {
             </p>
           </div>
 
-          {/* Search & XML Banner */}
           <div className="mt-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 glass rounded-2xl p-5 border border-border">
             <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
+              <Search
+                className="absolute left-3.5 top-1/2 -translate-y-1/2 size-4 text-muted-foreground"
+                aria-hidden="true"
+              />
               <input
                 type="text"
+                aria-label="Search sitemap pages"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search sitemap pages..."
@@ -201,14 +218,13 @@ function SitemapPage() {
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-border bg-secondary/40 text-xs font-medium text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
-                <FileCode2 className="size-4 text-accent" />
+                <FileCode2 className="size-4 text-accent" aria-hidden="true" />
                 View XML Sitemap (For Crawlers){" "}
-                <ExternalLink className="size-3 text-muted-foreground" />
+                <ExternalLink className="size-3 text-muted-foreground" aria-hidden="true" />
               </a>
             </div>
           </div>
 
-          {/* Sitemap Sections Grid */}
           <div className="mt-12 space-y-12">
             {filteredGroups.length === 0 ? (
               <div className="glass rounded-2xl p-12 text-center">
@@ -227,7 +243,7 @@ function SitemapPage() {
                 return (
                   <div key={group.id} className="space-y-4">
                     <div className="flex items-center gap-2.5 border-b border-border pb-3">
-                      <IconComponent className="size-5 text-accent" />
+                      <IconComponent className="size-5 text-accent" aria-hidden="true" />
                       <h2 className="text-xl font-bold tracking-tight">{group.title}</h2>
                       <span className="ml-auto text-xs text-muted-foreground font-mono">
                         {group.items.length} links
@@ -236,9 +252,9 @@ function SitemapPage() {
 
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {group.items.map((item) => (
-                        <a
+                        <Link
                           key={item.href}
-                          href={item.href}
+                          to={item.href}
                           className="glass card-hover rounded-xl p-5 flex flex-col justify-between space-y-3 group"
                         >
                           <div>
@@ -246,7 +262,10 @@ function SitemapPage() {
                               <h3 className="font-semibold text-sm group-hover:text-accent transition-colors">
                                 {item.title}
                               </h3>
-                              <ArrowRight className="size-3.5 text-muted-foreground group-hover:text-accent group-hover:translate-x-0.5 transition-transform shrink-0" />
+                              <ArrowRight
+                                className="size-3.5 text-muted-foreground group-hover:text-accent group-hover:translate-x-0.5 transition-transform shrink-0"
+                                aria-hidden="true"
+                              />
                             </div>
                             {item.description && (
                               <p className="mt-2 text-xs text-muted-foreground leading-relaxed line-clamp-2">
@@ -257,7 +276,7 @@ function SitemapPage() {
                           <div className="text-[11px] font-mono text-accent/80 truncate">
                             {item.href}
                           </div>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   </div>

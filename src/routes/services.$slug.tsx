@@ -1,16 +1,16 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, CheckCircle2, ChevronDown, MessageCircle } from "lucide-react";
-import { contactProjectHref } from "@/lib/contact-project";
+import { contactProjectSearch } from "@/lib/contact-project";
 import { COMPANY, SITE_URL, WHATSAPP, breadcrumbSchema, pageHead } from "@/lib/seo";
-import { PageShell } from "@/components/layout/PageShell";
+import { SERVICE_META } from "@/data/services-meta";
 import { SERVICE_DETAIL_PAGES, SERVICE_EXTRAS } from "@/data/services";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
 import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/services/$slug")({
-  component: ServiceDetailRoute,
+  component: ServiceDetailPage,
   head: ({ params }) => {
-    const service = SERVICE_DETAIL_PAGES.find((item) => item.slug === params.slug);
+    const service = SERVICE_META.find((item) => item.slug === params.slug);
 
     if (!service) {
       return {
@@ -64,34 +64,10 @@ export const Route = createFileRoute("/services/$slug")({
             ]),
           ),
         },
-        ...(SERVICE_EXTRAS[service.slug]
-          ? [
-              {
-                type: "application/ld+json",
-                children: JSON.stringify({
-                  "@context": "https://schema.org",
-                  "@type": "FAQPage",
-                  mainEntity: SERVICE_EXTRAS[service.slug].faqs.map((f) => ({
-                    "@type": "Question",
-                    name: f.q,
-                    acceptedAnswer: { "@type": "Answer", text: f.a },
-                  })),
-                }),
-              },
-            ]
-          : []),
       ],
     };
   },
 });
-
-function ServiceDetailRoute() {
-  return (
-    <PageShell>
-      <ServiceDetailPage />
-    </PageShell>
-  );
-}
 
 function ServiceDetailPage() {
   const { slug } = Route.useParams();
@@ -105,12 +81,12 @@ function ServiceDetailPage() {
           <p className="mt-3 text-muted-foreground">
             The service page you opened may have moved or been removed.
           </p>
-          <a
-            href="/services"
+          <Link
+            to="/services"
             className="mt-6 inline-flex items-center gap-2 text-sm text-accent font-medium"
           >
-            <ArrowLeft className="size-4" /> Back to services
-          </a>
+            <ArrowLeft className="size-4" aria-hidden="true" /> Back to services
+          </Link>
         </div>
       </section>
     );
@@ -130,7 +106,7 @@ function ServiceDetailPage() {
       "health-and-clinic-systems": "Business System",
       "fleet-management-systems": "Fleet Management System",
     }[service.slug] || "Business System";
-  const contactHref = contactProjectHref({
+  const contactSearch = contactProjectSearch({
     title: service.title,
     service: contactService,
     source: `/services/${service.slug}`,
@@ -152,9 +128,23 @@ function ServiceDetailPage() {
   });
   const extras = SERVICE_EXTRAS[service.slug];
   const whatsappText = `Hello ${COMPANY}, I would like to discuss ${service.title}.`;
+  const faqSchema = extras
+    ? JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: extras.faqs.map((f) => ({
+          "@type": "Question",
+          name: f.q,
+          acceptedAnswer: { "@type": "Answer", text: f.a },
+        })),
+      })
+    : null;
 
   return (
     <>
+      {faqSchema && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: faqSchema }} />
+      )}
       <section className="relative overflow-hidden bg-hero-gradient py-20 sm:py-28">
         <div className="absolute inset-0 grid-bg opacity-50 pointer-events-none" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -173,19 +163,20 @@ function ServiceDetailPage() {
                 {service.summary}
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
-                <a
-                  href={contactHref}
+                <Link
+                  to="/contact"
+                  search={contactSearch}
                   className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-medium text-primary-foreground shadow-lg shadow-primary/30 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  Start This Project <ArrowRight className="size-4" />
-                </a>
+                  Start This Project <ArrowRight className="size-4" aria-hidden="true" />
+                </Link>
                 <a
                   href={`https://wa.me/${WHATSAPP.replace(/\D/g, "")}?text=${encodeURIComponent(whatsappText)}`}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-2 rounded-lg border border-border px-5 py-3 font-medium text-foreground transition hover:bg-secondary/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
                 >
-                  <MessageCircle className="size-4" /> Ask on WhatsApp
+                  <MessageCircle className="size-4" aria-hidden="true" /> Ask on WhatsApp
                 </a>
               </div>
             </div>
@@ -219,7 +210,10 @@ function ServiceDetailPage() {
               <div className="mt-8 grid gap-3">
                 {service.outcomes.map((outcome) => (
                   <div key={outcome} className="glass rounded-xl p-4 flex gap-3">
-                    <CheckCircle2 className="mt-0.5 size-5 shrink-0 text-accent" />
+                    <CheckCircle2
+                      className="mt-0.5 size-5 shrink-0 text-accent"
+                      aria-hidden="true"
+                    />
                     <span className="text-sm text-foreground/90">{outcome}</span>
                   </div>
                 ))}
@@ -288,12 +282,12 @@ function ServiceDetailPage() {
                   </li>
                 ))}
               </ul>
-              <a
-                href="/tech-stack"
+              <Link
+                to="/tech-stack"
                 className="mt-6 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all"
               >
-                See the full tech stack <ArrowRight className="size-4" />
-              </a>
+                See the full tech stack <ArrowRight className="size-4" aria-hidden="true" />
+              </Link>
             </div>
             <div>
               <div className="text-xs uppercase tracking-[0.2em] text-accent font-semibold mb-3">

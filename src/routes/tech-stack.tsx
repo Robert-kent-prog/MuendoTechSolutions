@@ -1,5 +1,5 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { COMPANY, pageHead } from "@/lib/seo";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { COMPANY, breadcrumbSchema, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Section } from "@/components/ui/SectionHeading";
@@ -8,13 +8,28 @@ import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/tech-stack")({
   component: TechStackPage,
-  head: () =>
-    pageHead({
+  head: () => {
+    const head = pageHead({
       title: `Technology Stack | ${COMPANY}`,
       description:
-        "The languages, frameworks, databases and tools Muendo Software Labs uses to build web apps, mobile apps, APIs and AI integrations, and how we choose between them.",
+        "Languages, frameworks, databases, and cloud tools Muendo Software Labs uses for web apps, mobile apps, APIs, M-Pesa, and AI integrations.",
       path: "/tech-stack",
-    }),
+    });
+    return {
+      ...head,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Technology Stack", path: "/tech-stack" },
+            ]),
+          ),
+        },
+      ],
+    };
+  },
 });
 
 const PRINCIPLES = [
@@ -58,12 +73,13 @@ function TechStackPage() {
           </div>
           <p className="mt-8 text-sm text-muted-foreground">
             Want the longer version? Read{" "}
-            <a
-              href="/blog/choosing-between-mern-and-spring-boot-for-kenyan-smes"
+            <Link
+              to="/blog/$slug"
+              params={{ slug: "choosing-between-mern-and-spring-boot-for-kenyan-smes" }}
               className="text-accent font-medium hover:underline"
             >
               choosing between MERN and Spring Boot for Kenyan SMEs
-            </a>
+            </Link>
             .
           </p>
         </Section>

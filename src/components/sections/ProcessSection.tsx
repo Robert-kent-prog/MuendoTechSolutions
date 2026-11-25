@@ -1,13 +1,18 @@
 import { ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Section } from "@/components/ui/SectionHeading";
 import { PROCESS } from "@/data/services";
 
-export function Process({ showViewAll = false }: { showViewAll?: boolean } = {}) {
+export function Process({
+  showViewAll = false,
+  headingAs = "h2",
+}: { showViewAll?: boolean; headingAs?: "h1" | "h2" } = {}) {
   return (
     <Section
       id="process"
       eyebrow="Our Process"
       title="How We Deliver Projects"
+      headingAs={headingAs}
       subtitle="A clear, structured engineering lifecycle from first requirement notes to live release and maintenance."
     >
       <div className="relative">
@@ -35,12 +40,12 @@ export function Process({ showViewAll = false }: { showViewAll?: boolean } = {})
       </div>
       {showViewAll && (
         <div className="mt-8 text-center sm:text-left">
-          <a
-            href="/process"
+          <Link
+            to="/process"
             className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
           >
-            View Full Engineering Process <ArrowRight className="size-4" />
-          </a>
+            View Full Engineering Process <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
         </div>
       )}
     </Section>

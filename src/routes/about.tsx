@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { COMPANY, pageHead } from "@/lib/seo";
+import { COMPANY, breadcrumbSchema, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { About } from "@/components/sections/AboutSection";
 import { Team } from "@/components/sections/TeamSection";
@@ -8,20 +8,35 @@ import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/about")({
   component: AboutPage,
-  head: () =>
-    pageHead({
+  head: () => {
+    const head = pageHead({
       title: `About ${COMPANY} | Nairobi Software Development Team`,
       description:
-        "Meet Muendo Software Labs, a Nairobi-based software development team building web apps, mobile apps, backend APIs, business systems, AI integrations, and payment-ready platforms.",
+        "Meet Muendo Software Labs in Nairobi: a software engineering team building web apps, mobile apps, backend APIs, M-Pesa integrations, and business systems.",
       path: "/about",
-    }),
+    });
+    return {
+      ...head,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "About", path: "/about" },
+            ]),
+          ),
+        },
+      ],
+    };
+  },
 });
 
 function AboutPage() {
   return (
     <PageShell>
       <main className="pt-16">
-        <About />
+        <About headingAs="h1" />
         <Team />
         <Why />
         <CTA />

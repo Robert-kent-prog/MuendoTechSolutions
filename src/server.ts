@@ -66,12 +66,28 @@ async function normalizeCatastrophicSsrResponse(response: Response): Promise<Res
   return brandedErrorResponse();
 }
 
+function withEdgeCacheHeaders(request: Request, response: Response): Response {
+  if (request.method !== "GET" || response.status !== 200) return response;
+  const contentType = response.headers.get("content-type") ?? "";
+  if (!contentType.includes("text/html")) return response;
+  if (response.headers.has("cache-control") || response.headers.has("set-cookie")) return response;
+
+  const headers = new Headers(response.headers);
+  headers.set("cache-control", "public, max-age=0, s-maxage=3600, stale-while-revalidate=86400");
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
+}
+
 export default {
   async fetch(request: Request, env: unknown, ctx: unknown) {
     try {
       const handler = await getServerEntry();
       const response = await handler.fetch(request, env, ctx);
-      return await normalizeCatastrophicSsrResponse(response);
+      const normalized = await normalizeCatastrophicSsrResponse(response);
+      return withEdgeCacheHeaders(request, normalized);
     } catch (error) {
       console.error(error);
       return brandedErrorResponse();

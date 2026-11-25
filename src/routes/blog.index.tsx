@@ -1,31 +1,37 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Calendar } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { COMPANY, pageHead } from "@/lib/seo";
-import { PageShell } from "@/components/layout/PageShell";
-import { BLOG_CATEGORIES, INSIGHTS } from "@/data/insights";
+import { COMPANY, breadcrumbSchema, pageHead } from "@/lib/seo";
+import { BLOG_CATEGORIES, INSIGHTS_META } from "@/data/insights-meta";
 import { CTA } from "@/components/sections/CTASection";
 
 const POSTS_PER_PAGE = 6;
 
 export const Route = createFileRoute("/blog/")({
-  component: BlogIndexRoute,
-  head: () =>
-    pageHead({
+  component: BlogIndexPage,
+  head: () => {
+    const head = pageHead({
       title: `Software Development Blog | ${COMPANY}`,
       description:
-        "Read practical software development notes from Muendo Software Labs covering Kenyan business websites, SEO, M-Pesa, POS systems, AI automation, deployment, MVP planning, security, and backend architecture.",
+        "Practical Kenyan software guides from Muendo Software Labs on websites, SEO, M-Pesa Daraja, POS systems, AI automation, deployment, and security.",
       path: "/blog",
-    }),
+    });
+    return {
+      ...head,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Blog", path: "/blog" },
+            ]),
+          ),
+        },
+      ],
+    };
+  },
 });
-
-function BlogIndexRoute() {
-  return (
-    <PageShell>
-      <BlogIndexPage />
-    </PageShell>
-  );
-}
 
 function BlogIndexPage() {
   const [activeCategory, setActiveCategory] = useState("All Posts");
@@ -33,8 +39,8 @@ function BlogIndexPage() {
   const posts = useMemo(() => {
     const filtered =
       activeCategory === "All Posts"
-        ? INSIGHTS
-        : INSIGHTS.filter((post) => post.category === activeCategory);
+        ? INSIGHTS_META
+        : INSIGHTS_META.filter((post) => post.category === activeCategory);
     return [...filtered].sort(
       (a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime(),
     );
@@ -94,19 +100,20 @@ function BlogIndexPage() {
                     {post.category}
                   </span>
                   <span className="inline-flex items-center gap-1">
-                    <Calendar className="size-3" /> {post.date} · {post.readTime}
+                    <Calendar className="size-3" aria-hidden="true" /> {post.date} · {post.readTime}
                   </span>
                 </div>
                 <h2 className="text-xl font-semibold leading-snug">{post.title}</h2>
                 <p className="mt-3 text-sm text-muted-foreground leading-relaxed flex-1">
                   {post.excerpt}
                 </p>
-                <a
-                  href={`/blog/${post.slug}`}
+                <Link
+                  to="/blog/$slug"
+                  params={{ slug: post.slug }}
                   className="mt-5 inline-flex items-center gap-1.5 text-sm text-accent font-medium hover:gap-2.5 transition-all"
                 >
-                  Read article <ArrowRight className="size-4" />
-                </a>
+                  Read article <ArrowRight className="size-4" aria-hidden="true" />
+                </Link>
               </article>
             ))}
           </div>
@@ -124,7 +131,7 @@ function BlogIndexPage() {
                 disabled={page === 1}
                 className="inline-flex items-center gap-2 rounded-lg border border-border px-3.5 py-2 text-sm font-medium text-foreground transition hover:bg-secondary/50 disabled:cursor-not-allowed disabled:opacity-45"
               >
-                <ArrowLeft className="size-4" /> Previous
+                <ArrowLeft className="size-4" aria-hidden="true" /> Previous
               </button>
               <span className="rounded-lg border border-border bg-secondary/35 px-3.5 py-2 text-sm text-muted-foreground">
                 Page {page} of {totalPages}
@@ -135,7 +142,7 @@ function BlogIndexPage() {
                 disabled={page === totalPages}
                 className="inline-flex items-center gap-2 rounded-lg border border-border px-3.5 py-2 text-sm font-medium text-foreground transition hover:bg-secondary/50 disabled:cursor-not-allowed disabled:opacity-45"
               >
-                Next <ArrowRight className="size-4" />
+                Next <ArrowRight className="size-4" aria-hidden="true" />
               </button>
             </div>
           </div>

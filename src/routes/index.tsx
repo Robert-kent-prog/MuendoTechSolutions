@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { COMPANY, organizationSchema, pageHead } from "@/lib/seo";
+import { COMPANY, organizationSchema, pageHead, websiteSchema } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { Hero } from "@/components/sections/Hero";
 import { Counters } from "@/components/sections/CountersSection";
@@ -15,7 +15,7 @@ import { CTA } from "@/components/sections/CTASection";
 const HOME_HEAD = pageHead({
   title: `${COMPANY} | Software Development Company in Nairobi, Kenya`,
   description:
-    "Nairobi-based software development company building reliable web apps, mobile apps, backend APIs, AI integrations, POS systems, and business software for startups, SMEs, schools, and enterprises across Kenya.",
+    "Nairobi software development company building web apps, mobile apps, backend APIs, M-Pesa integrations, POS systems, and AI software for Kenyan businesses.",
   path: "/",
 });
 
@@ -35,6 +35,10 @@ export const Route = createFileRoute("/")({
       {
         type: "application/ld+json",
         children: JSON.stringify(organizationSchema),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(websiteSchema),
       },
     ],
   }),

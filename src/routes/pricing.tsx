@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { COMPANY, pageHead } from "@/lib/seo";
+import { COMPANY, breadcrumbSchema, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { ServicePackages } from "@/components/sections/ServicePackagesSection";
@@ -8,13 +8,28 @@ import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/pricing")({
   component: PricingPage,
-  head: () =>
-    pageHead({
+  head: () => {
+    const head = pageHead({
       title: `Software Development Pricing in Kenya | ${COMPANY}`,
       description:
-        "See how Muendo Software Labs prices websites, web apps, mobile apps, POS systems and maintenance in Kenya, with starting points in KES and what affects the final quote.",
+        "Transparent KES pricing ranges for websites, web apps, mobile apps, POS systems, and maintenance in Kenya, plus what affects a final quote.",
       path: "/pricing",
-    }),
+    });
+    return {
+      ...head,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Pricing", path: "/pricing" },
+            ]),
+          ),
+        },
+      ],
+    };
+  },
 });
 
 function PricingPage() {

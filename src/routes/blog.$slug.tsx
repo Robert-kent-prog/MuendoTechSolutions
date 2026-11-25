@@ -1,15 +1,15 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, Calendar } from "lucide-react";
 import { COMPANY, SITE_URL, breadcrumbSchema, pageHead } from "@/lib/seo";
 import { Breadcrumbs } from "@/components/ui/Breadcrumbs";
-import { PageShell } from "@/components/layout/PageShell";
+import { INSIGHTS_META } from "@/data/insights-meta";
 import { INSIGHTS } from "@/data/insights";
 import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/blog/$slug")({
-  component: BlogArticleRoute,
+  component: BlogArticlePage,
   head: ({ params }) => {
-    const post = INSIGHTS.find((item) => item.slug === params.slug);
+    const post = INSIGHTS_META.find((item) => item.slug === params.slug);
 
     if (!post) {
       return {
@@ -65,14 +65,6 @@ export const Route = createFileRoute("/blog/$slug")({
   },
 });
 
-function BlogArticleRoute() {
-  return (
-    <PageShell>
-      <BlogArticlePage />
-    </PageShell>
-  );
-}
-
 function BlogArticlePage() {
   const { slug } = Route.useParams();
   const post = INSIGHTS.find((item) => item.slug === slug);
@@ -85,12 +77,12 @@ function BlogArticlePage() {
           <p className="mt-3 text-muted-foreground">
             The note you opened may have moved or been removed.
           </p>
-          <a
-            href="/blog"
+          <Link
+            to="/blog"
             className="mt-6 inline-flex items-center gap-2 text-sm text-accent font-medium"
           >
-            <ArrowLeft className="size-4" /> Back to blog
-          </a>
+            <ArrowLeft className="size-4" aria-hidden="true" /> Back to blog
+          </Link>
         </div>
       </section>
     );
@@ -106,7 +98,7 @@ function BlogArticlePage() {
               {post.category}
             </span>
             <span className="inline-flex items-center gap-1">
-              <Calendar className="size-3" /> {post.date} · {post.readTime}
+              <Calendar className="size-3" aria-hidden="true" /> {post.date} · {post.readTime}
             </span>
           </div>
           <h1 className="mt-4 text-4xl sm:text-5xl font-bold tracking-tight leading-tight">

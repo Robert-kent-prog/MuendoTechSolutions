@@ -90,7 +90,13 @@ function buildInitialForm(prefill: ContactPrefill): ContactBriefInput {
   };
 }
 
-export function Contact({ prefill = {} }: { prefill?: ContactPrefill }) {
+export function Contact({
+  prefill = {},
+  headingAs = "h2",
+}: {
+  prefill?: ContactPrefill;
+  headingAs?: "h1" | "h2";
+}) {
   const [formData, setFormData] = useState<ContactBriefInput>(() => buildInitialForm(prefill));
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<
@@ -221,6 +227,7 @@ export function Contact({ prefill = {} }: { prefill?: ContactPrefill }) {
       id="contact"
       eyebrow="Get In Touch"
       title="Let's Discuss Your Project"
+      headingAs={headingAs}
       subtitle="Send a short project brief and we'll help you understand the best approach, features, technology stack, timeline, and development direction."
     >
       <div className="grid lg:grid-cols-5 gap-8">

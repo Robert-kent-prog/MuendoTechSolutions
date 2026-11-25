@@ -1,7 +1,10 @@
 import { describe, it, expect } from "vitest";
 import { SERVICES, SERVICE_PACKAGES, SERVICE_DETAIL_PAGES, SERVICE_EXTRAS } from "./services";
+import { SERVICE_META } from "./services-meta";
 import { PROJECTS, PROJECT_CASE_STUDIES } from "./projects";
+import { PROJECT_CASE_STUDY_META } from "./projects-meta";
 import { INSIGHTS } from "./insights";
+import { INSIGHTS_META } from "./insights-meta";
 import { FAQS } from "./faqs";
 import { TEAM } from "./team";
 import { STATS } from "./stats";
@@ -9,6 +12,7 @@ import { STATS } from "./stats";
 describe("Domain Data Contracts Integrity", () => {
   it("ensures all core services have non-empty items and valid titles", () => {
     expect(SERVICES.length).toBeGreaterThan(0);
+    expect(SERVICE_PACKAGES.length).toBeGreaterThan(0);
     SERVICES.forEach((service) => {
       expect(service.title).toBeTruthy();
       expect(service.desc).toBeTruthy();
@@ -17,6 +21,7 @@ describe("Domain Data Contracts Integrity", () => {
   });
 
   it("ensures all project case studies have matching project entries and complete fields", () => {
+    expect(PROJECTS.length).toBeGreaterThan(0);
     expect(PROJECT_CASE_STUDIES.length).toBeGreaterThan(0);
     PROJECT_CASE_STUDIES.forEach((study) => {
       expect(study.slug).toBeTruthy();
@@ -38,6 +43,28 @@ describe("Domain Data Contracts Integrity", () => {
       expect(post.article.length).toBeGreaterThan(0);
       expect(post.takeaways.length).toBeGreaterThan(0);
     });
+  });
+
+  it("ensures lightweight metadata splits stay in exact parity with full data modules", () => {
+    expect(SERVICE_META).toEqual(
+      SERVICE_DETAIL_PAGES.map(({ slug, title, eyebrow, summary, price }) => ({
+        slug,
+        title,
+        eyebrow,
+        summary,
+        price,
+      })),
+    );
+    expect(PROJECT_CASE_STUDY_META).toEqual(
+      PROJECT_CASE_STUDIES.map(({ slug, title, tag, summary, metrics }) => ({
+        slug,
+        title,
+        tag,
+        summary,
+        metrics,
+      })),
+    );
+    expect(INSIGHTS_META).toEqual(INSIGHTS.map(({ article: _a, takeaways: _t, ...meta }) => meta));
   });
 
   it("ensures team members and stats are valid", () => {

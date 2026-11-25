@@ -1,6 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { COMPANY, pageHead } from "@/lib/seo";
-import { PageShell } from "@/components/layout/PageShell";
+import { COMPANY, breadcrumbSchema, pageHead } from "@/lib/seo";
 import { Services } from "@/components/sections/ServicesSection";
 import {
   ServicePackages,
@@ -13,28 +12,41 @@ import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/services/")({
   component: ServicesIndexPage,
-  head: () =>
-    pageHead({
+  head: () => {
+    const head = pageHead({
       title: `Software Development Services | ${COMPANY}`,
       description:
-        "Explore Muendo Software Labs services: business websites, e-commerce websites, SEO setup, web app development, mobile apps, backend APIs, POS systems, Laravel, Django, Spring Boot, AI integrations, and maintenance.",
+        "Software services in Kenya: business websites, e-commerce, web apps, mobile apps, backend APIs, POS systems, M-Pesa Daraja, AI, and maintenance.",
       path: "/services",
-    }),
+    });
+    return {
+      ...head,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Services", path: "/services" },
+            ]),
+          ),
+        },
+      ],
+    };
+  },
 });
 
 function ServicesIndexPage() {
   return (
-    <PageShell>
-      <main className="pt-16">
-        <Services />
-        <ServicePackages />
-        <ServicePagePreview />
-        <Solutions />
-        <Technologies />
-        <Industries />
-        <IndustrySolutions />
-        <CTA />
-      </main>
-    </PageShell>
+    <>
+      <Services headingAs="h1" />
+      <ServicePackages />
+      <ServicePagePreview />
+      <Solutions />
+      <Technologies />
+      <Industries />
+      <IndustrySolutions />
+      <CTA />
+    </>
   );
 }

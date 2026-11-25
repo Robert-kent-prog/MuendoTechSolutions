@@ -1,13 +1,18 @@
 import { Rocket, Sparkles, CheckCircle2, ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Section } from "@/components/ui/SectionHeading";
 import { VALUES } from "@/data/team";
 
-export function About({ showViewAll = false }: { showViewAll?: boolean } = {}) {
+export function About({
+  showViewAll = false,
+  headingAs = "h2",
+}: { showViewAll?: boolean; headingAs?: "h1" | "h2" } = {}) {
   return (
     <Section
       id="about"
       eyebrow="About Us"
       title="Software Built for Real Business Needs"
+      headingAs={headingAs}
       subtitle="We are a software development company based in Nairobi, Kenya, focused on building practical digital systems that solve real operational problems. Our work covers web platforms, mobile apps, backend services, APIs, business dashboards, authentication systems, database solutions, and deployment support."
     >
       <p className="text-muted-foreground max-w-3xl -mt-6 mb-12 leading-relaxed">
@@ -17,7 +22,7 @@ export function About({ showViewAll = false }: { showViewAll?: boolean } = {}) {
       <div className="grid md:grid-cols-2 gap-6 mb-10">
         <div className="glass rounded-2xl p-7 card-hover">
           <div className="size-10 rounded-lg bg-primary/15 text-primary grid place-items-center mb-4">
-            <Rocket className="size-5" />
+            <Rocket className="size-5" aria-hidden="true" />
           </div>
           <h3 className="font-semibold text-xl mb-2">Mission</h3>
           <p className="text-muted-foreground leading-relaxed">
@@ -27,7 +32,7 @@ export function About({ showViewAll = false }: { showViewAll?: boolean } = {}) {
         </div>
         <div className="glass rounded-2xl p-7 card-hover">
           <div className="size-10 rounded-lg bg-accent/15 text-accent grid place-items-center mb-4">
-            <Sparkles className="size-5" />
+            <Sparkles className="size-5" aria-hidden="true" />
           </div>
           <h3 className="font-semibold text-xl mb-2">Vision</h3>
           <p className="text-muted-foreground leading-relaxed">
@@ -44,7 +49,7 @@ export function About({ showViewAll = false }: { showViewAll?: boolean } = {}) {
               key={v}
               className="inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-full bg-secondary text-secondary-foreground border border-border"
             >
-              <CheckCircle2 className="size-3.5 text-accent" />
+              <CheckCircle2 className="size-3.5 text-accent" aria-hidden="true" />
               {v}
             </span>
           ))}
@@ -52,12 +57,12 @@ export function About({ showViewAll = false }: { showViewAll?: boolean } = {}) {
       </div>
       {showViewAll && (
         <div className="mt-8 text-center sm:text-left">
-          <a
-            href="/about"
+          <Link
+            to="/about"
             className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
           >
-            Learn More About Us <ArrowRight className="size-4" />
-          </a>
+            Learn More About Us <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
         </div>
       )}
     </Section>

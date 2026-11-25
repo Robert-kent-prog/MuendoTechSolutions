@@ -1,15 +1,20 @@
 import { useState } from "react";
 import { HelpCircle, ChevronDown, ArrowRight } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 import { Section } from "@/components/ui/SectionHeading";
 import { FAQS } from "@/data/faqs";
 
-export function FAQ({ showViewAll = false }: { showViewAll?: boolean } = {}) {
+export function FAQ({
+  showViewAll = false,
+  headingAs = "h2",
+}: { showViewAll?: boolean; headingAs?: "h1" | "h2" } = {}) {
   const [open, setOpen] = useState<number | null>(0);
   return (
     <Section
       id="faq"
       eyebrow="FAQ"
       title="Frequently Asked Questions"
+      headingAs={headingAs}
       subtitle="Quick answers to the things clients ask us most often."
     >
       <div className="max-w-3xl space-y-3">
@@ -23,16 +28,18 @@ export function FAQ({ showViewAll = false }: { showViewAll?: boolean } = {}) {
               }`}
             >
               <button
+                type="button"
                 onClick={() => setOpen(isOpen ? null : i)}
                 aria-expanded={isOpen}
                 className="w-full flex items-center justify-between gap-4 px-5 py-4 text-left hover:bg-secondary/40 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
               >
                 <span className="font-medium text-sm sm:text-base flex items-center gap-3">
-                  <HelpCircle className="size-4 text-accent shrink-0" />
+                  <HelpCircle className="size-4 text-accent shrink-0" aria-hidden="true" />
                   {f.q}
                 </span>
                 <ChevronDown
                   className={`size-4 text-muted-foreground shrink-0 transition-transform ${isOpen ? "rotate-180" : ""}`}
+                  aria-hidden="true"
                 />
               </button>
               {isOpen && (
@@ -47,12 +54,12 @@ export function FAQ({ showViewAll = false }: { showViewAll?: boolean } = {}) {
 
       {showViewAll && (
         <div className="mt-8 text-center sm:text-left">
-          <a
-            href="/faq"
+          <Link
+            to="/faq"
             className="inline-flex items-center justify-center gap-2 text-sm font-medium px-6 py-3 rounded-xl bg-primary text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring shadow-sm"
           >
-            View All FAQs <ArrowRight className="size-4" />
-          </a>
+            View All FAQs <ArrowRight className="size-4" aria-hidden="true" />
+          </Link>
         </div>
       )}
     </Section>

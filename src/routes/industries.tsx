@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { COMPANY, pageHead } from "@/lib/seo";
+import { COMPANY, breadcrumbSchema, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Industries, IndustrySolutions } from "@/components/sections/IndustriesSection";
@@ -7,13 +7,28 @@ import { CTA } from "@/components/sections/CTASection";
 
 export const Route = createFileRoute("/industries")({
   component: IndustriesPage,
-  head: () =>
-    pageHead({
+  head: () => {
+    const head = pageHead({
       title: `Software for Kenyan Industries | ${COMPANY}`,
       description:
-        "Software built around Kenyan workflows: retail and POS, schools, logistics and fleet, clinics, NGOs and professional services. See the systems Muendo Software Labs builds for each.",
+        "Custom software built around Kenyan workflows: retail POS, schools, logistics fleets, clinics, NGOs, and professional service teams.",
       path: "/industries",
-    }),
+    });
+    return {
+      ...head,
+      scripts: [
+        {
+          type: "application/ld+json",
+          children: JSON.stringify(
+            breadcrumbSchema([
+              { name: "Home", path: "/" },
+              { name: "Industries", path: "/industries" },
+            ]),
+          ),
+        },
+      ],
+    };
+  },
 });
 
 function IndustriesPage() {

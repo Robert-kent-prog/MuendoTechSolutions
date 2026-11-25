@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { COMPANY, pageHead } from "@/lib/seo";
+import { COMPANY, breadcrumbSchema, pageHead } from "@/lib/seo";
 import { PageShell } from "@/components/layout/PageShell";
 import { FAQ } from "@/components/sections/FAQSection";
 import { CTA } from "@/components/sections/CTASection";
@@ -11,7 +11,7 @@ export const Route = createFileRoute("/faq")({
     ...pageHead({
       title: `Software Development FAQ | ${COMPANY}`,
       description:
-        "Answers to common questions about Muendo Software Labs pricing, timelines, M-Pesa integration, source-code ownership, retainers, deployment, training, and support.",
+        "Answers on Muendo Software Labs pricing, timelines, M-Pesa integration, source-code ownership, retainers, deployment, training, and ongoing support.",
       path: "/faq",
     }),
     scripts: [
@@ -27,6 +27,15 @@ export const Route = createFileRoute("/faq")({
           })),
         }),
       },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify(
+          breadcrumbSchema([
+            { name: "Home", path: "/" },
+            { name: "FAQ", path: "/faq" },
+          ]),
+        ),
+      },
     ],
   }),
 });
@@ -35,7 +44,7 @@ function FAQPage() {
   return (
     <PageShell>
       <main className="pt-16">
-        <FAQ />
+        <FAQ headingAs="h1" />
         <CTA />
       </main>
     </PageShell>

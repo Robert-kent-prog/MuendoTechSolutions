@@ -7,7 +7,7 @@ export const GITHUB = "Robert-kent-prog";
 export const LINKEDIN = "robert-muendo-0329a0285";
 
 export const defaultDescription =
-  "Muendo Software Labs is a Nairobi-based software development company building reliable web apps, mobile apps, backend APIs, AI integrations, POS systems, and business software for SMEs and institutions in Kenya.";
+  "Nairobi software development company building web apps, mobile apps, backend APIs, M-Pesa integrations, POS systems, and AI software for Kenyan businesses.";
 
 export function absoluteUrl(path = "/") {
   return `${SITE_URL}${path === "/" ? "" : path}`;
@@ -36,6 +36,8 @@ export function pageHead({
       { property: "og:type", content: type },
       { property: "og:url", content: url },
       { property: "og:image", content: SITE_IMAGE },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
       { property: "og:image:alt", content: `${COMPANY} logo and brand card` },
       { property: "og:site_name", content: COMPANY },
       { property: "og:locale", content: "en_KE" },
@@ -160,6 +162,16 @@ export const organizationSchema = {
       },
     ],
   },
+};
+
+export const websiteSchema = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": `${SITE_URL}/#website`,
+  name: COMPANY,
+  alternateName: ["Muendo Labs", "Muendo Software Labs Kenya"],
+  url: SITE_URL,
+  publisher: { "@id": `${SITE_URL}/#organization` },
 };
 
 export function breadcrumbSchema(items: { name: string; path: string }[]) {

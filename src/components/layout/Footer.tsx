@@ -1,9 +1,9 @@
 import { Github, Linkedin, MessageCircle } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import type { FileRouteTypes } from "@/routeTree.gen";
-import { COMPANY, EMAIL, GITHUB, LINKEDIN, SITE_URL, WHATSAPP } from "@/lib/seo";
+import { COMPANY, EMAIL, GITHUB, LINKEDIN, WHATSAPP } from "@/lib/seo";
 import { BUSINESS_HOURS, NAV_COMPANY, WHATSAPP_DISPLAY } from "@/data/nav";
-import { SERVICE_DETAIL_PAGES } from "@/data/services";
+import { SERVICE_META } from "@/data/services-meta";
 import { Logo } from "@/components/ui/Logo";
 
 const ROUTES: readonly string[] = [
@@ -127,7 +127,7 @@ export function Footer() {
             title="Services"
             links={[
               ...FOOTER_SERVICE_SLUGS.flatMap((slug) => {
-                const s = SERVICE_DETAIL_PAGES.find((p) => p.slug === slug);
+                const s = SERVICE_META.find((p) => p.slug === slug);
                 return s ? [{ label: s.eyebrow, href: `/services/${s.slug}` }] : [];
               }),
               { label: "All services", href: "/services" },
