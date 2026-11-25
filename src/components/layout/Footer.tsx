@@ -20,6 +20,8 @@ const ROUTES: readonly string[] = [
   "/quote",
   "/industries",
   "/tech-stack",
+  "/tools",
+  "/tools/invoice-generator",
   "/privacy",
   "/terms",
 ];
@@ -136,6 +138,8 @@ export function Footer() {
           <FooterCol
             title="Resources"
             links={[
+              { label: "Free tools", href: "/tools" },
+              { label: "Invoice generator", href: "/tools/invoice-generator" },
               { label: "Pricing", href: "/pricing" },
               { label: "Quote guide", href: "/quote" },
               { label: "Blog & Insights", href: "/blog" },

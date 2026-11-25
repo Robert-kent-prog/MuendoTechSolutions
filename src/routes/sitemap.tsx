@@ -105,6 +105,16 @@ function SitemapPage() {
             description: "Get a rough budget band in a few clicks",
           },
           {
+            title: "Free Business Tools",
+            href: "/tools",
+            description: "Browser-based business utilities for Kenyan SMEs",
+          },
+          {
+            title: "KES Invoice & 80mm Receipt Generator",
+            href: "/tools/invoice-generator",
+            description: "Create printable A4 PDF invoices and 80mm thermal receipts",
+          },
+          {
             title: "Technology Stack",
             href: "/tech-stack",
             description: "Languages, frameworks and tools we build with",

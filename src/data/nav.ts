@@ -60,6 +60,12 @@ export const NAV_COMPANY: NavMenuItem[] = [
 
 export const NAV_RESOURCES: NavMenuItem[] = [
   {
+    label: "Free tools",
+    href: "/tools",
+    desc: "KES invoice generator and Kenyan SME calculators",
+    icon: Wrench,
+  },
+  {
     label: "Blog & Insights",
     href: "/blog",
     desc: "Field notes and Kenya cost guides",
