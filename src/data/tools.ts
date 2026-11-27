@@ -28,7 +28,20 @@ export interface FreeToolItem {
   title: string;
   category: Exclude<ToolCategory, "All">;
   summary: string;
-  href?: "/tools/invoice-generator" | "/quote";
+  href?:
+    | "/tools/invoice-generator"
+    | "/tools/kenya-paye-calculator"
+    | "/tools/vat-calculator"
+    | "/tools/mpesa-charges-calculator"
+    | "/tools/profit-margin-calculator"
+    | "/tools/discount-calculator"
+    | "/tools/loan-calculator"
+    | "/tools/break-even-calculator"
+    | "/tools/whatsapp-link-generator"
+    | "/tools/qr-code-generator"
+    | "/tools/email-signature-generator"
+    | "/tools/password-generator"
+    | "/quote";
   status: "live" | "coming-soon";
   badge?: string;
   icon: LucideIcon;
@@ -66,7 +79,9 @@ export const FREE_TOOLS: FreeToolItem[] = [
     category: "Billing & Tax",
     summary:
       "Calculate Kenyan net pay, KRA PAYE bands, SHIF (2.75%), NSSF, and Affordable Housing Levy (1.5%) from monthly gross salary.",
-    status: "coming-soon",
+    href: "/tools/kenya-paye-calculator",
+    status: "live",
+    badge: "2026 Rates",
     icon: Calculator,
     keywords: ["paye", "kra", "shif", "nssf", "housing levy", "salary", "payroll", "kenya"],
   },
@@ -76,7 +91,9 @@ export const FREE_TOOLS: FreeToolItem[] = [
     category: "Billing & Tax",
     summary:
       "Add 16% Kenya VAT to a net price or extract VAT from a VAT-inclusive figure, with quick presets for Uganda, Tanzania, and custom rates.",
-    status: "coming-soon",
+    href: "/tools/vat-calculator",
+    status: "live",
+    badge: "16% VAT",
     icon: Percent,
     keywords: ["vat", "tax", "16%", "kra", "inclusive", "exclusive"],
   },
@@ -86,7 +103,9 @@ export const FREE_TOOLS: FreeToolItem[] = [
     category: "Billing & Tax",
     summary:
       "Check M-Pesa Send Money, Agent Withdrawal, and Paybill tariff bands in KES before paying suppliers or pricing customer orders.",
-    status: "coming-soon",
+    href: "/tools/mpesa-charges-calculator",
+    status: "live",
+    badge: "KES Tariffs",
     icon: Smartphone,
     keywords: ["mpesa", "m-pesa", "safaricom", "tariffs", "charges", "send money", "withdraw"],
   },
@@ -96,7 +115,9 @@ export const FREE_TOOLS: FreeToolItem[] = [
     category: "Retail & Finance",
     summary:
       "Compute gross margin %, markup %, and KES profit per unit from buying cost and selling price for retail and wholesale stock.",
-    status: "coming-soon",
+    href: "/tools/profit-margin-calculator",
+    status: "live",
+    badge: "Retail",
     icon: TrendingUp,
     keywords: ["margin", "markup", "profit", "retail", "pos", "pricing"],
   },
@@ -106,7 +127,9 @@ export const FREE_TOOLS: FreeToolItem[] = [
     category: "Retail & Finance",
     summary:
       "Find the final KES sale price and customer savings from any percentage or fixed discount.",
-    status: "coming-soon",
+    href: "/tools/discount-calculator",
+    status: "live",
+    badge: "Quick",
     icon: Tag,
     keywords: ["discount", "sale", "percent off", "retail"],
   },
@@ -116,7 +139,9 @@ export const FREE_TOOLS: FreeToolItem[] = [
     category: "Retail & Finance",
     summary:
       "Compare reducing balance vs flat-rate monthly installments, total interest, and payoff schedule for Kenyan loans and asset finance.",
-    status: "coming-soon",
+    href: "/tools/loan-calculator",
+    status: "live",
+    badge: "Amortization",
     icon: Landmark,
     keywords: ["loan", "sacco", "interest", "emi", "reducing balance", "repayment"],
   },
@@ -126,7 +151,9 @@ export const FREE_TOOLS: FreeToolItem[] = [
     category: "Retail & Finance",
     summary:
       "See how many units and how much KES monthly revenue your business needs to cover rent, salaries, and unit costs.",
-    status: "coming-soon",
+    href: "/tools/break-even-calculator",
+    status: "live",
+    badge: "SME",
     icon: Scale,
     keywords: ["break even", "fixed costs", "unit economics", "sme"],
   },
@@ -136,7 +163,9 @@ export const FREE_TOOLS: FreeToolItem[] = [
     category: "Web & Utilities",
     summary:
       "Build a Kenyan +254 WhatsApp link with a prefilled customer message, live preview, and ready-to-share URL.",
-    status: "coming-soon",
+    href: "/tools/whatsapp-link-generator",
+    status: "live",
+    badge: "+254 Ready",
     icon: MessageCircle,
     keywords: ["whatsapp", "wa.me", "chat link", "marketing"],
   },
@@ -146,7 +175,9 @@ export const FREE_TOOLS: FreeToolItem[] = [
     category: "Web & Utilities",
     summary:
       "Generate crisp downloadable QR codes for websites, WhatsApp chats, menus, and shop Wi-Fi directly in your browser.",
-    status: "coming-soon",
+    href: "/tools/qr-code-generator",
+    status: "live",
+    badge: "PNG & SVG",
     icon: QrCode,
     keywords: ["qr", "barcode", "wifi", "menu", "png"],
   },
@@ -156,7 +187,9 @@ export const FREE_TOOLS: FreeToolItem[] = [
     category: "Web & Utilities",
     summary:
       "Create a clean HTML business email signature with phone, WhatsApp, and website links ready to paste into Gmail or Outlook.",
-    status: "coming-soon",
+    href: "/tools/email-signature-generator",
+    status: "live",
+    badge: "Gmail/Outlook",
     icon: Mail,
     keywords: ["email", "signature", "gmail", "outlook", "branding"],
   },
@@ -166,7 +199,9 @@ export const FREE_TOOLS: FreeToolItem[] = [
     category: "Web & Utilities",
     summary:
       "Generate strong random passwords using browser cryptography with instant strength feedback and zero network calls.",
-    status: "coming-soon",
+    href: "/tools/password-generator",
+    status: "live",
+    badge: "Offline",
     icon: KeyRound,
     keywords: ["password", "security", "random", "generator"],
   },

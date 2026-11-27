@@ -215,7 +215,7 @@
 
 @media print {
   @page {
-    margin: 12mm;
+    margin: 0;
   }
 
   :root,
@@ -273,7 +273,7 @@
     min-height: auto !important;
     width: 100% !important;
     margin: 0 !important;
-    padding: 0 !important;
+    padding: 12mm !important;
   }
 
   #invoice-print-sheet thead {
@@ -285,7 +285,9 @@
   }
 
   #invoice-print-sheet[data-paper="80mm"] {
-    width: 76mm !important;
-    padding: 2mm !important;
+    width: 80mm !important;
+    max-width: 80mm !important;
+    margin: 0 auto !important;
+    padding: 5mm 4mm !important;
   }
 }

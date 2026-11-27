@@ -1,5 +1,6 @@
 import { useEffect, useId, useMemo, useRef, useState, type ChangeEvent } from "react";
 import {
+  Building2,
   Check,
   Copy,
   FilePlus2,
@@ -9,24 +10,27 @@ import {
   Printer,
   RotateCcw,
   Trash2,
-  UserRoundPen,
   X,
 } from "lucide-react";
 import {
   addDays,
   amountToWords,
+  applyOwnerCompanyDetails,
   buildWhatsAppInvoiceSummary,
   calculateInvoiceTotals,
+  clearBusinessDetails,
   createInitialInvoice,
   CURRENCIES,
   DEFAULT_COMPANY_PARTY,
-  DEFAULT_PAYMENT_DETAILS,
   DOC_PREFIX,
+  DRAFT_TTL_MS,
   formatDisplayDate,
   formatMoney,
   generateDocumentNumber,
   getCurrency,
   getWhatsAppShareUrl,
+  parseValidInvoiceDraft,
+  serializeInvoiceDraft,
   type DiscountType,
   type DocumentType,
   type InvoiceDocument,
@@ -37,7 +41,8 @@ import {
 } from "@/lib/invoice";
 import { COMPANY } from "@/lib/seo";
 
-const STORAGE_KEY = "msl_invoice_draft_v1";
+const LEGACY_STORAGE_KEY = "msl_invoice_draft_v1";
+const STORAGE_KEY = "msl_invoice_draft_v2";
 const ALLOWED_LOGO_TYPES = new Set(["image/png", "image/jpeg", "image/webp"]);
 const MAX_LOGO_BYTES = 2 * 1024 * 1024;
 const DOC_TYPES: DocumentType[] = ["Invoice", "Quotation", "Proforma Invoice", "Receipt"];
@@ -46,20 +51,15 @@ const inputClass =
   "w-full rounded-lg border border-border bg-background/70 px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 const labelClass = "block text-xs font-medium text-muted-foreground mb-1";
 
-function loadSavedDraft(): InvoiceDocument | null {
+function loadSavedDraft(): { doc: InvoiceDocument; savedAt: number } | null {
   try {
+    localStorage.removeItem(LEGACY_STORAGE_KEY);
     const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as Partial<InvoiceDocument>;
-    if (!parsed || typeof parsed !== "object" || !Array.isArray(parsed.items)) return null;
-    const base = createInitialInvoice();
-    return {
-      ...base,
-      ...parsed,
-      from: { ...base.from, ...(parsed.from ?? {}) },
-      billTo: { ...base.billTo, ...(parsed.billTo ?? {}) },
-      items: parsed.items.length > 0 ? parsed.items : base.items,
-    };
+    const parsed = parseValidInvoiceDraft(raw, Date.now(), DRAFT_TTL_MS);
+    if (!parsed && raw) {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+    return parsed;
   } catch {
     return null;
   }
@@ -70,26 +70,54 @@ export function InvoiceGenerator() {
     createInitialInvoice(new Date(2026, 0, 1), true),
   );
   const [hydrated, setHydrated] = useState(false);
+  const [lastSavedAt, setLastSavedAt] = useState<number | null>(null);
   const [logoError, setLogoError] = useState<string | null>(null);
   const [copyStatus, setCopyStatus] = useState<"idle" | "copied" | "failed">("idle");
   const [mobileTab, setMobileTab] = useState<"edit" | "preview">("edit");
+  const [printPreviewOpen, setPrintPreviewOpen] = useState(false);
+  const [receiptHeightMm, setReceiptHeightMm] = useState(160);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const formId = useId();
 
   useEffect(() => {
     const saved = loadSavedDraft();
-    setDoc(saved ?? createInitialInvoice());
+    if (saved) {
+      setDoc(saved.doc);
+      setLastSavedAt(saved.savedAt);
+    } else {
+      setDoc(createInitialInvoice());
+      setLastSavedAt(null);
+    }
     setHydrated(true);
   }, []);
 
   useEffect(() => {
     if (!hydrated) return;
+    const now = Date.now();
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(doc));
+      localStorage.setItem(STORAGE_KEY, serializeInvoiceDraft(doc, now));
+      setLastSavedAt(now);
     } catch {
       // Ignore quota or private-browsing storage errors.
     }
   }, [doc, hydrated]);
+
+  // Automatically clear cached invoice data after DRAFT_TTL_MS of inactivity
+  useEffect(() => {
+    if (!hydrated || !lastSavedAt) return;
+    const remaining = Math.max(0, lastSavedAt + DRAFT_TTL_MS - Date.now());
+    const timer = window.setTimeout(() => {
+      try {
+        localStorage.removeItem(STORAGE_KEY);
+      } catch {
+        // Ignore storage access errors.
+      }
+      if (fileInputRef.current) fileInputRef.current.value = "";
+      setDoc(createInitialInvoice());
+      setLastSavedAt(null);
+    }, remaining + 50);
+    return () => window.clearTimeout(timer);
+  }, [hydrated, lastSavedAt]);
 
   const totals = useMemo(() => calculateInvoiceTotals(doc), [doc]);
   const currency = useMemo(() => getCurrency(doc.currencyCode), [doc.currencyCode]);
@@ -98,7 +126,7 @@ export function InvoiceGenerator() {
     [totals.total, doc.currencyCode],
   );
   const activeLogoSrc = doc.logoDataUrl ?? (doc.useDefaultLogo ? "/logo-mark.png" : null);
-  const isUsingMuendoDefaults =
+  const isOwnerDetailsLoaded =
     doc.from.name === DEFAULT_COMPANY_PARTY.name &&
     doc.from.email === DEFAULT_COMPANY_PARTY.email &&
     doc.useDefaultLogo &&
@@ -182,28 +210,23 @@ export function InvoiceGenerator() {
   function clearForClientBusiness() {
     setLogoError(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
-    setDoc((prev) => ({
-      ...prev,
-      logoDataUrl: null,
-      useDefaultLogo: false,
-      from: { name: "", address: "", phone: "", email: "", taxPin: "" },
-      paymentDetails: "",
-    }));
+    setDoc((prev) => clearBusinessDetails(prev));
   }
 
-  function restoreMuendoDefaults() {
+  function loadOwnerCompanyDetails() {
     setLogoError(null);
     if (fileInputRef.current) fileInputRef.current.value = "";
-    setDoc((prev) => ({
-      ...prev,
-      logoDataUrl: null,
-      useDefaultLogo: true,
-      from: { ...DEFAULT_COMPANY_PARTY },
-      paymentDetails: DEFAULT_PAYMENT_DETAILS,
-    }));
+    setDoc((prev) => applyOwnerCompanyDetails(prev));
   }
 
   function handleNewDocument() {
+    setLogoError(null);
+    if (fileInputRef.current) fileInputRef.current.value = "";
+    try {
+      localStorage.removeItem(STORAGE_KEY);
+    } catch {
+      // Ignore storage errors.
+    }
     const fresh = createInitialInvoice();
     setDoc((prev) => ({
       ...fresh,
@@ -211,16 +234,46 @@ export function InvoiceGenerator() {
       number: generateDocumentNumber(prev.docType),
       currencyCode: prev.currencyCode,
       paperSize: prev.paperSize,
-      logoDataUrl: prev.logoDataUrl,
-      useDefaultLogo: prev.useDefaultLogo,
-      from: { ...prev.from },
-      paymentDetails: prev.paymentDetails,
       showPoweredBy: prev.showPoweredBy,
     }));
   }
 
-  function triggerPrint(size: PaperSize) {
+  // Keep dynamic @page height synced to the exact 80mm receipt content height
+  useEffect(() => {
+    if (doc.paperSize !== "80mm") return;
+    const frame = requestAnimationFrame(() => {
+      const sheet = document.getElementById("invoice-print-sheet");
+      if (!sheet) return;
+      const heightMm = Math.max(110, Math.ceil((sheet.scrollHeight * 25.4) / 96) + 14);
+      setReceiptHeightMm(heightMm);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [doc, printPreviewOpen]);
+
+  // Close focused print preview on Escape
+  useEffect(() => {
+    if (!printPreviewOpen) return;
+    function onKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") setPrintPreviewOpen(false);
+    }
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [printPreviewOpen]);
+
+  function openPrintPreview(size: PaperSize) {
     setDoc((prev) => ({ ...prev, paperSize: size }));
+    setPrintPreviewOpen(true);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function runBrowserPrint() {
+    if (doc.paperSize === "80mm") {
+      const sheet = document.getElementById("invoice-print-sheet");
+      if (sheet) {
+        const heightMm = Math.max(110, Math.ceil((sheet.scrollHeight * 25.4) / 96) + 14);
+        setReceiptHeightMm(heightMm);
+      }
+    }
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         window.print();
@@ -245,8 +298,65 @@ export function InvoiceGenerator() {
     buildWhatsAppInvoiceSummary(doc, totals),
   );
 
+  const dynamicPageCss =
+    doc.paperSize === "80mm"
+      ? `@media print { @page { size: 80mm ${receiptHeightMm}mm; margin: 0; } }`
+      : `@media print { @page { size: A4 portrait; margin: 0; } }`;
+
+  const activeSheet =
+    doc.paperSize === "a4" ? (
+      <A4PreviewSheet doc={doc} totals={totals} words={words} logoSrc={activeLogoSrc} />
+    ) : (
+      <Receipt80mmPreviewSheet doc={doc} totals={totals} words={words} logoSrc={activeLogoSrc} />
+    );
+
+  if (printPreviewOpen) {
+    return (
+      <div className="invoice-workbench">
+        <style>{dynamicPageCss}</style>
+
+        <div className="no-print mx-auto max-w-3xl glass rounded-2xl p-5 border border-border mb-8 space-y-4">
+          <p className="text-sm text-foreground">
+            This is the {doc.paperSize === "80mm" ? "80mm receipt" : "A4 document"} that will print.
+            In the print dialog choose <strong>Save as PDF</strong> (or your thermal printer).
+          </p>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <button
+              type="button"
+              onClick={runBrowserPrint}
+              className="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 text-sm font-semibold text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              <Printer className="size-4" aria-hidden="true" /> Print / Save PDF
+            </button>
+            <button
+              type="button"
+              onClick={() => updateField("paperSize", doc.paperSize === "a4" ? "80mm" : "a4")}
+              className="cursor-pointer inline-flex items-center gap-1.5 rounded-lg border border-border bg-secondary/50 px-3.5 py-2.5 text-sm font-medium text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              Switch to {doc.paperSize === "a4" ? "80mm Receipt" : "A4 Invoice"}
+            </button>
+            <button
+              type="button"
+              onClick={() => setPrintPreviewOpen(false)}
+              className="cursor-pointer inline-flex items-center gap-1.5 rounded-lg border border-border px-4 py-2.5 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/40 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              Close preview
+            </button>
+          </div>
+        </div>
+
+        <div className="print-preview-col">
+          <div className="print-reset-shell flex justify-center py-2 overflow-x-auto">
+            {activeSheet}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="invoice-workbench">
+      <style>{dynamicPageCss}</style>
       {/* Sticky Top Action Toolbar */}
       <div className="no-print glass rounded-2xl p-4 sm:p-5 border border-border mb-6">
         <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
@@ -289,14 +399,14 @@ export function InvoiceGenerator() {
           <div className="flex flex-wrap items-center gap-2">
             <button
               type="button"
-              onClick={() => triggerPrint("a4")}
+              onClick={() => openPrintPreview("a4")}
               className="cursor-pointer inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:opacity-90 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <Printer className="size-4" aria-hidden="true" /> Print A4 / Save PDF
             </button>
             <button
               type="button"
-              onClick={() => triggerPrint("80mm")}
+              onClick={() => openPrintPreview("80mm")}
               className="cursor-pointer inline-flex items-center gap-2 rounded-lg border border-border bg-secondary/50 px-3.5 py-2 text-sm font-medium text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <Printer className="size-4" aria-hidden="true" /> Print 80mm
@@ -313,15 +423,30 @@ export function InvoiceGenerator() {
               onClick={handleNewDocument}
               className="cursor-pointer inline-flex items-center gap-1.5 rounded-lg border border-border px-3.5 py-2 text-sm font-medium text-muted-foreground hover:text-foreground hover:bg-secondary/50 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
-              <FilePlus2 className="size-4" aria-hidden="true" /> New
+              <FilePlus2 className="size-4" aria-hidden="true" /> Clear / New
+            </button>
+            <button
+              type="button"
+              onClick={isOwnerDetailsLoaded ? clearForClientBusiness : loadOwnerCompanyDetails}
+              className="cursor-pointer inline-flex items-center gap-1.5 rounded-lg border border-accent/40 bg-accent/10 px-3.5 py-2 text-sm font-medium text-accent hover:bg-accent/20 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+            >
+              {isOwnerDetailsLoaded ? (
+                <>
+                  <RotateCcw className="size-4" aria-hidden="true" /> Blank client invoice
+                </>
+              ) : (
+                <>
+                  <Building2 className="size-4" aria-hidden="true" /> Load Muendo details
+                </>
+              )}
             </button>
           </div>
         </div>
 
         <p className="mt-3 text-xs text-muted-foreground">
           Prints only the document below (no website navbar or buttons). In the print dialog, choose{" "}
-          <strong className="text-foreground">Save as PDF</strong> to download. Everything stays in
-          your browser.
+          <strong className="text-foreground">Save as PDF</strong> to download. Your draft stays in
+          this browser only and auto-clears after 2 hours.
         </p>
 
         {/* Mobile Edit / Preview Switcher */}
@@ -357,38 +482,22 @@ export function InvoiceGenerator() {
             mobileTab === "preview" ? "hidden lg:block" : "block"
           }`}
         >
-          {/* Business Identity Quick Switch */}
-          <div className="glass rounded-2xl p-4 border border-border flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div className="text-xs text-muted-foreground leading-relaxed">
-              {isUsingMuendoDefaults ? (
-                <>
-                  Using <strong className="text-foreground">{COMPANY}</strong> defaults. Sending for
-                  your own business?
-                </>
-              ) : (
-                <>Using your custom business details. Saved locally in this browser.</>
-              )}
+          {/* Business Identity Notice */}
+          {isOwnerDetailsLoaded && (
+            <div className="glass rounded-2xl p-4 border border-accent/35 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <div className="text-xs text-muted-foreground leading-relaxed">
+                Owner mode active: <strong className="text-foreground">{COMPANY}</strong> logo,
+                contact, and payment details are loaded.
+              </div>
+              <button
+                type="button"
+                onClick={clearForClientBusiness}
+                className="cursor-pointer shrink-0 inline-flex items-center gap-1.5 rounded-lg border border-border bg-secondary/60 px-3 py-1.5 text-xs font-medium text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                <RotateCcw className="size-3.5" aria-hidden="true" /> Clear to blank
+              </button>
             </div>
-            <div className="flex shrink-0 gap-2">
-              {isUsingMuendoDefaults ? (
-                <button
-                  type="button"
-                  onClick={clearForClientBusiness}
-                  className="cursor-pointer inline-flex items-center gap-1.5 rounded-lg border border-border bg-secondary/60 px-3 py-1.5 text-xs font-medium text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  <UserRoundPen className="size-3.5" aria-hidden="true" /> Use my business
-                </button>
-              ) : (
-                <button
-                  type="button"
-                  onClick={restoreMuendoDefaults}
-                  className="cursor-pointer inline-flex items-center gap-1.5 rounded-lg border border-border bg-secondary/60 px-3 py-1.5 text-xs font-medium text-foreground hover:bg-secondary transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                >
-                  <RotateCcw className="size-3.5" aria-hidden="true" /> Muendo defaults
-                </button>
-              )}
-            </div>
-          </div>
+          )}
 
           {/* Document Metadata */}
           <fieldset className="glass rounded-2xl p-5 border border-border space-y-4">
@@ -512,15 +621,6 @@ export function InvoiceGenerator() {
                     <X className="size-3.5" aria-hidden="true" /> Remove logo
                   </button>
                 )}
-                {!doc.logoDataUrl && !doc.useDefaultLogo && (
-                  <button
-                    type="button"
-                    onClick={() => updateField("useDefaultLogo", true)}
-                    className="cursor-pointer rounded-lg border border-border px-2.5 py-2 text-xs text-accent hover:bg-secondary/50 transition"
-                  >
-                    Use Muendo logo
-                  </button>
-                )}
               </div>
               {logoError && (
                 <p role="alert" className="mt-2 text-xs text-destructive">
@@ -543,7 +643,7 @@ export function InvoiceGenerator() {
                 id={`${formId}-from-name`}
                 type="text"
                 value={doc.from.name}
-                placeholder="Your company name"
+                placeholder="e.g. Savannah Hardware Ltd"
                 onChange={(e) => updateParty("from", "name", e.target.value)}
                 className={inputClass}
               />
@@ -925,16 +1025,7 @@ export function InvoiceGenerator() {
           </div>
 
           <div className="rounded-2xl border border-border bg-secondary/25 p-3 sm:p-6 overflow-x-auto print-reset-shell">
-            {doc.paperSize === "a4" ? (
-              <A4PreviewSheet doc={doc} totals={totals} words={words} logoSrc={activeLogoSrc} />
-            ) : (
-              <Receipt80mmPreviewSheet
-                doc={doc}
-                totals={totals}
-                words={words}
-                logoSrc={activeLogoSrc}
-              />
-            )}
+            {activeSheet}
           </div>
         </div>
       </div>
@@ -950,7 +1041,16 @@ interface PreviewProps {
 }
 
 function A4PreviewSheet({ doc, totals, words, logoSrc }: PreviewProps) {
-  const fromName = doc.from.name.trim() || "Your Business";
+  const fromName = doc.from.name.trim();
+  const hasFromDetails = Boolean(
+    fromName || doc.from.address.trim() || doc.from.phone.trim() || doc.from.email.trim(),
+  );
+  const hasBillToDetails = Boolean(
+    doc.billTo.name.trim() ||
+    doc.billTo.address.trim() ||
+    doc.billTo.phone.trim() ||
+    doc.billTo.email.trim(),
+  );
   return (
     <div
       id="invoice-print-sheet"
@@ -964,12 +1064,14 @@ function A4PreviewSheet({ doc, totals, words, logoSrc }: PreviewProps) {
             {logoSrc && (
               <img
                 src={logoSrc}
-                alt={`${fromName} logo`}
+                alt={`${fromName || "Business"} logo`}
                 className="size-12 shrink-0 object-contain rounded"
               />
             )}
             <div>
-              <div className="text-lg font-bold tracking-tight text-slate-950">{fromName}</div>
+              <div className="text-lg font-bold tracking-tight text-slate-950">
+                {fromName || "Your business"}
+              </div>
               {doc.from.taxPin.trim() && (
                 <div className="mt-0.5 text-xs font-mono text-slate-500">
                   PIN: {doc.from.taxPin.trim()}
@@ -1011,34 +1113,54 @@ function A4PreviewSheet({ doc, totals, words, logoSrc }: PreviewProps) {
             <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
               From
             </div>
-            <div className="mt-1.5 text-sm font-semibold text-slate-950">{fromName}</div>
-            {doc.from.address.trim() && (
-              <div className="mt-1 text-xs text-slate-600 whitespace-pre-line leading-relaxed">
-                {doc.from.address.trim()}
-              </div>
+            {hasFromDetails ? (
+              <>
+                {fromName && (
+                  <div className="mt-1.5 text-sm font-semibold text-slate-950">{fromName}</div>
+                )}
+                {doc.from.address.trim() && (
+                  <div className="mt-1 text-xs text-slate-600 whitespace-pre-line leading-relaxed">
+                    {doc.from.address.trim()}
+                  </div>
+                )}
+                {(doc.from.phone.trim() || doc.from.email.trim()) && (
+                  <div className="mt-1.5 space-y-0.5 text-xs text-slate-600">
+                    {doc.from.phone.trim() && <div>{doc.from.phone.trim()}</div>}
+                    {doc.from.email.trim() && <div>{doc.from.email.trim()}</div>}
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="mt-1.5 text-sm text-slate-500">-</div>
             )}
-            <div className="mt-1.5 space-y-0.5 text-xs text-slate-600">
-              {doc.from.phone.trim() && <div>{doc.from.phone.trim()}</div>}
-              {doc.from.email.trim() && <div>{doc.from.email.trim()}</div>}
-            </div>
           </div>
 
           <div className="rounded-lg border border-slate-200 p-4">
             <div className="text-[10px] font-bold uppercase tracking-widest text-slate-500">
               Bill To
             </div>
-            <div className="mt-1.5 text-sm font-semibold text-slate-950">
-              {doc.billTo.name.trim() || "-"}
-            </div>
-            {doc.billTo.address.trim() && (
-              <div className="mt-1 text-xs text-slate-600 whitespace-pre-line leading-relaxed">
-                {doc.billTo.address.trim()}
-              </div>
+            {hasBillToDetails ? (
+              <>
+                {doc.billTo.name.trim() && (
+                  <div className="mt-1.5 text-sm font-semibold text-slate-950">
+                    {doc.billTo.name.trim()}
+                  </div>
+                )}
+                {doc.billTo.address.trim() && (
+                  <div className="mt-1 text-xs text-slate-600 whitespace-pre-line leading-relaxed">
+                    {doc.billTo.address.trim()}
+                  </div>
+                )}
+                {(doc.billTo.phone.trim() || doc.billTo.email.trim()) && (
+                  <div className="mt-1.5 space-y-0.5 text-xs text-slate-600">
+                    {doc.billTo.phone.trim() && <div>{doc.billTo.phone.trim()}</div>}
+                    {doc.billTo.email.trim() && <div>{doc.billTo.email.trim()}</div>}
+                  </div>
+                )}
+              </>
+            ) : (
+              <div className="mt-1.5 text-sm text-slate-500">-</div>
             )}
-            <div className="mt-1.5 space-y-0.5 text-xs text-slate-600">
-              {doc.billTo.phone.trim() && <div>{doc.billTo.phone.trim()}</div>}
-              {doc.billTo.email.trim() && <div>{doc.billTo.email.trim()}</div>}
-            </div>
           </div>
         </div>
 
@@ -1174,15 +1296,15 @@ function A4PreviewSheet({ doc, totals, words, logoSrc }: PreviewProps) {
   );
 }
 
-function Receipt80mmPreviewSheet({ doc, totals, words, logoSrc }: PreviewProps) {
-  const fromName = doc.from.name.trim() || "Your Business";
+function Receipt80mmPreviewSheet({ doc, totals, logoSrc }: PreviewProps) {
+  const fromName = doc.from.name.trim() || "Your business";
   return (
     <div
       id="invoice-print-sheet"
       data-paper="80mm"
-      className="mx-auto w-[302px] bg-white text-slate-950 rounded-md border border-slate-300 shadow-sm p-4 font-mono text-[11px] leading-snug"
+      className="mx-auto w-[302px] bg-white text-slate-950 rounded-md border border-slate-300 shadow-sm p-4 font-sans text-xs leading-snug"
     >
-      <div className="text-center pb-3 border-b border-dashed border-slate-400">
+      <div className="text-center pb-3">
         {logoSrc && (
           <img
             src={logoSrc}
@@ -1190,45 +1312,47 @@ function Receipt80mmPreviewSheet({ doc, totals, words, logoSrc }: PreviewProps) 
             className="mx-auto mb-2 size-10 object-contain"
           />
         )}
-        <div className="text-sm font-bold uppercase">{fromName}</div>
+        <div className="text-base font-bold">{fromName}</div>
         {doc.from.address.trim() && (
-          <div className="mt-0.5 text-[10px] text-slate-600 whitespace-pre-line">
+          <div className="mt-0.5 text-[11px] text-slate-600 whitespace-pre-line">
             {doc.from.address.trim()}
           </div>
         )}
-        {doc.from.phone.trim() && <div className="text-[10px]">{doc.from.phone.trim()}</div>}
-        {doc.from.taxPin.trim() && <div className="text-[10px]">PIN: {doc.from.taxPin.trim()}</div>}
-      </div>
-
-      <div className="py-2.5 border-b border-dashed border-slate-400 space-y-0.5">
-        <div className="text-center font-bold uppercase tracking-wider">{doc.docType}</div>
-        <div className="flex justify-between">
-          <span>No:</span>
-          <span className="font-semibold">{doc.number || "-"}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Date:</span>
-          <span>{formatDisplayDate(doc.issueDate)}</span>
-        </div>
-        {doc.billTo.name.trim() && (
-          <div className="flex justify-between gap-2">
-            <span>Client:</span>
-            <span className="text-right font-semibold">{doc.billTo.name.trim()}</span>
-          </div>
+        {doc.from.phone.trim() && <div className="text-[11px]">{doc.from.phone.trim()}</div>}
+        {doc.from.taxPin.trim() && (
+          <div className="text-[11px] font-mono">PIN: {doc.from.taxPin.trim()}</div>
         )}
       </div>
 
-      <div className="py-2.5 border-b border-dashed border-slate-400 space-y-2">
+      <div className="pb-3 border-b border-dashed border-slate-500 text-center space-y-0.5">
+        <div className="text-base font-extrabold uppercase tracking-[0.2em] mb-1.5">
+          {doc.docType}
+        </div>
+        <div className="text-[11px]">No. {doc.number || "-"}</div>
+        <div className="text-[11px]">{formatDisplayDate(doc.issueDate)}</div>
+        {doc.docType !== "Receipt" && doc.dueDate && (
+          <div className="text-[11px]">Due {formatDisplayDate(doc.dueDate)}</div>
+        )}
+        {doc.billTo.name.trim() && (
+          <div className="text-[11px] pt-1 font-semibold">Bill to: {doc.billTo.name.trim()}</div>
+        )}
+      </div>
+
+      <div className="py-3 border-b border-dashed border-slate-500 space-y-2.5">
         {doc.items.map((item) => {
+          const desc = item.description.trim();
+          const hasPrice = item.unitPrice > 0;
           const lineTotal = Math.max(0, item.quantity || 0) * Math.max(0, item.unitPrice || 0);
           return (
             <div key={item.id}>
-              <div className="font-semibold">{item.description.trim() || "Item"}</div>
-              <div className="flex justify-between text-slate-700 tabular-nums">
+              <div className="font-semibold">{desc || "-"}</div>
+              <div className="flex justify-between text-slate-700 font-mono tabular-nums text-[11px]">
                 <span>
-                  {item.quantity} x {formatMoney(item.unitPrice, doc.currencyCode, false)}
+                  {desc || hasPrice
+                    ? `${item.quantity} x ${formatMoney(item.unitPrice, doc.currencyCode, false)}`
+                    : formatMoney(0, doc.currencyCode, false)}
                 </span>
-                <span className="font-semibold text-slate-950">
+                <span className="font-bold text-slate-950">
                   {formatMoney(lineTotal, doc.currencyCode, false)}
                 </span>
               </div>
@@ -1237,46 +1361,51 @@ function Receipt80mmPreviewSheet({ doc, totals, words, logoSrc }: PreviewProps) 
         })}
       </div>
 
-      <div className="py-2.5 border-b border-dashed border-slate-400 space-y-1 tabular-nums">
+      <div className="py-3 space-y-1.5 tabular-nums">
         <div className="flex justify-between">
           <span>Subtotal</span>
-          <span>{formatMoney(totals.subtotal, doc.currencyCode, false)}</span>
+          <span className="font-mono">{formatMoney(totals.subtotal, doc.currencyCode, false)}</span>
         </div>
         {totals.discountAmount > 0 && (
           <div className="flex justify-between">
             <span>Discount</span>
-            <span>-{formatMoney(totals.discountAmount, doc.currencyCode, false)}</span>
+            <span className="font-mono">
+              -{formatMoney(totals.discountAmount, doc.currencyCode, false)}
+            </span>
           </div>
         )}
         {doc.taxMode !== "none" && doc.taxRate > 0 && (
           <div className="flex justify-between">
             <span>VAT ({doc.taxRate}%)</span>
-            <span>{formatMoney(totals.taxAmount, doc.currencyCode, false)}</span>
+            <span className="font-mono">
+              {formatMoney(totals.taxAmount, doc.currencyCode, false)}
+            </span>
           </div>
         )}
         {totals.shipping > 0 && (
           <div className="flex justify-between">
             <span>Extra</span>
-            <span>{formatMoney(totals.shipping, doc.currencyCode, false)}</span>
+            <span className="font-mono">
+              {formatMoney(totals.shipping, doc.currencyCode, false)}
+            </span>
           </div>
         )}
-        <div className="flex justify-between text-xs font-bold pt-1.5 border-t border-slate-300">
-          <span>TOTAL</span>
-          <span>{formatMoney(totals.total, doc.currencyCode)}</span>
+        <div className="flex justify-between text-sm font-extrabold pt-2 border-t border-slate-900">
+          <span>TOTAL {doc.currencyCode}</span>
+          <span className="font-mono">{formatMoney(totals.total, doc.currencyCode, false)}</span>
         </div>
       </div>
 
-      <div className="pt-2.5 text-[10px] text-slate-700 space-y-1.5">
-        <div>{words}</div>
+      <div className="pt-2 space-y-2 text-center">
         {doc.paymentDetails.trim() && (
-          <div className="whitespace-pre-line pt-1 border-t border-dashed border-slate-300">
+          <div className="whitespace-pre-line text-left text-[10px] text-slate-700 pt-2 border-t border-dashed border-slate-400">
             {doc.paymentDetails.trim()}
           </div>
         )}
-        {doc.notes.trim() && <div className="text-center pt-1">{doc.notes.trim()}</div>}
+        <div className="pt-1 text-sm font-bold">{doc.notes.trim() || "Thank you"}</div>
         {doc.showPoweredBy && (
-          <div className="text-center pt-2 border-t border-dashed border-slate-300 text-slate-500">
-            Powered by {COMPANY}
+          <div className="pt-3 border-t-2 border-slate-900 text-[11px] text-slate-600">
+            Powered by <strong className="font-semibold text-slate-900">{COMPANY}</strong>
           </div>
         )}
       </div>

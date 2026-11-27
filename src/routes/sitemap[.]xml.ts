@@ -6,7 +6,7 @@ import { SERVICE_META } from "@/data/services-meta";
 import { PROJECT_CASE_STUDY_META } from "@/data/projects-meta";
 import { INSIGHTS_META } from "@/data/insights-meta";
 
-const LAST_MODIFIED = "2026-11-25";
+const LAST_MODIFIED = "2026-11-27";
 
 type SitemapEntry = { path: string; changefreq: string; priority: string; lastmod: string };
 
@@ -23,6 +23,72 @@ const staticPages: SitemapEntry[] = [
     path: "/tools/invoice-generator",
     changefreq: "monthly",
     priority: "0.9",
+    lastmod: LAST_MODIFIED,
+  },
+  {
+    path: "/tools/kenya-paye-calculator",
+    changefreq: "monthly",
+    priority: "0.9",
+    lastmod: LAST_MODIFIED,
+  },
+  {
+    path: "/tools/vat-calculator",
+    changefreq: "monthly",
+    priority: "0.8",
+    lastmod: LAST_MODIFIED,
+  },
+  {
+    path: "/tools/mpesa-charges-calculator",
+    changefreq: "monthly",
+    priority: "0.8",
+    lastmod: LAST_MODIFIED,
+  },
+  {
+    path: "/tools/loan-calculator",
+    changefreq: "monthly",
+    priority: "0.8",
+    lastmod: LAST_MODIFIED,
+  },
+  {
+    path: "/tools/profit-margin-calculator",
+    changefreq: "monthly",
+    priority: "0.8",
+    lastmod: LAST_MODIFIED,
+  },
+  {
+    path: "/tools/discount-calculator",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: LAST_MODIFIED,
+  },
+  {
+    path: "/tools/break-even-calculator",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: LAST_MODIFIED,
+  },
+  {
+    path: "/tools/whatsapp-link-generator",
+    changefreq: "monthly",
+    priority: "0.8",
+    lastmod: LAST_MODIFIED,
+  },
+  {
+    path: "/tools/qr-code-generator",
+    changefreq: "monthly",
+    priority: "0.8",
+    lastmod: LAST_MODIFIED,
+  },
+  {
+    path: "/tools/email-signature-generator",
+    changefreq: "monthly",
+    priority: "0.7",
+    lastmod: LAST_MODIFIED,
+  },
+  {
+    path: "/tools/password-generator",
+    changefreq: "monthly",
+    priority: "0.7",
     lastmod: LAST_MODIFIED,
   },
   { path: "/tech-stack", changefreq: "monthly", priority: "0.6", lastmod: LAST_MODIFIED },

@@ -2,26 +2,63 @@ import { describe, it, expect } from "vitest";
 import {
   addDays,
   amountToWords,
+  applyOwnerCompanyDetails,
   buildWhatsAppInvoiceSummary,
   calculateInvoiceTotals,
+  clearBusinessDetails,
   createInitialInvoice,
   DEFAULT_COMPANY_PARTY,
   DEFAULT_PAYMENT_DETAILS,
+  DRAFT_TTL_MS,
   formatMoney,
   integerToWords,
+  parseValidInvoiceDraft,
+  serializeInvoiceDraft,
 } from "./invoice";
 
 describe("invoice engine", () => {
-  it("defaults to KES currency, Muendo Software Labs details, phone payment, and Powered by footer", () => {
+  it("defaults to KES currency with blank client details and Powered by footer", () => {
     const doc = createInitialInvoice(new Date(2026, 10, 25));
     expect(doc.currencyCode).toBe("KES");
-    expect(doc.from.name).toBe(DEFAULT_COMPANY_PARTY.name);
-    expect(doc.useDefaultLogo).toBe(true);
-    expect(doc.paymentDetails).toBe(DEFAULT_PAYMENT_DETAILS);
+    expect(doc.from.name).toBe("");
+    expect(doc.from.email).toBe("");
+    expect(doc.useDefaultLogo).toBe(false);
+    expect(doc.paymentDetails).toBe("");
+    expect(doc.notes).toBe("");
     expect(doc.showPoweredBy).toBe(true);
     expect(doc.issueDate).toBe("2026-11-25");
     expect(doc.dueDate).toBe("2026-12-09");
     expect(doc.number).toMatch(/^INV-20261125-\d{4}$/);
+  });
+
+  it("loads owner Muendo details on demand and clears cleanly back to blank", () => {
+    const blank = createInitialInvoice(new Date(2026, 10, 25), true);
+    const ownerDoc = applyOwnerCompanyDetails(blank);
+    expect(ownerDoc.from.name).toBe(DEFAULT_COMPANY_PARTY.name);
+    expect(ownerDoc.useDefaultLogo).toBe(true);
+    expect(ownerDoc.paymentDetails).toBe(DEFAULT_PAYMENT_DETAILS);
+
+    const cleared = clearBusinessDetails(ownerDoc);
+    expect(cleared.from.name).toBe("");
+    expect(cleared.useDefaultLogo).toBe(false);
+    expect(cleared.paymentDetails).toBe("");
+  });
+
+  it("restores drafts within TTL and expires drafts after TTL", () => {
+    const baseMs = new Date(2026, 10, 25, 10, 0, 0).getTime();
+    const doc = createInitialInvoice(new Date(baseMs), true);
+    doc.billTo.name = "Savannah Hardware";
+    const serialized = serializeInvoiceDraft(doc, baseMs);
+
+    const fresh = parseValidInvoiceDraft(serialized, baseMs + DRAFT_TTL_MS - 1000);
+    expect(fresh?.doc.billTo.name).toBe("Savannah Hardware");
+
+    const expired = parseValidInvoiceDraft(serialized, baseMs + DRAFT_TTL_MS + 1000);
+    expect(expired).toBeNull();
+
+    // Legacy payloads without savedAt must be rejected so old drafts clear immediately
+    const legacy = parseValidInvoiceDraft(JSON.stringify(doc), baseMs);
+    expect(legacy).toBeNull();
   });
 
   it("computes subtotal, percentage discount, exclusive 16% VAT, and shipping accurately", () => {
@@ -96,13 +133,14 @@ describe("invoice engine", () => {
   });
 
   it("builds a clean WhatsApp invoice summary", () => {
-    const doc = createInitialInvoice(new Date(2026, 10, 25));
+    const doc = applyOwnerCompanyDetails(createInitialInvoice(new Date(2026, 10, 25)));
     doc.billTo.name = "Machakos Retail SME";
     doc.items = [{ id: "1", description: "Website", quantity: 1, unitPrice: 35000 }];
     const totals = calculateInvoiceTotals(doc);
     const summary = buildWhatsAppInvoiceSummary(doc, totals);
 
     expect(summary).toContain("INVOICE INV-20261125-");
+    expect(summary).toContain("From: Muendo Software Labs");
     expect(summary).toContain("To: Machakos Retail SME");
     expect(summary).toContain("Total: Ksh 35,000.00");
     expect(summary).toContain("M-Pesa / Phone: +254 793 587 026");

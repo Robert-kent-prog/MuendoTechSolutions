@@ -8,6 +8,7 @@ import { Services } from "@/components/sections/ServicesSection";
 import { Process } from "@/components/sections/ProcessSection";
 import { Projects } from "@/components/sections/ProjectsSection";
 import { Testimonials, TrustedPartners } from "@/components/sections/TestimonialsSection";
+import { FreeToolsSection } from "@/components/sections/FreeToolsSection";
 import { Insights } from "@/components/sections/InsightsSection";
 import { FAQ } from "@/components/sections/FAQSection";
 import { CTA } from "@/components/sections/CTASection";
@@ -70,7 +71,10 @@ function IndexPage() {
         <Testimonials />
         <TrustedPartners />
 
-        {/* 8. Workshop Field Notes & Insights */}
+        {/* 8. Free Kenyan Business Tools Spotlight */}
+        <FreeToolsSection />
+
+        {/* 9. Workshop Field Notes & Insights */}
         <Insights showViewAll />
 
         {/* 9. Frequently Asked Questions */}

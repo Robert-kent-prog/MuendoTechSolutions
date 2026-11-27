@@ -12,15 +12,15 @@ const INVOICE_FAQS = [
   },
   {
     q: "Can I use my own company name, logo, and payment details?",
-    a: "Yes. Click Use my business at the top of the editor to clear the Muendo Software Labs defaults, upload your own PNG/JPG/WebP logo, and type your business and payment details. Your browser remembers them locally for your next invoice.",
+    a: "Yes. The generator starts completely blank so you can enter your own business details, upload a PNG/JPG/WebP logo, and add your payment instructions right away.",
   },
   {
     q: "Does this support Kenyan Shillings (Ksh) and 16% VAT?",
     a: "Yes. Kenyan Shillings (KES / Ksh) is the default currency, and you can switch to USD, UGX, TZS, EUR, or GBP anytime. You can leave VAT off, add 16% exclusive VAT, or extract 16% VAT from inclusive prices.",
   },
   {
-    q: "Is any of my invoice data uploaded to a server?",
-    a: "No. Every calculation, logo preview, and PDF print runs 100% locally in your browser. Drafts are saved only in your browser's localStorage on your own device.",
+    q: "Is any of my invoice data uploaded to a server or stored permanently?",
+    a: "No. Every calculation, logo preview, and PDF print runs 100% locally in your browser. Drafts are kept temporarily in your browser to protect against accidental refreshes and automatically expire after 2 hours.",
   },
   {
     q: "Can I remove the Powered by Muendo Software Labs footer?",

@@ -13,7 +13,7 @@
 - **Print Document Surface**: Pure white (`#ffffff`) with deep slate ink (`#0f172a`) and muted gray secondary labels (`#475569`) regardless of dark/light app theme, so the live preview matches the printed A4 PDF or 80mm receipt verbatim.
 
 ## 3. Layout Structure
-- **Tools Directory (`/tools`)**: Search bar + category filter pills above a responsive 3-column grid (`grid-cols-1 md:grid-cols-2 lg:grid-cols-3`) separating live tools from planned Phase 2/3 tools, followed by a service conversion banner.
+- **Tools Directory (`/tools`)**: Search bar + category filter pills above a responsive 3-column grid (`grid-cols-1 md:grid-cols-2 lg:grid-cols-3`) showcasing all 13 live browser-side Kenyan business tools, surfaced from a compact 4-card homepage spotlight (`FreeToolsSection`) on `/`.
 - **Invoice Generator (`/tools/invoice-generator`)**: Sticky action toolbar (paper format switcher A4 vs 80mm, Print/Save PDF, Add item, New document) above a 5/7 asymmetric split workbench: scrollable structured form on the left, real-time WYSIWYG paper sheet preview on the right (stacked cleanly on mobile with a quick toggle/jump).
 
 ## 4. Motion Policy
@@ -22,4 +22,4 @@
 - **Accessibility**: `@media (prefers-reduced-motion: reduce)` disables animations and transitions globally.
 
 ## 5. Signature Element
-- **True WYSIWYG Dual-Format Paper Sheet Preview**: The live preview switches directly between a proportional A4 business invoice (with Muendo Software Labs defaults, Kenyan 16% VAT breakdown, M-Pesa payment block, and automatic KES amount-in-words) and an authentic 80mm thermal POS receipt, and prints directly via `@media print` with zero chrome.
+- **True WYSIWYG Dual-Format Paper Sheet Preview**: The live preview switches directly between a proportional A4 business invoice (starting clean and blank for clients, with one-click owner company preset loading, 2-hour auto-expiring drafts, Kenyan 16% VAT breakdown, M-Pesa payment block, and automatic KES amount-in-words) and an authentic 80mm thermal POS receipt, printing directly via `@media print` with zero chrome. Phase 2 Kenyan calculators share a split input/result workbench with live proportion bars, highlighted tariff tables, and side-by-side amortization comparisons.

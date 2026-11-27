@@ -127,6 +127,16 @@ export interface InvoiceTotals {
   total: number;
 }
 
+export const DRAFT_TTL_MS = 2 * 60 * 60 * 1000;
+
+export const EMPTY_PARTY: InvoiceParty = {
+  name: "",
+  address: "",
+  phone: "",
+  email: "",
+  taxPin: "",
+};
+
 export const DEFAULT_COMPANY_PARTY: InvoiceParty = {
   name: COMPANY,
   address: "Nairobi, Kenya\nwww.muendosoftwarelabs.co.ke",
@@ -197,15 +207,9 @@ export function createInitialInvoice(now = new Date(), deterministic = false): I
     currencyCode: "KES",
     paperSize: "a4",
     logoDataUrl: null,
-    useDefaultLogo: true,
-    from: { ...DEFAULT_COMPANY_PARTY },
-    billTo: {
-      name: "",
-      address: "",
-      phone: "",
-      email: "",
-      taxPin: "",
-    },
+    useDefaultLogo: false,
+    from: { ...EMPTY_PARTY },
+    billTo: { ...EMPTY_PARTY },
     items: [
       {
         id: "item-1",
@@ -219,10 +223,78 @@ export function createInitialInvoice(now = new Date(), deterministic = false): I
     discountType: "percent",
     discountValue: 0,
     shipping: 0,
-    paymentDetails: DEFAULT_PAYMENT_DETAILS,
-    notes: "Thank you for your business.",
+    paymentDetails: "",
+    notes: "",
     showPoweredBy: true,
   };
+}
+
+export function applyOwnerCompanyDetails(doc: InvoiceDocument): InvoiceDocument {
+  return {
+    ...doc,
+    logoDataUrl: null,
+    useDefaultLogo: true,
+    from: { ...DEFAULT_COMPANY_PARTY },
+    paymentDetails: DEFAULT_PAYMENT_DETAILS,
+    notes: doc.notes.trim() ? doc.notes : "Thank you for your business.",
+  };
+}
+
+export function clearBusinessDetails(doc: InvoiceDocument): InvoiceDocument {
+  return {
+    ...doc,
+    logoDataUrl: null,
+    useDefaultLogo: false,
+    from: { ...EMPTY_PARTY },
+    paymentDetails: "",
+    notes: doc.notes === "Thank you for your business." ? "" : doc.notes,
+  };
+}
+
+export interface StoredInvoiceDraft {
+  savedAt: number;
+  doc: InvoiceDocument;
+}
+
+export function serializeInvoiceDraft(doc: InvoiceDocument, nowMs = Date.now()): string {
+  const payload: StoredInvoiceDraft = { savedAt: nowMs, doc };
+  return JSON.stringify(payload);
+}
+
+export function parseValidInvoiceDraft(
+  raw: string | null,
+  nowMs = Date.now(),
+  ttlMs = DRAFT_TTL_MS,
+): { doc: InvoiceDocument; savedAt: number } | null {
+  if (!raw) return null;
+  try {
+    const parsed = JSON.parse(raw) as Partial<StoredInvoiceDraft>;
+    if (
+      !parsed ||
+      typeof parsed !== "object" ||
+      typeof parsed.savedAt !== "number" ||
+      !Number.isFinite(parsed.savedAt) ||
+      !parsed.doc ||
+      typeof parsed.doc !== "object" ||
+      !Array.isArray(parsed.doc.items)
+    ) {
+      return null;
+    }
+    if (nowMs - parsed.savedAt > ttlMs || parsed.savedAt > nowMs + 60_000) {
+      return null;
+    }
+    const base = createInitialInvoice(new Date(nowMs));
+    const doc: InvoiceDocument = {
+      ...base,
+      ...parsed.doc,
+      from: { ...base.from, ...(parsed.doc.from ?? {}) },
+      billTo: { ...base.billTo, ...(parsed.doc.billTo ?? {}) },
+      items: parsed.doc.items.length > 0 ? parsed.doc.items : base.items,
+    };
+    return { doc, savedAt: parsed.savedAt };
+  } catch {
+    return null;
+  }
 }
 
 function clampNonNegative(n: number): number {
@@ -375,11 +447,11 @@ export function amountToWords(amount: number, currencyCode: string): string {
 }
 
 export function buildWhatsAppInvoiceSummary(doc: InvoiceDocument, totals: InvoiceTotals): string {
-  const senderName = doc.from.name.trim() || COMPANY;
+  const senderName = doc.from.name.trim();
   const clientName = doc.billTo.name.trim();
   const lines = [
     `${doc.docType.toUpperCase()} ${doc.number}`,
-    `From: ${senderName}`,
+    ...(senderName ? [`From: ${senderName}`] : []),
     ...(clientName ? [`To: ${clientName}`] : []),
     `Date: ${formatDisplayDate(doc.issueDate)}`,
     ...(doc.dueDate && doc.docType !== "Receipt" ? [`Due: ${formatDisplayDate(doc.dueDate)}`] : []),

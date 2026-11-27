@@ -115,6 +115,61 @@ function SitemapPage() {
             description: "Create printable A4 PDF invoices and 80mm thermal receipts",
           },
           {
+            title: "Kenya PAYE, SHIF, NSSF & Housing Levy Calculator",
+            href: "/tools/kenya-paye-calculator",
+            description: "Calculate Kenya net pay, KRA PAYE bands, SHIF, NSSF, and Housing Levy",
+          },
+          {
+            title: "Kenya VAT Calculator (16%)",
+            href: "/tools/vat-calculator",
+            description: "Add or extract 16% Kenya VAT and regional East African VAT rates",
+          },
+          {
+            title: "M-Pesa Transaction Charges Calculator",
+            href: "/tools/mpesa-charges-calculator",
+            description: "Look up Safaricom M-Pesa Send Money and Agent Withdrawal fees in KES",
+          },
+          {
+            title: "Loan & SACCO Repayment Calculator",
+            href: "/tools/loan-calculator",
+            description: "Compare reducing balance vs flat-rate installments and payoff schedule",
+          },
+          {
+            title: "Profit Margin & Markup Calculator",
+            href: "/tools/profit-margin-calculator",
+            description: "Compute gross margin %, markup %, and KES profit per unit",
+          },
+          {
+            title: "Discount & Sale Price Calculator",
+            href: "/tools/discount-calculator",
+            description: "Calculate final KES sale price and savings from % or fixed discounts",
+          },
+          {
+            title: "Break-Even Calculator",
+            href: "/tools/break-even-calculator",
+            description: "Find monthly break-even units and KES revenue for SMEs",
+          },
+          {
+            title: "WhatsApp Click-to-Chat Link Generator",
+            href: "/tools/whatsapp-link-generator",
+            description: "Create Kenyan +254 wa.me links with prefilled message and QR code",
+          },
+          {
+            title: "QR Code Generator",
+            href: "/tools/qr-code-generator",
+            description: "Generate permanent PNG & SVG QR codes for URLs, WhatsApp, and Wi-Fi",
+          },
+          {
+            title: "Email Signature Generator",
+            href: "/tools/email-signature-generator",
+            description: "Build Gmail and Outlook business email signatures with WhatsApp links",
+          },
+          {
+            title: "Password Generator & Strength Checker",
+            href: "/tools/password-generator",
+            description: "Generate Web Crypto random passwords offline with entropy feedback",
+          },
+          {
             title: "Technology Stack",
             href: "/tech-stack",
             description: "Languages, frameworks and tools we build with",

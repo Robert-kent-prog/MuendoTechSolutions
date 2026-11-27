@@ -34,7 +34,18 @@ import { Route as ProjectsSlugRouteImport } from './routes/projects.$slug'
 import { Route as ServicesIndexRouteImport } from './routes/services.index'
 import { Route as ServicesSlugRouteImport } from './routes/services.$slug'
 import { Route as ToolsIndexRouteImport } from './routes/tools.index'
+import { Route as ToolsBreakEvenCalculatorRouteImport } from './routes/tools.break-even-calculator'
+import { Route as ToolsDiscountCalculatorRouteImport } from './routes/tools.discount-calculator'
+import { Route as ToolsEmailSignatureGeneratorRouteImport } from './routes/tools.email-signature-generator'
 import { Route as ToolsInvoiceGeneratorRouteImport } from './routes/tools.invoice-generator'
+import { Route as ToolsKenyaPayeCalculatorRouteImport } from './routes/tools.kenya-paye-calculator'
+import { Route as ToolsLoanCalculatorRouteImport } from './routes/tools.loan-calculator'
+import { Route as ToolsMpesaChargesCalculatorRouteImport } from './routes/tools.mpesa-charges-calculator'
+import { Route as ToolsPasswordGeneratorRouteImport } from './routes/tools.password-generator'
+import { Route as ToolsProfitMarginCalculatorRouteImport } from './routes/tools.profit-margin-calculator'
+import { Route as ToolsQrCodeGeneratorRouteImport } from './routes/tools.qr-code-generator'
+import { Route as ToolsVatCalculatorRouteImport } from './routes/tools.vat-calculator'
+import { Route as ToolsWhatsappLinkGeneratorRouteImport } from './routes/tools.whatsapp-link-generator'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -161,11 +172,72 @@ const ToolsIndexRoute = ToolsIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ToolsRoute,
 } as any)
+const ToolsBreakEvenCalculatorRoute =
+  ToolsBreakEvenCalculatorRouteImport.update({
+    id: '/break-even-calculator',
+    path: '/break-even-calculator',
+    getParentRoute: () => ToolsRoute,
+  } as any)
+const ToolsDiscountCalculatorRoute = ToolsDiscountCalculatorRouteImport.update({
+  id: '/discount-calculator',
+  path: '/discount-calculator',
+  getParentRoute: () => ToolsRoute,
+} as any)
+const ToolsEmailSignatureGeneratorRoute =
+  ToolsEmailSignatureGeneratorRouteImport.update({
+    id: '/email-signature-generator',
+    path: '/email-signature-generator',
+    getParentRoute: () => ToolsRoute,
+  } as any)
 const ToolsInvoiceGeneratorRoute = ToolsInvoiceGeneratorRouteImport.update({
   id: '/invoice-generator',
   path: '/invoice-generator',
   getParentRoute: () => ToolsRoute,
 } as any)
+const ToolsKenyaPayeCalculatorRoute =
+  ToolsKenyaPayeCalculatorRouteImport.update({
+    id: '/kenya-paye-calculator',
+    path: '/kenya-paye-calculator',
+    getParentRoute: () => ToolsRoute,
+  } as any)
+const ToolsLoanCalculatorRoute = ToolsLoanCalculatorRouteImport.update({
+  id: '/loan-calculator',
+  path: '/loan-calculator',
+  getParentRoute: () => ToolsRoute,
+} as any)
+const ToolsMpesaChargesCalculatorRoute =
+  ToolsMpesaChargesCalculatorRouteImport.update({
+    id: '/mpesa-charges-calculator',
+    path: '/mpesa-charges-calculator',
+    getParentRoute: () => ToolsRoute,
+  } as any)
+const ToolsPasswordGeneratorRoute = ToolsPasswordGeneratorRouteImport.update({
+  id: '/password-generator',
+  path: '/password-generator',
+  getParentRoute: () => ToolsRoute,
+} as any)
+const ToolsProfitMarginCalculatorRoute =
+  ToolsProfitMarginCalculatorRouteImport.update({
+    id: '/profit-margin-calculator',
+    path: '/profit-margin-calculator',
+    getParentRoute: () => ToolsRoute,
+  } as any)
+const ToolsQrCodeGeneratorRoute = ToolsQrCodeGeneratorRouteImport.update({
+  id: '/qr-code-generator',
+  path: '/qr-code-generator',
+  getParentRoute: () => ToolsRoute,
+} as any)
+const ToolsVatCalculatorRoute = ToolsVatCalculatorRouteImport.update({
+  id: '/vat-calculator',
+  path: '/vat-calculator',
+  getParentRoute: () => ToolsRoute,
+} as any)
+const ToolsWhatsappLinkGeneratorRoute =
+  ToolsWhatsappLinkGeneratorRouteImport.update({
+    id: '/whatsapp-link-generator',
+    path: '/whatsapp-link-generator',
+    getParentRoute: () => ToolsRoute,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -189,7 +261,18 @@ export interface FileRoutesByFullPath {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/tools/break-even-calculator': typeof ToolsBreakEvenCalculatorRoute
+  '/tools/discount-calculator': typeof ToolsDiscountCalculatorRoute
+  '/tools/email-signature-generator': typeof ToolsEmailSignatureGeneratorRoute
   '/tools/invoice-generator': typeof ToolsInvoiceGeneratorRoute
+  '/tools/kenya-paye-calculator': typeof ToolsKenyaPayeCalculatorRoute
+  '/tools/loan-calculator': typeof ToolsLoanCalculatorRoute
+  '/tools/mpesa-charges-calculator': typeof ToolsMpesaChargesCalculatorRoute
+  '/tools/password-generator': typeof ToolsPasswordGeneratorRoute
+  '/tools/profit-margin-calculator': typeof ToolsProfitMarginCalculatorRoute
+  '/tools/qr-code-generator': typeof ToolsQrCodeGeneratorRoute
+  '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/tools/whatsapp-link-generator': typeof ToolsWhatsappLinkGeneratorRoute
   '/blog/': typeof BlogIndexRoute
   '/projects/': typeof ProjectsIndexRoute
   '/services/': typeof ServicesIndexRoute
@@ -213,7 +296,18 @@ export interface FileRoutesByTo {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/tools/break-even-calculator': typeof ToolsBreakEvenCalculatorRoute
+  '/tools/discount-calculator': typeof ToolsDiscountCalculatorRoute
+  '/tools/email-signature-generator': typeof ToolsEmailSignatureGeneratorRoute
   '/tools/invoice-generator': typeof ToolsInvoiceGeneratorRoute
+  '/tools/kenya-paye-calculator': typeof ToolsKenyaPayeCalculatorRoute
+  '/tools/loan-calculator': typeof ToolsLoanCalculatorRoute
+  '/tools/mpesa-charges-calculator': typeof ToolsMpesaChargesCalculatorRoute
+  '/tools/password-generator': typeof ToolsPasswordGeneratorRoute
+  '/tools/profit-margin-calculator': typeof ToolsProfitMarginCalculatorRoute
+  '/tools/qr-code-generator': typeof ToolsQrCodeGeneratorRoute
+  '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/tools/whatsapp-link-generator': typeof ToolsWhatsappLinkGeneratorRoute
   '/blog': typeof BlogIndexRoute
   '/projects': typeof ProjectsIndexRoute
   '/services': typeof ServicesIndexRoute
@@ -242,7 +336,18 @@ export interface FileRoutesById {
   '/blog/$slug': typeof BlogSlugRoute
   '/projects/$slug': typeof ProjectsSlugRoute
   '/services/$slug': typeof ServicesSlugRoute
+  '/tools/break-even-calculator': typeof ToolsBreakEvenCalculatorRoute
+  '/tools/discount-calculator': typeof ToolsDiscountCalculatorRoute
+  '/tools/email-signature-generator': typeof ToolsEmailSignatureGeneratorRoute
   '/tools/invoice-generator': typeof ToolsInvoiceGeneratorRoute
+  '/tools/kenya-paye-calculator': typeof ToolsKenyaPayeCalculatorRoute
+  '/tools/loan-calculator': typeof ToolsLoanCalculatorRoute
+  '/tools/mpesa-charges-calculator': typeof ToolsMpesaChargesCalculatorRoute
+  '/tools/password-generator': typeof ToolsPasswordGeneratorRoute
+  '/tools/profit-margin-calculator': typeof ToolsProfitMarginCalculatorRoute
+  '/tools/qr-code-generator': typeof ToolsQrCodeGeneratorRoute
+  '/tools/vat-calculator': typeof ToolsVatCalculatorRoute
+  '/tools/whatsapp-link-generator': typeof ToolsWhatsappLinkGeneratorRoute
   '/blog/': typeof BlogIndexRoute
   '/projects/': typeof ProjectsIndexRoute
   '/services/': typeof ServicesIndexRoute
@@ -272,7 +377,18 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/projects/$slug'
     | '/services/$slug'
+    | '/tools/break-even-calculator'
+    | '/tools/discount-calculator'
+    | '/tools/email-signature-generator'
     | '/tools/invoice-generator'
+    | '/tools/kenya-paye-calculator'
+    | '/tools/loan-calculator'
+    | '/tools/mpesa-charges-calculator'
+    | '/tools/password-generator'
+    | '/tools/profit-margin-calculator'
+    | '/tools/qr-code-generator'
+    | '/tools/vat-calculator'
+    | '/tools/whatsapp-link-generator'
     | '/blog/'
     | '/projects/'
     | '/services/'
@@ -296,7 +412,18 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/projects/$slug'
     | '/services/$slug'
+    | '/tools/break-even-calculator'
+    | '/tools/discount-calculator'
+    | '/tools/email-signature-generator'
     | '/tools/invoice-generator'
+    | '/tools/kenya-paye-calculator'
+    | '/tools/loan-calculator'
+    | '/tools/mpesa-charges-calculator'
+    | '/tools/password-generator'
+    | '/tools/profit-margin-calculator'
+    | '/tools/qr-code-generator'
+    | '/tools/vat-calculator'
+    | '/tools/whatsapp-link-generator'
     | '/blog'
     | '/projects'
     | '/services'
@@ -324,7 +451,18 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/projects/$slug'
     | '/services/$slug'
+    | '/tools/break-even-calculator'
+    | '/tools/discount-calculator'
+    | '/tools/email-signature-generator'
     | '/tools/invoice-generator'
+    | '/tools/kenya-paye-calculator'
+    | '/tools/loan-calculator'
+    | '/tools/mpesa-charges-calculator'
+    | '/tools/password-generator'
+    | '/tools/profit-margin-calculator'
+    | '/tools/qr-code-generator'
+    | '/tools/vat-calculator'
+    | '/tools/whatsapp-link-generator'
     | '/blog/'
     | '/projects/'
     | '/services/'
@@ -529,11 +667,88 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ToolsIndexRouteImport
       parentRoute: typeof ToolsRoute
     }
+    '/tools/break-even-calculator': {
+      id: '/tools/break-even-calculator'
+      path: '/break-even-calculator'
+      fullPath: '/tools/break-even-calculator'
+      preLoaderRoute: typeof ToolsBreakEvenCalculatorRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/tools/discount-calculator': {
+      id: '/tools/discount-calculator'
+      path: '/discount-calculator'
+      fullPath: '/tools/discount-calculator'
+      preLoaderRoute: typeof ToolsDiscountCalculatorRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/tools/email-signature-generator': {
+      id: '/tools/email-signature-generator'
+      path: '/email-signature-generator'
+      fullPath: '/tools/email-signature-generator'
+      preLoaderRoute: typeof ToolsEmailSignatureGeneratorRouteImport
+      parentRoute: typeof ToolsRoute
+    }
     '/tools/invoice-generator': {
       id: '/tools/invoice-generator'
       path: '/invoice-generator'
       fullPath: '/tools/invoice-generator'
       preLoaderRoute: typeof ToolsInvoiceGeneratorRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/tools/kenya-paye-calculator': {
+      id: '/tools/kenya-paye-calculator'
+      path: '/kenya-paye-calculator'
+      fullPath: '/tools/kenya-paye-calculator'
+      preLoaderRoute: typeof ToolsKenyaPayeCalculatorRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/tools/loan-calculator': {
+      id: '/tools/loan-calculator'
+      path: '/loan-calculator'
+      fullPath: '/tools/loan-calculator'
+      preLoaderRoute: typeof ToolsLoanCalculatorRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/tools/mpesa-charges-calculator': {
+      id: '/tools/mpesa-charges-calculator'
+      path: '/mpesa-charges-calculator'
+      fullPath: '/tools/mpesa-charges-calculator'
+      preLoaderRoute: typeof ToolsMpesaChargesCalculatorRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/tools/password-generator': {
+      id: '/tools/password-generator'
+      path: '/password-generator'
+      fullPath: '/tools/password-generator'
+      preLoaderRoute: typeof ToolsPasswordGeneratorRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/tools/profit-margin-calculator': {
+      id: '/tools/profit-margin-calculator'
+      path: '/profit-margin-calculator'
+      fullPath: '/tools/profit-margin-calculator'
+      preLoaderRoute: typeof ToolsProfitMarginCalculatorRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/tools/qr-code-generator': {
+      id: '/tools/qr-code-generator'
+      path: '/qr-code-generator'
+      fullPath: '/tools/qr-code-generator'
+      preLoaderRoute: typeof ToolsQrCodeGeneratorRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/tools/vat-calculator': {
+      id: '/tools/vat-calculator'
+      path: '/vat-calculator'
+      fullPath: '/tools/vat-calculator'
+      preLoaderRoute: typeof ToolsVatCalculatorRouteImport
+      parentRoute: typeof ToolsRoute
+    }
+    '/tools/whatsapp-link-generator': {
+      id: '/tools/whatsapp-link-generator'
+      path: '/whatsapp-link-generator'
+      fullPath: '/tools/whatsapp-link-generator'
+      preLoaderRoute: typeof ToolsWhatsappLinkGeneratorRouteImport
       parentRoute: typeof ToolsRoute
     }
   }
@@ -580,12 +795,34 @@ const ServicesRouteWithChildren = ServicesRoute._addFileChildren(
 )
 
 interface ToolsRouteChildren {
+  ToolsBreakEvenCalculatorRoute: typeof ToolsBreakEvenCalculatorRoute
+  ToolsDiscountCalculatorRoute: typeof ToolsDiscountCalculatorRoute
+  ToolsEmailSignatureGeneratorRoute: typeof ToolsEmailSignatureGeneratorRoute
   ToolsInvoiceGeneratorRoute: typeof ToolsInvoiceGeneratorRoute
+  ToolsKenyaPayeCalculatorRoute: typeof ToolsKenyaPayeCalculatorRoute
+  ToolsLoanCalculatorRoute: typeof ToolsLoanCalculatorRoute
+  ToolsMpesaChargesCalculatorRoute: typeof ToolsMpesaChargesCalculatorRoute
+  ToolsPasswordGeneratorRoute: typeof ToolsPasswordGeneratorRoute
+  ToolsProfitMarginCalculatorRoute: typeof ToolsProfitMarginCalculatorRoute
+  ToolsQrCodeGeneratorRoute: typeof ToolsQrCodeGeneratorRoute
+  ToolsVatCalculatorRoute: typeof ToolsVatCalculatorRoute
+  ToolsWhatsappLinkGeneratorRoute: typeof ToolsWhatsappLinkGeneratorRoute
   ToolsIndexRoute: typeof ToolsIndexRoute
 }
 
 const ToolsRouteChildren: ToolsRouteChildren = {
+  ToolsBreakEvenCalculatorRoute: ToolsBreakEvenCalculatorRoute,
+  ToolsDiscountCalculatorRoute: ToolsDiscountCalculatorRoute,
+  ToolsEmailSignatureGeneratorRoute: ToolsEmailSignatureGeneratorRoute,
   ToolsInvoiceGeneratorRoute: ToolsInvoiceGeneratorRoute,
+  ToolsKenyaPayeCalculatorRoute: ToolsKenyaPayeCalculatorRoute,
+  ToolsLoanCalculatorRoute: ToolsLoanCalculatorRoute,
+  ToolsMpesaChargesCalculatorRoute: ToolsMpesaChargesCalculatorRoute,
+  ToolsPasswordGeneratorRoute: ToolsPasswordGeneratorRoute,
+  ToolsProfitMarginCalculatorRoute: ToolsProfitMarginCalculatorRoute,
+  ToolsQrCodeGeneratorRoute: ToolsQrCodeGeneratorRoute,
+  ToolsVatCalculatorRoute: ToolsVatCalculatorRoute,
+  ToolsWhatsappLinkGeneratorRoute: ToolsWhatsappLinkGeneratorRoute,
   ToolsIndexRoute: ToolsIndexRoute,
 }
 

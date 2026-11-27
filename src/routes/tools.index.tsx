@@ -11,7 +11,7 @@ export const Route = createFileRoute("/tools/")({
     const head = pageHead({
       title: `Free Kenyan Business Tools & Calculators | ${COMPANY}`,
       description:
-        "Free browser-based tools for Kenyan businesses: A4 and 80mm KES invoice generator, software budget estimator, and upcoming PAYE, VAT, and M-Pesa tools.",
+        "Free browser-based tools for Kenyan businesses: A4 and 80mm KES invoice generator, Kenya PAYE/SHIF/NSSF calculator, 16% VAT calculator, M-Pesa charges, and SACCO loan calculator.",
       path: "/tools",
     });
     return {
